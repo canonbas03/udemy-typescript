@@ -17,6 +17,7 @@ let wrongUser = {
     email: "iiii",
     // field: "ytff"
 };
+// Duck typing (structural typing)
 function fetchUser() {
     return userPlus;
 }
@@ -46,4 +47,8 @@ let oldAge1 = 79; // number
 const constAge = 80;
 //constAge += 5;
 oldAge += 5;
+const ApiConfig = {
+    endpoint: "https://api.example.com",
+    retries: 3
+};
 //# sourceMappingURL=index.js.map

@@ -39,6 +39,7 @@ type User = {
     email: string;
 }
 
+// Duck typing (structural typing)
 function fetchUser(): User{
     return userPlus;
 }
@@ -81,3 +82,8 @@ const constAge = 80;
 
 //constAge += 5;
 oldAge += 5;
+
+const ApiConfig = {
+    endpoint: "https://api.example.com",
+    retries: 3
+} as const;
