@@ -48,10 +48,10 @@ fetchedUser.email;
 let city = "New York"; // string
 let population = 8400000; // number
 const age = 32; // number
-let oldAge = 79 as const; // number
-let newAge = oldAge; // number
-let data = new Map(); //map
-let score = [90, 86, 100]; // tuple
+let oldAge = 79 as const; // 79
+let newAge = oldAge; // 79
+let data = new Map<string, string>(); //map
+let score = [90, 86, 100]; // num array
 type Primitive = string | number | boolean; // union type
 type CustomName = "John" extends string ? string : "John";
 type CustomAge = typeof newAge extends number ? 79 : number;
@@ -65,7 +65,13 @@ type CheckScore = typeof score extends never ? {} : [];
 
 // age = 85; // no it is const
 // score.push(10); //yes
-// score.push("New Score"); // yes
+// score.push("New Score"); // no
 // let customAge: CustomAge = 50; // no
 // let primitive: Primitive = new Date(); // no
 // let years: CheckScore = []; // false
+
+let oldAge1 = 79 as const; // number
+const constAge = 80;
+
+//constAge += 5;
+oldAge += 5;
