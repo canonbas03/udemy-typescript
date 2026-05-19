@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let test = "testtt";
-test = 12;
+// test = 12;
 let test2;
 test2 = "fds";
 test2 = 4;

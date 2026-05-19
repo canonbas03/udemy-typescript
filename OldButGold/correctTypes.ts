@@ -59,3 +59,6 @@ setSymbol(a: string){
 
 user.setSymbol("newValue");
 console.log(user.getSymbol());
+
+
+let myNuber: number = -1.2;

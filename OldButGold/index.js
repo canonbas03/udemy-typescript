@@ -11,16 +11,19 @@ let userPlus = {
     email: "dyonbash@email.com",
     field: "uuuu"
 };
+// annotated wrongUser with type User, the shape doesnt match
 let wrongUser = {
     name: "myname",
     email: "iiii",
-    // bhhh: "ytff"
+    // field: "ytff"
 };
 function fetchUser() {
     return userPlus;
 }
 const fetchedUser = fetchUser();
 fetchedUser.email;
+const fullUser = fetchedUser;
+fullUser.field;
 // Final quiz
 let city = "New York"; // string
 let population = 8400000; // number

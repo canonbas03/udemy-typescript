@@ -26,23 +26,29 @@ let userPlus = {
     field: "uuuu"
 }
 
+// annotated wrongUser with type User, the shape doesnt match
 let wrongUser: User = {
-name: "myname",
-email: "iiii",
-// bhhh: "ytff"
+    name: "myname",
+    email: "iiii",
+    // field: "ytff"
 }
 
+// This creates a shape, those are property rules
 type User = {
-    name: string,
-    email: string
+    name: string;
+    email: string;
 }
 
-function fetchUser():User{
+function fetchUser(): User{
     return userPlus;
 }
 
 const fetchedUser = fetchUser();
 fetchedUser.email;
+
+const fullUser = fetchedUser as User & {field: string}
+fullUser.field
+
 
 // Final quiz
 let city = "New York"; // string

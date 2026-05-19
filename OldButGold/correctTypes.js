@@ -43,4 +43,5 @@ let user = {
 };
 user.setSymbol("newValue");
 console.log(user.getSymbol());
+let myNuber = -1.2;
 //# sourceMappingURL=correctTypes.js.map
