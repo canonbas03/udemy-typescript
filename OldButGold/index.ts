@@ -50,7 +50,7 @@ fetchedUser.name;
 // fetchedUser.field;
 
 const fullUser = fetchedUser as User & {field: string}
-fullUser.field
+console.log(fullUser.field);
 
 
 // Final quiz

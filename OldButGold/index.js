@@ -26,7 +26,7 @@ fetchedUser.email;
 fetchedUser.name;
 // fetchedUser.field;
 const fullUser = fetchedUser;
-fullUser.field;
+console.log(fullUser.field);
 // Final quiz
 let city = "New York"; // string
 let population = 8400000; // number
