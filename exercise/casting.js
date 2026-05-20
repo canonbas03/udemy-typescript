@@ -37,4 +37,15 @@ let numAndBool = 5 + Number(isTrue);
 let numAndBool2 = 5 + (+isTrue);
 console.log("5 + Number(isTrue) => " + numAndBool); // 6
 console.log("5 + (+isTrue) => " + numAndBool2); // 6
+let num3 = 5 + (+true);
+console.log(num3);
+// NaN
+let input = "abc";
+let parsedNumber = Number(input);
+if (isNaN(parsedNumber)) {
+    console.log("The input parsed is NaN");
+}
+else {
+    console.log(`5 + ${parsedNumber} = ${5 + parsedNumber}`);
+}
 //# sourceMappingURL=casting.js.map
