@@ -23,6 +23,8 @@ function fetchUser() {
 }
 const fetchedUser = fetchUser();
 fetchedUser.email;
+fetchedUser.name;
+// fetchedUser.field;
 const fullUser = fetchedUser;
 fullUser.field;
 // Final quiz
@@ -51,4 +53,9 @@ const ApiConfig = {
     endpoint: "https://api.example.com",
     retries: 3
 };
+// Safe and explicit runtime check
+if (fetchedUser && 'field' in fetchedUser) {
+    // TypeScript implicitly knows 'field' exists inside this block!
+    console.log(fetchedUser.field);
+}
 //# sourceMappingURL=index.js.map

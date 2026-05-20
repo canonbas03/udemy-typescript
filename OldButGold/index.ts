@@ -46,6 +46,8 @@ function fetchUser(): User{
 
 const fetchedUser = fetchUser();
 fetchedUser.email;
+fetchedUser.name;
+// fetchedUser.field;
 
 const fullUser = fetchedUser as User & {field: string}
 fullUser.field
@@ -87,3 +89,10 @@ const ApiConfig = {
     endpoint: "https://api.example.com",
     retries: 3
 } as const;
+
+
+// Safe and explicit runtime check
+if (fetchedUser && 'field' in fetchedUser) {
+    // TypeScript implicitly knows 'field' exists inside this block!
+    console.log(fetchedUser.field); 
+}
