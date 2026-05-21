@@ -145,7 +145,7 @@ type Author2 = {
 }
 
 let post5: NewPost3 = {
-    title: "Title cincko?",
+    title: "Title cinco",
     content: "BabaVanga",
     date: new Date(),
     author:  {
@@ -164,5 +164,41 @@ let post5: NewPost3 = {
         }
     },
 }
+// NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optional
 
-// NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optionals
+console.log(post5.title); // title cinko
+post5.title = "new title of cinko 5";
+console.log(post5.title); // new title of cinko 5
+
+console.log(post5.author.type); // ai
+// post5.author.type = "robot" error, because type is read-only
+
+// Union Types With Objects
+type Cat = {
+    name: string;
+    purrs: boolean;
+    sleeps: boolean;
+}
+
+type Dog = {
+    name: string;
+    barks: boolean;
+    wags: boolean;
+}
+
+type DogAndCatUnion = Cat | Dog;
+
+let dog: Dog = {
+    name: "bobi",
+    barks: true,
+    wags: true,
+}
+
+let hybridAnimal: DogAndCatUnion = {
+name: "Koko",
+barks: true,
+purrs: true,
+sleeps: true, // error without it
+}
+// NOTICE: We need to have full properties of at least 1 of the union types
+
