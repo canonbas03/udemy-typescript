@@ -100,10 +100,12 @@ type NewPost2 = {
 
 // index signature [key: string]
 type Awards = {
-    [key: string]: {
-    name: string;
+    [key: string]: AwardDetails
+}
+
+type AwardDetails = {
+name: string;
     date: Date;
-    }
 }
 
 let post4: NewPost2 = {
@@ -125,3 +127,42 @@ let post4: NewPost2 = {
         }
     }
 }
+
+// --- OPTIONAL PROPERTIES ---
+type NewPost3 = {
+    title: string;
+    content: string;
+    date: Date;
+    author: Author2;
+    awards: Awards;
+    engagement?: string;
+}
+
+type Author2 = {
+    name: string;
+    age: number;
+    readonly type: "ai" | "human";   
+}
+
+let post5: NewPost3 = {
+    title: "Title cincko?",
+    content: "BabaVanga",
+    date: new Date(),
+    author:  {
+        name: "Dara",
+        age: 27,
+        type: "ai",
+    },
+    awards: {
+        awrd1: {
+            name: "First post award",
+            date: new Date(),
+        },
+        awrd2: {
+            name: "Second award - Yay!",
+            date: new Date(),
+        }
+    },
+}
+
+// NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optionals

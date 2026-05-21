@@ -70,4 +70,25 @@ let post4 = {
         }
     }
 };
+let post5 = {
+    title: "Title cincko?",
+    content: "BabaVanga",
+    date: new Date(),
+    author: {
+        name: "Dara",
+        age: 27,
+        type: "ai",
+    },
+    awards: {
+        awrd1: {
+            name: "First post award",
+            date: new Date(),
+        },
+        awrd2: {
+            name: "Second award - Yay!",
+            date: new Date(),
+        }
+    },
+};
+// NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optionals
 //# sourceMappingURL=index.js.map
