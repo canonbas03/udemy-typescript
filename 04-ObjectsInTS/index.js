@@ -8,7 +8,7 @@ console.log(person.name);
 // person = []; error
 let car = {
     brand: "Lambo",
-    horsePower: 3000
+    horsePower: 3000,
 };
 // console.log(car.brand); error
 // all inherit from the global Object
@@ -48,7 +48,7 @@ let post3 = {
     author: {
         name: "Dara",
         age: 27,
-    }
+    },
 };
 console.log(post3.author.age);
 let post4 = {
@@ -67,8 +67,8 @@ let post4 = {
         awrd2: {
             name: "Second award - Yay!",
             date: new Date(),
-        }
-    }
+        },
+    },
 };
 let post5 = {
     title: "Title cinco",
@@ -87,7 +87,7 @@ let post5 = {
         awrd2: {
             name: "Second award - Yay!",
             date: new Date(),
-        }
+        },
     },
 };
 // NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optional
@@ -106,5 +106,17 @@ let hybridAnimal = {
     purrs: true,
     sleeps: true, // error without it
 };
-// NOTICE: We need to have full properties of at least 1 of the union types
+let user = {
+    id: 1,
+    name: "John Doe",
+    contact: {
+        email: "john@example.com",
+    },
+    preferences: {
+        theme: "dark",
+        language: "English",
+    },
+    additionalInfo: "This is an example of an index signature property",
+};
+// user.id = 5 error
 //# sourceMappingURL=index.js.map
