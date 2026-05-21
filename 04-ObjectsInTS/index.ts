@@ -231,3 +231,86 @@ let user: User = {
   additionalInfo: "This is an example of an index signature property",
 };
 // user.id = 5 error
+
+// --- DISCRIMINATING UNIONS ---
+type NetworkLoadingState = {
+  state: "loading";
+};
+type NetworkFailedState = {
+  state: "failed";
+  code: number;
+};
+type NetworkSuccessState = {
+  state: "success";
+  response: {
+    title: string;
+    duration: number;
+    summary: string;
+  };
+};
+
+type NetworkState =
+  | NetworkLoadingState
+  | NetworkFailedState
+  | NetworkSuccessState;
+
+function logger(state: NetworkState) {
+  switch (state.state) {
+    case "loading":
+      return "Loading...";
+    case "failed":
+      return `Error: ${state.code}`;
+    case "success":
+      return `Success: ${state.response.title}`;
+  }
+}
+
+// --- INTERSECTION TYPES ---
+// Union Types With Objects
+type HybridAnimal = Cat & Dog;
+
+let hybridAnimal2: HybridAnimal = {
+  name: "Koko",
+  barks: true,
+  purrs: true,
+  sleeps: true, // error without it
+  wags: true,
+};
+// NOTICE: We need to use all parameters
+
+// EXERCISE:
+type Caterer = {
+  name: string;
+  address: string;
+  phone: number;
+};
+
+type Seats = {
+  [key: string]: string;
+};
+
+type Airplane = {
+  model: string;
+  flightNumber: string;
+  timeOfDeparture: Date;
+  timeOfArrival: Date;
+  caterer: Caterer;
+  seats: Seats;
+};
+
+let airplane: Airplane = {
+  model: "Airbus A380",
+  flightNumber: "A2201",
+  timeOfDeparture: new Date(),
+  timeOfArrival: new Date(),
+  caterer: {
+    name: "Special Food Ltd",
+    address: "484, Some Street, New York",
+    phone: 7867856751,
+  },
+  seats: {
+    A1: "John Doe",
+    A2: "Mark Doe",
+    A3: "Sam Doe",
+  },
+};
