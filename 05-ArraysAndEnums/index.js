@@ -38,4 +38,20 @@ let person3 = {
     email: "john@email.com",
     role: Role.ADMIN,
 };
+var Direction;
+(function (Direction) {
+    Direction[Direction["UP"] = 0] = "UP";
+    Direction[Direction["DOWN"] = 1] = "DOWN";
+    Direction[Direction["LEFT"] = 2] = "LEFT";
+    Direction[Direction["RIGHT"] = 3] = "RIGHT";
+})(Direction || (Direction = {}));
+let direction1 = Direction.DOWN;
+let direction2 = 1 /* CDirection.DOWN */;
+let oDirection = {
+    UP: 0,
+    DOWN: 1,
+    LEFT: 2,
+    RIGHT: 3,
+};
+let direction3 = oDirection.UP;
 //# sourceMappingURL=index.js.map

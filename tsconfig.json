@@ -4,8 +4,7 @@
     // File Layout
     // "rootDir": "./src",
     // "outDir": "./dist",
-    "sourceMap": true,
-
+    //"sourceMap": true,
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -37,10 +36,10 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
+    "verbatimModuleSyntax": false,
+    "isolatedModules": false,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }

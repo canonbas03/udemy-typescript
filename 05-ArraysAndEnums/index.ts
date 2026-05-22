@@ -68,3 +68,29 @@ let person3: Person = {
   email: "john@email.com",
   role: Role.ADMIN,
 };
+
+enum Direction {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+}
+
+const enum CDirection {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+}
+
+let direction1 = Direction.DOWN;
+let direction2 = CDirection.DOWN;
+
+let oDirection = {
+  UP: 0,
+  DOWN: 1,
+  LEFT: 2,
+  RIGHT: 3,
+} as const;
+
+let direction3 = oDirection.UP;
