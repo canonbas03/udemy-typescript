@@ -44,3 +44,27 @@ let ageNameTuple: NumberStringTuple = [30, "John"];
 let readOnlyTuple: Readonly<NumberStringTuple> = [25, "Jane"];
 
 // --- ENUMS ---
+enum myEnum {
+  first = 5,
+  second,
+  third,
+}
+console.log(myEnum.first); // 5
+console.log(myEnum.second); // 6
+
+enum Role {
+  ADMIN = "admin",
+  AUTHOR = "author",
+  EDITOR = "editor",
+}
+
+type Person = {
+  name: string;
+  email: string;
+  role: Role;
+};
+let person3: Person = {
+  name: "John",
+  email: "john@email.com",
+  role: Role.ADMIN,
+};

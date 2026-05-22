@@ -19,4 +19,23 @@ let readOnlyNumbers = [1, 2, 3, 4, 5];
 let ageNameTuple = [30, "John"];
 let readOnlyTuple = [25, "Jane"];
 // --- ENUMS ---
+var myEnum;
+(function (myEnum) {
+    myEnum[myEnum["first"] = 5] = "first";
+    myEnum[myEnum["second"] = 6] = "second";
+    myEnum[myEnum["third"] = 7] = "third";
+})(myEnum || (myEnum = {}));
+console.log(myEnum.first); // 5
+console.log(myEnum.second); // 6
+var Role;
+(function (Role) {
+    Role["ADMIN"] = "admin";
+    Role["AUTHOR"] = "author";
+    Role["EDITOR"] = "editor";
+})(Role || (Role = {}));
+let person3 = {
+    name: "John",
+    email: "john@email.com",
+    role: Role.ADMIN,
+};
 //# sourceMappingURL=index.js.map
