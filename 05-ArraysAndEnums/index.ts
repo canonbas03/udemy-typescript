@@ -12,3 +12,7 @@ let user: User = ["Ivan", "Ivanov", 34, "i.ivanov@email.com"];
 // rest operator
 type PassingStudents = [number, boolean, ...string[]];
 let passingStudents: PassingStudents = [5, true, "Mark", "Peter", "Patrik"];
+
+type StringBoolsNumber = [string, ...boolean[], number];
+let stringBoolsNum: StringBoolsNumber = ["abc", true, true, 6];
+//NOTICE: Only 1 rest operator allowed per type, we cant have an optional param after a rest
