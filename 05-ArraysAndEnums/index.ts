@@ -107,3 +107,25 @@ enum AccessPermission {
 }
 console.log(AccessPermission.ReadWrite);
 console.log(AccessPermission.All);
+
+// EXERCISE
+enum Day {
+  Sunday = 0,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+}
+
+enum Status {
+  Pending = "PENDING",
+  InProgress = "IN_PROGRESS",
+  Completed = "COMPLETED",
+  Cancelled = "CANCELLED",
+}
+
+let today: Day = Day.Friday;
+
+let currentStatus: Status = Status.InProgress;
