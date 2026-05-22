@@ -47,6 +47,7 @@ var Direction;
 })(Direction || (Direction = {}));
 let direction1 = Direction.DOWN;
 let direction2 = 1 /* CDirection.DOWN */;
+// Object as an Enum
 let oDirection = {
     UP: 0,
     DOWN: 1,
@@ -54,4 +55,17 @@ let oDirection = {
     RIGHT: 3,
 };
 let direction3 = oDirection.UP;
+// Computed Enums
+var AccessPermission;
+(function (AccessPermission) {
+    AccessPermission[AccessPermission["None"] = 0] = "None";
+    AccessPermission[AccessPermission["Read"] = 1] = "Read";
+    AccessPermission[AccessPermission["Write"] = 2] = "Write";
+    AccessPermission[AccessPermission["ReadWrite"] = 3] = "ReadWrite";
+    AccessPermission[AccessPermission["Delete"] = 4] = "Delete";
+    AccessPermission[AccessPermission["All"] = 7] = "All";
+    //All = ReadWrite | Delete,
+})(AccessPermission || (AccessPermission = {}));
+console.log(AccessPermission.ReadWrite);
+console.log(AccessPermission.All);
 //# sourceMappingURL=index.js.map

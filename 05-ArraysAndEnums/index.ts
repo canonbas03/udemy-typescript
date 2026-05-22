@@ -86,11 +86,24 @@ const enum CDirection {
 let direction1 = Direction.DOWN;
 let direction2 = CDirection.DOWN;
 
+// Object as an Enum
 let oDirection = {
   UP: 0,
   DOWN: 1,
   LEFT: 2,
   RIGHT: 3,
 } as const;
-
 let direction3 = oDirection.UP;
+
+// Computed Enums
+enum AccessPermission {
+  None = 0,
+  Read = 1,
+  Write = 2,
+  ReadWrite = Read + Write,
+  Delete = 4,
+  All = Read + Write + Delete,
+  //All = ReadWrite | Delete,
+}
+console.log(AccessPermission.ReadWrite);
+console.log(AccessPermission.All);
