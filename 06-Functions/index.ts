@@ -138,9 +138,9 @@ processData("sample data");
 function errorHandlingScenario(): never {
   throwError("An unexpected error occurred!");
 }
-errorHandlingScenario();
+//errorHandlingScenario();
 
-// Async functions
+// --- ASYNC FUNCTIONS ---
 async function fetchFromDB(id: number): Promise<any> {}
 
 const anotherAsync = async (): Promise<any> => {};
@@ -157,3 +157,18 @@ type User = {
 async function returnUser(id: number): Promise<User> {
   return Promise.resolve({ name: "Josh", age: 25 });
 }
+
+// REST PARAMS AND ARGUMENTS
+function multiplyBy(by: number, ...numbers: number[]) {
+  return numbers.map((number) => by * number);
+}
+console.log(multiplyBy(5, 1, 2, 3));
+
+const args = [5, 8];
+// const angle = Math.atan2(...args); error
+
+const args1 = [5, 8] as const;
+const angle1 = Math.atan2(...args1);
+
+const args2: [number, number] = [5, 8];
+const angle2 = Math.atan2(...args2);

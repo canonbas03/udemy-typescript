@@ -104,8 +104,8 @@ processData("sample data");
 function errorHandlingScenario() {
     throwError("An unexpected error occurred!");
 }
-errorHandlingScenario();
-// Async functions
+//errorHandlingScenario();
+// --- ASYNC FUNCTIONS ---
 async function fetchFromDB(id) { }
 const anotherAsync = async () => { };
 async function returnString(id) {
@@ -114,4 +114,15 @@ async function returnString(id) {
 async function returnUser(id) {
     return Promise.resolve({ name: "Josh", age: 25 });
 }
+// REST PARAMS AND ARGUMENTS
+function multiplyBy(by, ...numbers) {
+    return numbers.map((number) => by * number);
+}
+console.log(multiplyBy(5, 1, 2, 3));
+const args = [5, 8];
+// const angle = Math.atan2(...args); error
+const args1 = [5, 8];
+const angle1 = Math.atan2(...args1);
+const args2 = [5, 8];
+const angle2 = Math.atan2(...args2);
 //# sourceMappingURL=index.js.map
