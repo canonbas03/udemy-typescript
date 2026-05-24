@@ -137,4 +137,24 @@ function sumNumsDestructed({ a, b, c }) {
     return a + b + c;
 }
 console.log(sumNumsDestructed(numbers));
+const reserve = (departureDate, returnDateOrDepartingFrom, departingFromOrDestination, destination) => {
+    if (returnDateOrDepartingFrom instanceof Date && destination) {
+        return {
+            departureDate: departureDate,
+            returnDate: returnDateOrDepartingFrom,
+            departingFrom: departingFromOrDestination,
+            destination: destination,
+        };
+    }
+    else if (typeof returnDateOrDepartingFrom === "string") {
+        return {
+            departureDate: departureDate,
+            departingFrom: returnDateOrDepartingFrom,
+            destination: departingFromOrDestination,
+        };
+    }
+    throw new Error("Invalid ticket details!");
+};
+console.log(reserve(new Date(), new Date(), "Sofia", "Wroclaw"));
+console.log(reserve(new Date(), "Sofia", "Wroclaw"));
 //# sourceMappingURL=index.js.map
