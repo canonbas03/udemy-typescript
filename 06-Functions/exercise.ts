@@ -30,3 +30,46 @@ const checkStatus: StatusFunction = (isActive = true) => {
 
 console.log(checkStatus());
 console.log(checkStatus(false));
+
+// Async Functions Exercise
+type FetchDataFunction = (
+  url: string,
+  ...params: string[]
+) => Promise<string[]>;
+
+const fetchData: FetchDataFunction = async (url, ...params) => {
+  const fullURL = `${url}?${params.join("&")}`;
+  try {
+    let res = await fetch(fullURL);
+    // let data = await res.json();
+    // console.log(data);
+  } catch (error) {}
+  let mockFetch = ["data1", "data2"];
+  return mockFetch;
+};
+
+fetchData("https://api.example.com", "param1=value1", "param2=value2").then(
+  (data) => console.log(data),
+);
+
+type User = {
+  firstName: string;
+  lastName: string;
+  age: number;
+};
+
+async function getUserInfo({
+  firstName,
+  lastName,
+  age,
+}: User): Promise<string> {
+  return `User: ${firstName} ${lastName}, Age: ${age}`;
+}
+
+const user: User = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 30,
+};
+
+getUserInfo(user).then((result) => console.log(result));

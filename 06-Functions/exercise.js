@@ -23,4 +23,25 @@ const checkStatus = (isActive = true) => {
 };
 console.log(checkStatus());
 console.log(checkStatus(false));
+const fetchData = async (url, ...params) => {
+    const fullURL = `${url}?${params.join("&")}`;
+    try {
+        let res = await fetch(fullURL);
+        // let data = await res.json();
+        // console.log(data);
+    }
+    catch (error) { }
+    let mockFetch = ["data1", "data2"];
+    return mockFetch;
+};
+fetchData("https://api.example.com", "param1=value1", "param2=value2").then((data) => console.log(data));
+async function getUserInfo({ firstName, lastName, age, }) {
+    return `User: ${firstName} ${lastName}, Age: ${age}`;
+}
+const user = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+};
+getUserInfo(user).then((result) => console.log(result));
 //# sourceMappingURL=exercise.js.map

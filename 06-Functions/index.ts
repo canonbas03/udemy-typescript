@@ -158,7 +158,7 @@ async function returnUser(id: number): Promise<User> {
   return Promise.resolve({ name: "Josh", age: 25 });
 }
 
-// REST PARAMS AND ARGUMENTS
+// --- REST PARAMS AND ARGUMENTS ---
 function multiplyBy(by: number, ...numbers: number[]) {
   return numbers.map((number) => by * number);
 }
@@ -172,3 +172,25 @@ const angle1 = Math.atan2(...args1);
 
 const args2: [number, number] = [5, 8];
 const angle2 = Math.atan2(...args2);
+
+// --- PARAMETER DESTRUCTURING ---
+type Numbers = {
+  a: number;
+  b: number;
+  c: number;
+};
+
+let numbers: Numbers = {
+  a: 1,
+  b: 2,
+  c: 3,
+};
+
+function sumNums(numbers: Numbers) {
+  return numbers.a + numbers.b + numbers.c;
+}
+
+function sumNumsDestructed({ a, b, c }: Numbers) {
+  return a + b + c;
+}
+console.log(sumNumsDestructed(numbers));
