@@ -106,3 +106,13 @@ const person4: Person2 = {
   },
 };
 console.log(person4.greet("Hiii"));
+
+// --- Anonymous Functions ---
+const students: string[] = ["Alice", "Bob", "Claudia"];
+students.map((student) => {
+  console.log(student);
+});
+
+students.map(function (student) {
+  console.log(student);
+});

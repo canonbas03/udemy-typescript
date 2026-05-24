@@ -81,4 +81,12 @@ const person4 = {
     },
 };
 console.log(person4.greet("Hiii"));
+// --- Anonymous Functions ---
+const students = ["Alice", "Bob", "Claudia"];
+students.map((student) => {
+    console.log(student);
+});
+students.map(function (student) {
+    console.log(student);
+});
 //# sourceMappingURL=index.js.map
