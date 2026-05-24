@@ -85,3 +85,24 @@ const person2 = person;
 console.log(person);
 console.log(convertAgeToMonths(person2));
 console.log(person);
+
+// --- FUNCTION CALL SIGNATURES ---
+type GreetingFunction = (greeting: string) => string;
+type Person2 = {
+  name: string;
+  age: number;
+  ageUnit: AgeUnit;
+  //greet: Function;
+  //greet: = (greeting: string) => string;
+  greet: GreetingFunction;
+};
+
+const person4: Person2 = {
+  name: "Josh",
+  age: 20,
+  ageUnit: AgeUnit.Years,
+  greet: (greeting) => {
+    return `${greeting}, ${person4.name}!`;
+  },
+};
+console.log(person4.greet("Hiii"));

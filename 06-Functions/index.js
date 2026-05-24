@@ -72,4 +72,13 @@ const person2 = person;
 console.log(person);
 console.log(convertAgeToMonths(person2));
 console.log(person);
+const person4 = {
+    name: "Josh",
+    age: 20,
+    ageUnit: AgeUnit.Years,
+    greet: (greeting) => {
+        return `${greeting}, ${person4.name}!`;
+    },
+};
+console.log(person4.greet("Hiii"));
 //# sourceMappingURL=index.js.map
