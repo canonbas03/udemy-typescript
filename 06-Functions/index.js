@@ -81,7 +81,7 @@ const person4 = {
     },
 };
 console.log(person4.greet("Hiii"));
-// --- Anonymous Functions ---
+// --- ANONYMOUS FUNCTIONS ---
 const students = ["Alice", "Bob", "Claudia"];
 students.map((student) => {
     console.log(student);

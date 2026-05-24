@@ -107,7 +107,7 @@ const person4: Person2 = {
 };
 console.log(person4.greet("Hiii"));
 
-// --- Anonymous Functions ---
+// --- ANONYMOUS FUNCTIONS ---
 const students: string[] = ["Alice", "Bob", "Claudia"];
 students.map((student) => {
   console.log(student);
