@@ -32,4 +32,44 @@ function intro5(name, age, gender) {
     return intro4(name, age, gender);
 }
 console.log(intro5("Jack", 42, Gender.Male));
+// --- CUSTOM PARAMETERS AND RETURN TYPES ---
+var AgeUnit;
+(function (AgeUnit) {
+    AgeUnit["Years"] = "years";
+    AgeUnit["Months"] = "months";
+})(AgeUnit || (AgeUnit = {}));
+const person = {
+    name: "Josh",
+    age: 20,
+    ageUnit: AgeUnit.Years,
+};
+// Pure function
+console.log("           === PURE ===");
+function convertAgeToMonthsPure(person) {
+    if (person.ageUnit === AgeUnit.Years) {
+        return {
+            ...person,
+            age: person.age * 12,
+            ageUnit: AgeUnit.Months,
+        };
+    }
+    return person;
+}
+const person3 = person;
+console.log(person);
+console.log(convertAgeToMonthsPure(person3));
+console.log(person);
+// NOTICE: Whe using spread operator (...person), we are spreading all the props it has, and we just override by redeclaring whatever needs to be changed.
+console.log("           === UNPURE ===");
+function convertAgeToMonths(person) {
+    if (person.ageUnit === AgeUnit.Years) {
+        person.age = person.age * 12;
+        person.ageUnit = AgeUnit.Months;
+    }
+    return person;
+}
+const person2 = person;
+console.log(person);
+console.log(convertAgeToMonths(person2));
+console.log(person);
 //# sourceMappingURL=index.js.map
