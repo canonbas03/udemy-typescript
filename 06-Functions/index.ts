@@ -116,3 +116,44 @@ students.map((student) => {
 students.map(function (student) {
   console.log(student);
 });
+
+// Exercise
+type LogMessage = (log: string) => void;
+const log: LogMessage = (log) => {
+  console.log(log);
+};
+log("Hello TypeScript");
+
+type ThrowError = (error: string) => never;
+const throwError: ThrowError = (error) => {
+  throw new Error(error);
+};
+//throwError("TEST ERROR");
+
+function processData(data: string): void {
+  log(`Processing ${data}`);
+}
+processData("sample data");
+
+function errorHandlingScenario(): never {
+  throwError("An unexpected error occurred!");
+}
+errorHandlingScenario();
+
+// Async functions
+async function fetchFromDB(id: number): Promise<any> {}
+
+const anotherAsync = async (): Promise<any> => {};
+
+async function returnString(id: number): Promise<string> {
+  return Promise.resolve("Result string");
+}
+
+type User = {
+  name: string;
+  age: number;
+};
+
+async function returnUser(id: number): Promise<User> {
+  return Promise.resolve({ name: "Josh", age: 25 });
+}

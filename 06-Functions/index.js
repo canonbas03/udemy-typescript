@@ -89,4 +89,29 @@ students.map((student) => {
 students.map(function (student) {
     console.log(student);
 });
+const log = (log) => {
+    console.log(log);
+};
+log("Hello TypeScript");
+const throwError = (error) => {
+    throw new Error(error);
+};
+//throwError("TEST ERROR");
+function processData(data) {
+    log(`Processing ${data}`);
+}
+processData("sample data");
+function errorHandlingScenario() {
+    throwError("An unexpected error occurred!");
+}
+errorHandlingScenario();
+// Async functions
+async function fetchFromDB(id) { }
+const anotherAsync = async () => { };
+async function returnString(id) {
+    return Promise.resolve("Result string");
+}
+async function returnUser(id) {
+    return Promise.resolve({ name: "Josh", age: 25 });
+}
 //# sourceMappingURL=index.js.map
