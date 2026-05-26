@@ -48,5 +48,33 @@ printId(person);
 const noIdobj = {
     name: "product",
 };
-// printId(noIdobj) error
+let idOfEvent = "id";
+let dateOfEvent = "date";
+let stringObj = {
+    0: "First prop",
+    second: "Second",
+    dd: "dsds",
+};
+console.log(stringObj[0]);
+console.log(stringObj["0"]);
+console.log(stringObj["second"]);
+let partial = {
+    name: "Hello",
+};
+// --- GENERIC DEFAULT VALUES ---
+async function fetchData(url) {
+    const response = await fetch(url);
+    const data = (await response).json();
+    return data;
+}
+async function fetchDefaults() {
+    const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
+    console.log(data);
+}
+fetchDefaults();
+async function fetchPost() {
+    const post = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
+    console.log(post);
+}
+fetchPost();
 //# sourceMappingURL=index.js.map

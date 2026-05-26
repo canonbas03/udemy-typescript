@@ -14,15 +14,23 @@ const intro3 = (name: string, age: number): string | number => {
   return 5;
 };
 
+console.log("INTRO2:", intro2("John", 65));
+
 // --- DEFAULT AND OPTIONAL PARAMETERS ---
-function intro4(name: string, age: number, gender?: string): string {
-  if (gender) {
-    return `${name} is a ${gender}, ${age} years old.`;
+function intro4(params: {
+  fName?: string;
+  age?: number;
+  height?: number;
+  weight?: number;
+  gender?: string;
+}): string {
+  if (params.gender) {
+    return `${params.fName} is a ${params.gender}, ${params.age} years old.`;
   }
-  return `${name} is ${age} years old.`;
+  return `${params.fName} is ${params.age} years old.`;
 }
 
-console.log(intro4("John", 18, "male"));
+console.log(intro4({ age: 12 }));
 
 // Exercise with optional parameter of type Enum
 enum Gender {
@@ -32,7 +40,7 @@ enum Gender {
 }
 
 function intro5(name: string, age: number, gender?: Gender) {
-  return intro4(name, age, gender);
+  //return intro4(name, age, gender);
 }
 console.log(intro5("Jack", 42, Gender.Male));
 
@@ -74,17 +82,18 @@ console.log(person);
 // NOTICE: Whe using spread operator (...person), we are spreading all the props it has, and we just override by redeclaring whatever needs to be changed.
 
 console.log("           === UNPURE ===");
-function convertAgeToMonths(person: Person): Person {
+function convertAgeToMonths(person: Person): void {
   if (person.ageUnit === AgeUnit.Years) {
     person.age = person.age * 12;
     person.ageUnit = AgeUnit.Months;
   }
-  return person;
+  //return person;
 }
 const person2 = person;
 console.log(person);
 console.log(convertAgeToMonths(person2));
 console.log(person);
+convertAgeToMonths(person);
 
 // --- FUNCTION CALL SIGNATURES ---
 type GreetingFunction = (greeting: string) => string;
@@ -96,6 +105,7 @@ type Person2 = {
   //greet: = (greeting: string) => string;
   greet: GreetingFunction;
 };
+type FilterFunction<T> = (obj: T) => T;
 
 const person4: Person2 = {
   name: "Josh",
@@ -142,6 +152,18 @@ function errorHandlingScenario(): never {
 
 // --- ASYNC FUNCTIONS ---
 async function fetchFromDB(id: number): Promise<any> {}
+
+async function OneSecondLog(): Promise<void> {
+  await setTimeout(() => {
+    console.log("1000 MS PASSED");
+  }, 5000);
+}
+async function logProgress() {
+  console.log("FUNCTION START");
+  await OneSecondLog();
+  console.log("FUNCTION END FUNCTION");
+}
+logProgress();
 
 const anotherAsync = async (): Promise<any> => {};
 
@@ -240,5 +262,21 @@ const reserve: Reserve = (
   throw new Error("Invalid ticket details!");
 };
 
+// {dep: Date, } = reserve()
+
 console.log(reserve(new Date(), new Date(), "Sofia", "Wroclaw"));
 console.log(reserve(new Date(), "Sofia", "Wroclaw"));
+
+function returnObjectDimenstions(): {
+  width: number;
+  height: number;
+  depth: number;
+} {
+  return { width: 4, depth: 3, height: 2 };
+}
+
+const dimensions = returnObjectDimenstions();
+console.log(dimensions.height);
+
+const { height, width, depth } = returnObjectDimenstions();
+console.log(height);

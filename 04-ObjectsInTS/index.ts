@@ -3,7 +3,14 @@ let person = {
   age: 22,
 };
 console.log(person.name);
-// person = []; error
+
+let object1 = {
+  name: "dad",
+  age: 34,
+  gender: "male",
+};
+person = object1;
+//object1 = person;
 
 let car: Object = {
   brand: "Lambo",
@@ -108,6 +115,19 @@ type AwardDetails = {
   date: Date;
 };
 
+let awardObj: Awards = {
+  testName: {
+    name: "nameee",
+    date: new Date(),
+  },
+  oscar: {
+    name: "nameee",
+    date: new Date(),
+  },
+};
+
+awardObj.testName?.date;
+
 let post4: NewPost2 = {
   title: "Title cuatro?",
   content: "Babayaga",
@@ -164,6 +184,9 @@ let post5: NewPost3 = {
     },
   },
 };
+
+console.log(`ENGAGEMENT: ${Number(post5.engagement)}`);
+
 // NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optional
 
 console.log(post5.title); // title cinko
@@ -199,8 +222,13 @@ let hybridAnimal: DogAndCatUnion = {
   barks: true,
   purrs: true,
   sleeps: true, // error without it
+  wags: true,
 };
-// NOTICE: We need to have full properties of at least 1 of the union types
+// NOTICE: We need to have full properties of at least 1 of the union types. Because we need to be able to cast
+
+hybridAnimal as Cat;
+let d = hybridAnimal as Dog;
+console.log("dog" + d.wags);
 
 // Usage of read-only params, optional params, index signatures,
 type User = {
@@ -240,6 +268,10 @@ type NetworkFailedState = {
   state: "failed";
   code: number;
 };
+// type NetworkFailedState2 = {
+//   state: "failed";
+//   code2: number;
+// };
 type NetworkSuccessState = {
   state: "success";
   response: {

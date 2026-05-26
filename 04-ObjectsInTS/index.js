@@ -5,7 +5,13 @@ let person = {
     age: 22,
 };
 console.log(person.name);
-// person = []; error
+let object1 = {
+    name: "dad",
+    age: 34,
+    gender: "male",
+};
+person = object1;
+//object1 = person;
 let car = {
     brand: "Lambo",
     horsePower: 3000,
@@ -51,6 +57,17 @@ let post3 = {
     },
 };
 console.log(post3.author.age);
+let awardObj = {
+    testName: {
+        name: "nameee",
+        date: new Date(),
+    },
+    oscar: {
+        name: "nameee",
+        date: new Date(),
+    },
+};
+awardObj.testName?.date;
 let post4 = {
     title: "Title cuatro?",
     content: "Babayaga",
@@ -90,6 +107,7 @@ let post5 = {
         },
     },
 };
+console.log(`ENGAGEMENT: ${Number(post5.engagement)}`);
 // NOTICE: We have declared a "type" prop, but TS doesnt throw an error, because it is optional
 console.log(post5.title); // title cinko
 post5.title = "new title of cinko 5";
@@ -105,7 +123,12 @@ let hybridAnimal = {
     barks: true,
     purrs: true,
     sleeps: true, // error without it
+    wags: true,
 };
+// NOTICE: We need to have full properties of at least 1 of the union types. Because we need to be able to cast
+hybridAnimal;
+let d = hybridAnimal;
+console.log("dog" + d.wags);
 let user = {
     id: 1,
     name: "John Doe",

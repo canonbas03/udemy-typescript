@@ -7,12 +7,20 @@ let c = ["hello", 543, true];
 // --- TUPLES ---
 let person = ["Ruja", "Ignatova", 37];
 let user = ["Ivan", "Ivanov", 34, "i.ivanov@email.com"];
+let student = [5, "class b", 2, 3];
+student.push(6);
+student.push(5);
+student.push("GoodS");
+console.log(student);
 let passingStudents = [5, true, "Mark", "Peter", "Patrik"];
 let stringBoolsNum = ["abc", true, true, 6];
 //NOTICE: Only 1 rest operator allowed per type, we cant have an optional param after a rest
 // --- READ-ONLY ---
 // Array
 let numArray = [1, 2, 3];
+let arrA;
+arrA = ["ds"];
+arrA = ["ds", "fdf"];
 let person2 = ["fName", "sName", 31];
 // EXERCISE
 let readOnlyNumbers = [1, 2, 3, 4, 5];
@@ -23,8 +31,11 @@ var myEnum;
 (function (myEnum) {
     myEnum[myEnum["first"] = 5] = "first";
     myEnum[myEnum["second"] = 6] = "second";
-    myEnum[myEnum["third"] = 7] = "third";
+    myEnum[myEnum["third"] = 6] = "third";
 })(myEnum || (myEnum = {}));
+//const index: number = Object.keys(5).indexOf("Casual"); // 1
+const index2 = Object.values(myEnum).filter((val) => val == 6); // 1
+// ordinates
 console.log(myEnum.first); // 5
 console.log(myEnum.second); // 6
 var Role;

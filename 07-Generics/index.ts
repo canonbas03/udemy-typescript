@@ -54,7 +54,7 @@ logLength(numArr);
 logLength(strArr);
 logLength("any string");
 
-// ---
+// --- GENERICS WITH OBJECTS ---
 type KeyValuePair<K, V> = {
   key: K;
   value: V;
@@ -89,3 +89,82 @@ const noIdobj = {
   name: "product",
 };
 // printId(noIdobj) error
+
+// -- KEYOFF OPERATOR ---
+type Events = {
+  id: number;
+  date: Date;
+  type: "indoor" | "outdoor";
+};
+
+type UnionOfKeysOfEvents = keyof Events; // id | date | type
+
+let idOfEvent: UnionOfKeysOfEvents = "id";
+let dateOfEvent: UnionOfKeysOfEvents = "date";
+// let idOfEventOther: UnionOfKeysOfEvents = "other"; error
+
+// Index Signature
+type Numeric = {
+  [key: number]: string;
+};
+
+type NumericKeyOf = keyof Numeric;
+
+type NumberAndString = {
+  [key: string]: string;
+};
+type NumberAndStringKeyOf = keyof NumberAndString;
+
+let stringObj: NumberAndString = {
+  0: "First prop",
+  second: "Second",
+  dd: "dsds",
+};
+console.log(stringObj[0]);
+console.log(stringObj["0"]);
+console.log(stringObj["second"]);
+
+type Person = {
+  name: string;
+  age: number;
+  address: string;
+};
+
+type PartialPerson = {
+  [K in keyof Person]?: Person[K] | null;
+};
+
+let partial: PartialPerson = {
+  name: "Hello",
+};
+
+// --- GENERIC DEFAULT VALUES ---
+async function fetchData<T = any>(url: string): Promise<T> {
+  const response = await fetch(url);
+  const data = (await response).json();
+  return data;
+}
+
+async function fetchDefaults() {
+  const data = await fetchData("https://jsonplaceholder.typicode.com/posts/1");
+  console.log(data);
+}
+
+fetchDefaults();
+
+// Notice: After we see the result of fetch, we can declare strict types.
+
+type Post = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
+
+async function fetchPost() {
+  const post = await fetchData<Post>(
+    "https://jsonplaceholder.typicode.com/posts/1",
+  );
+  console.log(post);
+}
+fetchPost();

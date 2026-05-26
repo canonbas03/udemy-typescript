@@ -13,14 +13,15 @@ const intro2 = function (name, age) {
 const intro3 = (name, age) => {
     return 5;
 };
+console.log("INTRO2:", intro2("John", 65));
 // --- DEFAULT AND OPTIONAL PARAMETERS ---
-function intro4(name, age, gender) {
-    if (gender) {
-        return `${name} is a ${gender}, ${age} years old.`;
+function intro4(params) {
+    if (params.gender) {
+        return `${params.fName} is a ${params.gender}, ${params.age} years old.`;
     }
-    return `${name} is ${age} years old.`;
+    return `${params.fName} is ${params.age} years old.`;
 }
-console.log(intro4("John", 18, "male"));
+console.log(intro4({ age: 12 }));
 // Exercise with optional parameter of type Enum
 var Gender;
 (function (Gender) {
@@ -29,7 +30,7 @@ var Gender;
     Gender["Other"] = "undefined";
 })(Gender || (Gender = {}));
 function intro5(name, age, gender) {
-    return intro4(name, age, gender);
+    //return intro4(name, age, gender);
 }
 console.log(intro5("Jack", 42, Gender.Male));
 // --- CUSTOM PARAMETERS AND RETURN TYPES ---
@@ -66,12 +67,13 @@ function convertAgeToMonths(person) {
         person.age = person.age * 12;
         person.ageUnit = AgeUnit.Months;
     }
-    return person;
+    //return person;
 }
 const person2 = person;
 console.log(person);
 console.log(convertAgeToMonths(person2));
 console.log(person);
+convertAgeToMonths(person);
 const person4 = {
     name: "Josh",
     age: 20,
@@ -107,6 +109,17 @@ function errorHandlingScenario() {
 //errorHandlingScenario();
 // --- ASYNC FUNCTIONS ---
 async function fetchFromDB(id) { }
+async function OneSecondLog() {
+    await setTimeout(() => {
+        console.log("1000 MS PASSED");
+    }, 5000);
+}
+async function logProgress() {
+    console.log("FUNCTION START");
+    await OneSecondLog();
+    console.log("FUNCTION END FUNCTION");
+}
+logProgress();
 const anotherAsync = async () => { };
 async function returnString(id) {
     return Promise.resolve("Result string");
@@ -155,6 +168,14 @@ const reserve = (departureDate, returnDateOrDepartingFrom, departingFromOrDestin
     }
     throw new Error("Invalid ticket details!");
 };
+// {dep: Date, } = reserve()
 console.log(reserve(new Date(), new Date(), "Sofia", "Wroclaw"));
 console.log(reserve(new Date(), "Sofia", "Wroclaw"));
+function returnObjectDimenstions() {
+    return { width: 4, depth: 3, height: 2 };
+}
+const dimensions = returnObjectDimenstions();
+console.log(dimensions.height);
+const { height, width, depth } = returnObjectDimenstions();
+console.log(height);
 //# sourceMappingURL=index.js.map

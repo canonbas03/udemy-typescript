@@ -9,6 +9,15 @@ let person: [string, string, number] = ["Ruja", "Ignatova", 37];
 type User = [string, string, number, string?];
 let user: User = ["Ivan", "Ivanov", 34, "i.ivanov@email.com"];
 
+type Grades = 2 | 3 | 4 | 5 | "Good" | "Very Good" | "Excelent";
+type Student = [number, string, ...Array<Grades>];
+let student: Student = [5, "class b", 2, 3];
+student.push(6);
+student.push(5);
+student.push("GoodS");
+
+console.log(student);
+
 // rest operator
 type PassingStudents = [number, boolean, ...string[]];
 let passingStudents: PassingStudents = [5, true, "Mark", "Peter", "Patrik"];
@@ -24,6 +33,15 @@ let numArray: readonly number[] = [1, 2, 3];
 
 type a = Readonly<string[]>;
 type b = Readonly<(string | number)[]>;
+
+let arrA: a;
+
+arrA = ["ds"];
+arrA = ["ds", "fdf"];
+
+// const arr: a;
+
+// arrA[0]=
 
 type c = ReadonlyArray<string>;
 type d = ReadonlyArray<string | number>;
@@ -47,8 +65,14 @@ let readOnlyTuple: Readonly<NumberStringTuple> = [25, "Jane"];
 enum myEnum {
   first = 5,
   second,
-  third,
+  third = 6,
 }
+
+//const index: number = Object.keys(5).indexOf("Casual"); // 1
+
+const index2 = Object.values(myEnum).filter((val) => val == 6); // 1
+
+// ordinates
 console.log(myEnum.first); // 5
 console.log(myEnum.second); // 6
 
