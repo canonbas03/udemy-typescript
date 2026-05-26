@@ -12,4 +12,14 @@ const myParam2 = function (param1, param2) {
 const myParam3 = function (par) {
     return par;
 };
+const getFirstElement = (array) => {
+    return array[0];
+};
+const numArr = [3, 2, 1];
+const strArr = ["c", "b", "a"];
+console.log(getFirstElement(numArr));
+console.log(getFirstElement(strArr));
+const firstElement = (array) => {
+    return array[0];
+};
 //# sourceMappingURL=index.js.map

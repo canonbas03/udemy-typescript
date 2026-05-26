@@ -19,3 +19,24 @@ type MyParam = <T>(param: T) => T;
 const myParam3: MyParam = function <U>(par: U) {
   return par;
 };
+
+// --- GENERIC FUNCTION DECLARATIONS ---
+// <T> after =, whatever generic is passed will be used
+type GetFirstElement = <T>(array: T[]) => T | undefined;
+
+const getFirstElement: GetFirstElement = (array) => {
+  return array[0];
+};
+
+const numArr = [3, 2, 1];
+const strArr = ["c", "b", "a"];
+
+console.log(getFirstElement(numArr));
+console.log(getFirstElement<string>(strArr));
+
+// <T> before =, we need to implement new functions for each type (string, number, etc.)
+type FirstElement<T> = (array: T[]) => T | undefined;
+
+const firstElement: FirstElement<string> = (array) => {
+  return array[0];
+};
