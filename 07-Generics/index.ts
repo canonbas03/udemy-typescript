@@ -168,3 +168,20 @@ async function fetchPost() {
   console.log(post);
 }
 fetchPost();
+
+// --- GENERICS ---
+const filter = <T>(array: T[], predicate: (element: T) => boolean): T[] => {
+  let result: T[] = [];
+  for (const el of array) {
+    if (predicate(el)) {
+      result.push(el);
+    }
+  }
+  return result;
+};
+
+const numArray = [1, 2, 3, 4, 5];
+console.log(filter(numArray, (el) => el > 3));
+
+const animalArray = ["dog", "cat", "mouse"];
+console.log(filter(animalArray, (animal) => animal === "cat"));

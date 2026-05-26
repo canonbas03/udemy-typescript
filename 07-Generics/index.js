@@ -77,4 +77,18 @@ async function fetchPost() {
     console.log(post);
 }
 fetchPost();
+// --- GENERICS ---
+const filter = (array, predicate) => {
+    let result = [];
+    for (const el of array) {
+        if (predicate(el)) {
+            result.push(el);
+        }
+    }
+    return result;
+};
+const numArray = [1, 2, 3, 4, 5];
+console.log(filter(numArray, (el) => el > 3));
+const animalArray = ["dog", "cat", "mouse"];
+console.log(filter(animalArray, (animal) => animal === "cat"));
 //# sourceMappingURL=index.js.map
