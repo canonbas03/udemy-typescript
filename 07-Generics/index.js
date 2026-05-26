@@ -22,4 +22,10 @@ console.log(getFirstElement(strArr));
 const firstElement = (array) => {
     return array[0];
 };
+function logLength(arr) {
+    console.log(arr.length);
+}
+logLength(numArr);
+logLength(strArr);
+logLength("any string");
 //# sourceMappingURL=index.js.map

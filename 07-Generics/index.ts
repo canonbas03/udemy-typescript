@@ -40,3 +40,16 @@ type FirstElement<T> = (array: T[]) => T | undefined;
 const firstElement: FirstElement<string> = (array) => {
   return array[0];
 };
+
+// --- GENERICS AND CONSTRAINTS WITH ARRAYS
+type HasLength = {
+  length: number;
+};
+
+function logLength<T extends HasLength>(arr: T): void {
+  console.log(arr.length);
+}
+
+logLength(numArr);
+logLength(strArr);
+logLength("any string");
