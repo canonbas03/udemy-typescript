@@ -53,3 +53,39 @@ function logLength<T extends HasLength>(arr: T): void {
 logLength(numArr);
 logLength(strArr);
 logLength("any string");
+
+// ---
+type KeyValuePair<K, V> = {
+  key: K;
+  value: V;
+};
+
+const stringNumberPair: KeyValuePair<string, number> = {
+  key: "myKeyString",
+  value: 123,
+};
+
+const numberStringPair: KeyValuePair<number, string[]> = {
+  key: 234,
+  value: ["string value", "abc"],
+};
+
+type HasId = {
+  id: number;
+};
+
+// The printId func can only be invoked with an argument of type T, T must have id prop
+function printId<T extends HasId>(obj: T) {
+  console.log(`ID: ${obj.id}`);
+}
+
+const person = {
+  id: 12,
+  name: "Blue",
+};
+printId(person);
+
+const noIdobj = {
+  name: "product",
+};
+// printId(noIdobj) error

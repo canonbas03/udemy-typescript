@@ -28,4 +28,25 @@ function logLength(arr) {
 logLength(numArr);
 logLength(strArr);
 logLength("any string");
+const stringNumberPair = {
+    key: "myKeyString",
+    value: 123,
+};
+const numberStringPair = {
+    key: 234,
+    value: ["string value", "abc"],
+};
+// The printId func can only be invoked with an argument of type T, T must have id prop
+function printId(obj) {
+    console.log(`ID: ${obj.id}`);
+}
+const person = {
+    id: 12,
+    name: "Blue",
+};
+printId(person);
+const noIdobj = {
+    name: "product",
+};
+// printId(noIdobj) error
 //# sourceMappingURL=index.js.map
