@@ -10,5 +10,4 @@ class User {
 
 const user = new User();
 console.log(user);
-
-//export {};
+console.log(user.greet);

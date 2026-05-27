@@ -8,6 +8,6 @@ class User {
 }
 const user = new User();
 console.log(user);
+console.log(user.greet);
 export {};
-//export {};
 //# sourceMappingURL=index.js.map
