@@ -44,9 +44,15 @@ console.log(user2.greet());
 // --- INHERITANCE ---
 class Admin extends User2 {
     isAdmin = true;
+    usersReporting;
+    constructor(isAdmin, usersReporting, name, age, lastName) {
+        super(name, age, lastName);
+        this.isAdmin = isAdmin;
+        this.usersReporting = usersReporting;
+    }
 }
 const justUser = new User2("NormalUser", 24, "lName");
-const admin = new Admin("adminName", 33);
+const admin = new Admin(true, 12, "Josh", 25);
 console.log(justUser);
 console.log(admin);
 export {};
