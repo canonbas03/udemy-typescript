@@ -8,8 +8,9 @@
  * * - author (string, required)
  * * - yearPublished (number, optional)
  * * - ISBN (string, readonly)
- *
- * TODO: 2. Define a constructor function to initialize the Book class with title, author,yearPublished, and ISBN.
+ */
+
+/* TODO: 2. Define a constructor function to initialize the Book class with title, author,yearPublished, and ISBN.
  *
  * TODO: 3. Ensure that the constructor function uses the this keyword to assign values to the class properties.
  *
@@ -25,3 +26,55 @@
  *
  * TODO: 8. Ensure that the yearPublished property in the Book class is optional and the ISBN property is readonly.
  */
+
+class Book {
+  title: string;
+  author: string;
+  yearPublished?: number | undefined;
+  readonly isbn: string;
+
+  constructor(
+    title: string,
+    author: string,
+    isbn: string,
+    yearPublished?: number,
+  ) {
+    ((this.title = title),
+      (this.author = author),
+      (this.yearPublished = yearPublished),
+      (this.isbn = isbn));
+  }
+}
+
+const book1: Book = new Book("Book1", "Napoleon Hill", "AB1234", 2024);
+console.log(book1);
+
+// book1.isbn = "somethingElse" error
+
+function logBookDetails(book: Book): void {
+  console.log("--- BOOK DETAILS ---");
+  console.log(book);
+}
+
+logBookDetails(book1);
+
+class Ebook extends Book {
+  fileSize: number;
+  format: string;
+
+  constructor(
+    title: string,
+    author: string,
+    isbn: string,
+    fileSize: number,
+    format: string,
+    yearPublished?: number,
+  ) {
+    super(title, author, isbn, yearPublished);
+    this.fileSize = fileSize;
+    this.format = format;
+  }
+}
+
+const eBook1 = new Ebook("e-Book", "Dzhan Yonbash", "BR123", 1024, "epub");
+logBookDetails(eBook1);
