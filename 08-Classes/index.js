@@ -41,5 +41,13 @@ class User2 {
 }
 const user4 = new User1("Jack", 34);
 console.log(user2.greet());
+// --- INHERITANCE ---
+class Admin extends User2 {
+    isAdmin = true;
+}
+const justUser = new User2("NormalUser", 24, "lName");
+const admin = new Admin("adminName", 33);
+console.log(justUser);
+console.log(admin);
 export {};
 //# sourceMappingURL=index.js.map
