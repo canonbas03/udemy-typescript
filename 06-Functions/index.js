@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // --- DECLARATION ---
 // Named function
 function intro(name, age) {
@@ -178,4 +176,5 @@ const dimensions = returnObjectDimenstions();
 console.log(dimensions.height);
 const { height, width, depth } = returnObjectDimenstions();
 console.log(height);
+export {};
 //# sourceMappingURL=index.js.map

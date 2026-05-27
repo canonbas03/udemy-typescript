@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const map = (array, predicate) => {
     let result = [];
     for (let el of array) {
@@ -10,4 +8,5 @@ const map = (array, predicate) => {
 const numArr = [1, 2, 3, 4, 5];
 const plusTen = map(numArr, (el) => el + 10);
 console.log(plusTen);
+export {};
 //# sourceMappingURL=exercise.js.map

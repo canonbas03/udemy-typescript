@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // We have a variable of type unknown with a value of Hello
 let unknownValue = "Hello";
 // Explicit casting
@@ -13,4 +11,5 @@ if (typeof unknownValue == "string") {
 else {
     console.log(typeof unknownValue);
 }
+export {};
 //# sourceMappingURL=exercise.js.map

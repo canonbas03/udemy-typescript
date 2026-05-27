@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 let name = "Dzhan234";
 console.log(name);
 let myVar = 123;
@@ -58,4 +56,5 @@ if (fetchedUser && 'field' in fetchedUser) {
     // TypeScript implicitly knows 'field' exists inside this block!
     console.log(fetchedUser.field);
 }
+export {};
 //# sourceMappingURL=index.js.map

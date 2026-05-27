@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // --- STRICTLY TYPING ARRAYS ---
 let a = [1, 2, 3];
 let b = ["abc", "bcd", "bbb"];
@@ -99,4 +97,5 @@ var Status;
 })(Status || (Status = {}));
 let today = Day.Friday;
 let currentStatus = Status.InProgress;
+export {};
 //# sourceMappingURL=index.js.map

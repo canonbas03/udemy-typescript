@@ -1,4 +1,3 @@
-"use strict";
 // /**
 //  * Assign the correct types to each of the following variables
 //  */
@@ -9,7 +8,6 @@
 // let user:undefined = undefined;
 // let largeNumber:bigint = 9007199254740991n;
 // let unique:symbol = Symbol("uniqueSymbol");
-Object.defineProperty(exports, "__esModule", { value: true });
 // let number2 : number;
 // console.log(number2);
 // function myFunction (user: undefined){
@@ -44,4 +42,5 @@ let user = {
 user.setSymbol("newValue");
 console.log(user.getSymbol());
 let myNuber = -1.2;
+export {};
 //# sourceMappingURL=correctTypes.js.map

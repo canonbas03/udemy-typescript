@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // implicit casting (TS auto cast)
 console.log(5 + "10"); // 510
 // --- explicit casting ---
@@ -48,4 +46,5 @@ if (isNaN(parsedNumber)) {
 else {
     console.log(`5 + ${parsedNumber} = ${5 + parsedNumber}`);
 }
+export {};
 //# sourceMappingURL=casting.js.map

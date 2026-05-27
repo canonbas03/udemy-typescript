@@ -1,3 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+// --- FIRST CLASS ---
+class User {
+    name = "John";
+    email = "john@email.com";
+    greet() {
+        return `${this.name} ${this.email}`;
+    }
+}
+const user = new User();
+console.log(user);
+export {};
+//export {};
 //# sourceMappingURL=index.js.map

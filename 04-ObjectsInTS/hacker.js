@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 function isBalanced(s) {
     // If the bracket count is not even: auto fail
     // Add brackets into an array, until we find a right bracket (RB)
@@ -37,4 +35,5 @@ function isBalanced(s) {
     }
     return "YES";
 }
+export {};
 //# sourceMappingURL=hacker.js.map

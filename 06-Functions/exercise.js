@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const greet = (name = "Guest") => {
     return `Hello, ${name}`;
 };
@@ -74,4 +72,5 @@ function logMessage(message) {
 function throwError(message) {
     throw new Error(message);
 }
+export {};
 //# sourceMappingURL=exercise.js.map

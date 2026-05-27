@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 function returnParams(param) {
     return param;
 }
@@ -91,4 +89,5 @@ const numArray = [1, 2, 3, 4, 5];
 console.log(filter(numArray, (el) => el > 3));
 const animalArray = ["dog", "cat", "mouse"];
 console.log(filter(animalArray, (animal) => animal === "cat"));
+export {};
 //# sourceMappingURL=index.js.map

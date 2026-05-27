@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 let person = {
     name: "John",
     age: 22,
@@ -174,4 +172,5 @@ let airplane = {
         A3: "Sam Doe",
     },
 };
+export {};
 //# sourceMappingURL=index.js.map
