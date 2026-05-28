@@ -176,7 +176,7 @@ class Human {
   }
 }
 
-const human = new Human("Komo", 156);
+const human = new Human("Komo", 150);
 
 // --- SETTER AND GETTER
 class Vehicle {
@@ -189,4 +189,18 @@ class Vehicle {
     }
     this._age = age;
   }
+
+  public get age() {
+    if (this._age === undefined) {
+      throw new Error("Age is not set");
+    }
+
+    return this._age;
+  }
 }
+
+const vehicle = new Vehicle("blue");
+vehicle.age = 5;
+console.log(vehicle.age);
+
+console.log("TTTTTETETETETE");
