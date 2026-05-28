@@ -268,7 +268,7 @@ class Repository<T extends hasId> {
   }
 }
 
-type UserRepository = {
+type UserRepository = hasId & {
   id: number;
   name: string;
   age: number;
