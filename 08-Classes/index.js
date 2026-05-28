@@ -162,5 +162,18 @@ const vehicle = new Vehicle("blue");
 vehicle.age = 5;
 console.log(vehicle.age);
 console.log("TTTTTETETETETE");
+// --- STATIC BLOCKS ---
+class Counter {
+    static count = 0;
+    static increment() {
+        this.count++;
+    }
+    static {
+        console.log(`Initializing Counter class`);
+    }
+}
+console.log(Counter.count); // 0
+Counter.increment();
+console.log(Counter.count); // 1
 export {};
 //# sourceMappingURL=index.js.map

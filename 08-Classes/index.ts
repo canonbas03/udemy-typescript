@@ -204,3 +204,21 @@ vehicle.age = 5;
 console.log(vehicle.age);
 
 console.log("TTTTTETETETETE");
+
+// --- STATIC BLOCKS ---
+
+class Counter {
+  static count: number = 0;
+
+  static increment() {
+    this.count++;
+  }
+
+  static {
+    console.log(`Initializing Counter class`);
+  }
+}
+
+console.log(Counter.count); // 0
+Counter.increment();
+console.log(Counter.count); // 1
