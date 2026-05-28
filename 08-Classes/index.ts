@@ -164,3 +164,29 @@ class Tree extends Plant {
 
 const plant = new Plant("Nice plant", true);
 const tree = new Tree("Tree name", false, true);
+
+class Human {
+  constructor(
+    public name: string,
+    public age: number,
+  ) {
+    if (age < 0 || age > 150) {
+      throw new Error("Warning, Vampire detected!");
+    }
+  }
+}
+
+const human = new Human("Komo", 156);
+
+// --- SETTER AND GETTER
+class Vehicle {
+  private _age!: number;
+  constructor(public color: string) {}
+
+  public set age(age: number) {
+    if (age < 0 || age > 150) {
+      throw new Error("Vampire or a Time traveller!");
+    }
+    this._age = age;
+  }
+}
