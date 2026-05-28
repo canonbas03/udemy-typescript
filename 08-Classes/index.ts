@@ -222,3 +222,23 @@ class Counter {
 console.log(Counter.count); // 0
 Counter.increment();
 console.log(Counter.count); // 1
+
+// --- GENERIC W/ CLASSES ---
+class Box<T> {
+  private _value: T;
+
+  constructor(value: T) {
+    this._value = value;
+  }
+
+  public set value(newValue: T) {
+    this._value = newValue;
+  }
+
+  public get value() {
+    return this._value;
+  }
+}
+
+const numberBox = new Box(123);
+const stringBox = new Box<string>("Hello");

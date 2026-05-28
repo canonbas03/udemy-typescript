@@ -175,5 +175,20 @@ class Counter {
 console.log(Counter.count); // 0
 Counter.increment();
 console.log(Counter.count); // 1
+// --- GENERIC W/ CLASSES ---
+class Box {
+    _value;
+    constructor(value) {
+        this._value = value;
+    }
+    set value(newValue) {
+        this._value = newValue;
+    }
+    get value() {
+        return this._value;
+    }
+}
+const numberBox = new Box(123);
+const stringBox = new Box("Hello");
 export {};
 //# sourceMappingURL=index.js.map
