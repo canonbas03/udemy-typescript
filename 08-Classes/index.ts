@@ -75,7 +75,7 @@ const admin: Admin = new Admin(true, 12, "Josh", 25);
 console.log(justUser);
 console.log(admin);
 
-// --- ACCESS MODIFIERS ---
+// --- ACCESS MODIFIERS and METHOD OVERRIDES ---
 class Animal {
   name: string;
   protected age: number;
@@ -88,6 +88,10 @@ class Animal {
   public showAll() {
     return `${this.name} | ${this.age} | ${this.legs}`;
   }
+
+  public introduce() {
+    return `Hi I am ${this.name}`;
+  }
 }
 
 class Dog extends Animal {
@@ -96,6 +100,10 @@ class Dog extends Animal {
   constructor(name: string, age: number, legs: number, woofs: boolean) {
     super(name, age, legs);
     this.woofs = woofs;
+  }
+
+  public introduce(): string {
+    return `Hi I am a dog! I am ${this.age} years old`;
   }
 }
 
@@ -106,12 +114,16 @@ class Chicken extends Animal {
     this.laysEggs = laysEggs;
   }
 
-  showLaysEggs() {
+  showLaysEggs(): boolean {
     return this.laysEggs;
   }
 
-  showAge() {
+  showAge(): number {
     return this.age;
+  }
+
+  public introduce(): string {
+    return `I gonna lay an egg! I am a chicken.`;
   }
 }
 
@@ -127,3 +139,28 @@ console.log(dog.showAll());
 console.log(chicken.showAll());
 console.log(chicken.showLaysEggs());
 console.log(chicken.showAge());
+
+console.log(animal.introduce());
+console.log(dog.introduce());
+console.log(chicken.introduce());
+
+// --- SHORT CONSTRUCTOR ---
+class Plant {
+  constructor(
+    public name: string,
+    public isEdible: boolean,
+  ) {}
+}
+
+class Tree extends Plant {
+  constructor(
+    name: string,
+    isEdible: boolean,
+    public makesShade: boolean,
+  ) {
+    super(name, isEdible);
+  }
+}
+
+const plant = new Plant("Nice plant", true);
+const tree = new Tree("Tree name", false, true);

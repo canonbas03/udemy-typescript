@@ -55,7 +55,7 @@ const justUser = new User2("NormalUser", 24, "lName");
 const admin = new Admin(true, 12, "Josh", 25);
 console.log(justUser);
 console.log(admin);
-// --- ACCESS MODIFIERS ---
+// --- ACCESS MODIFIERS and METHOD OVERRIDES ---
 class Animal {
     name;
     age;
@@ -66,12 +66,18 @@ class Animal {
     showAll() {
         return `${this.name} | ${this.age} | ${this.legs}`;
     }
+    introduce() {
+        return `Hi I am ${this.name}`;
+    }
 }
 class Dog extends Animal {
     woofs;
     constructor(name, age, legs, woofs) {
         super(name, age, legs);
         this.woofs = woofs;
+    }
+    introduce() {
+        return `Hi I am a dog! I am ${this.age} years old`;
     }
 }
 class Chicken extends Animal {
@@ -86,6 +92,9 @@ class Chicken extends Animal {
     showAge() {
         return this.age;
     }
+    introduce() {
+        return `I gonna lay an egg! I am a chicken.`;
+    }
 }
 const animal = new Animal("Bobi", 2, 4);
 const dog = new Dog("Miko", 4, 4, true);
@@ -96,5 +105,26 @@ console.log(dog.showAll());
 console.log(chicken.showAll());
 console.log(chicken.showLaysEggs());
 console.log(chicken.showAge());
+console.log(animal.introduce());
+console.log(dog.introduce());
+console.log(chicken.introduce());
+// --- SHORT CONSTRUCTOR ---
+class Plant {
+    name;
+    isEdible;
+    constructor(name, isEdible) {
+        this.name = name;
+        this.isEdible = isEdible;
+    }
+}
+class Tree extends Plant {
+    makesShade;
+    constructor(name, isEdible, makesShade) {
+        super(name, isEdible);
+        this.makesShade = makesShade;
+    }
+}
+const plant = new Plant("Nice plant", true);
+const tree = new Tree("Tree name", false, true);
 export {};
 //# sourceMappingURL=index.js.map
