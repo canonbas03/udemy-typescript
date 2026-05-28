@@ -190,5 +190,27 @@ class Box {
 }
 const numberBox = new Box(123);
 const stringBox = new Box("Hello");
+class Repository {
+    items = [];
+    addItem(item) {
+        this.items.push(item);
+    }
+    getById(id) {
+        return this.items.find((item) => item.id == id);
+    }
+    getAll() {
+        return this.items;
+    }
+    removeById(id) {
+        return (this.items = this.items.filter((item) => item.id !== id));
+    }
+}
+const personRepo = new Repository();
+personRepo.addItem({ id: 1, name: "Joe", age: 17 });
+personRepo.addItem({ id: 2, name: "Miranda", age: 19 });
+console.log(personRepo.getById(2));
+console.log(personRepo.getAll());
+personRepo.removeById(1);
+console.log(personRepo.getAll());
 export {};
 //# sourceMappingURL=index.js.map

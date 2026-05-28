@@ -242,3 +242,42 @@ class Box<T> {
 
 const numberBox = new Box(123);
 const stringBox = new Box<string>("Hello");
+
+// --- GENERICS USE CASE ---
+type hasId = {
+  id: number;
+};
+
+class Repository<T extends hasId> {
+  items: T[] = [];
+
+  addItem(item: T) {
+    this.items.push(item);
+  }
+
+  getById(id: number): T | undefined {
+    return this.items.find((item) => item.id == id);
+  }
+
+  getAll(): T[] {
+    return this.items;
+  }
+
+  removeById(id: number) {
+    return (this.items = this.items.filter((item) => item.id !== id));
+  }
+}
+
+type UserRepository = {
+  id: number;
+  name: string;
+  age: number;
+};
+const personRepo = new Repository<UserRepository>();
+personRepo.addItem({ id: 1, name: "Joe", age: 17 });
+personRepo.addItem({ id: 2, name: "Miranda", age: 19 });
+
+console.log(personRepo.getById(2));
+console.log(personRepo.getAll());
+personRepo.removeById(1);
+console.log(personRepo.getAll());
