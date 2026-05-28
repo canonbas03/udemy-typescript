@@ -74,3 +74,56 @@ const admin: Admin = new Admin(true, 12, "Josh", 25);
 
 console.log(justUser);
 console.log(admin);
+
+// --- ACCESS MODIFIERS ---
+class Animal {
+  name: string;
+  protected age: number;
+  private legs: number;
+
+  constructor(name: string, age: number, legs: number) {
+    ((this.name = name), (this.age = age), (this.legs = legs));
+  }
+
+  public showAll() {
+    return `${this.name} | ${this.age} | ${this.legs}`;
+  }
+}
+
+class Dog extends Animal {
+  private woofs: boolean;
+
+  constructor(name: string, age: number, legs: number, woofs: boolean) {
+    super(name, age, legs);
+    this.woofs = woofs;
+  }
+}
+
+class Chicken extends Animal {
+  private laysEggs: boolean;
+  constructor(name: string, age: number, legs: number, laysEggs: boolean) {
+    super(name, age, legs);
+    this.laysEggs = laysEggs;
+  }
+
+  showLaysEggs() {
+    return this.laysEggs;
+  }
+
+  showAge() {
+    return this.age;
+  }
+}
+
+const animal = new Animal("Bobi", 2, 4);
+const dog = new Dog("Miko", 4, 4, true);
+const chicken = new Chicken("Koko", 3, 2, true);
+
+console.log(animal.name);
+console.log(animal.showAll());
+
+console.log(dog.showAll());
+
+console.log(chicken.showAll());
+console.log(chicken.showLaysEggs());
+console.log(chicken.showAge());
