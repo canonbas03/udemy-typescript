@@ -281,3 +281,38 @@ console.log(personRepo.getById(2));
 console.log(personRepo.getAll());
 personRepo.removeById(1);
 console.log(personRepo.getAll());
+
+// --- MIXINS ---
+class Building {
+  constructor(public type: string) {}
+}
+
+type Constructor = new (...args: any[]) => {};
+
+function Timestamp<T extends Constructor>(Base: T) {
+  return class extends Base {
+    protected timestamp: Date = new Date();
+
+    getTimestamp() {
+      return this.timestamp;
+    }
+  };
+}
+
+class buildingWithMixins extends Timestamp(Building) {
+  constructor(
+    type: string,
+    public age: number,
+  ) {
+    super(type);
+  }
+
+  displayInfo() {
+    console.log(`${this.type} is ${this.age} years old`);
+    console.log(`Timestamp: ${this.getTimestamp()}`);
+  }
+}
+
+const mixinBuilding = new buildingWithMixins("apartment", 120);
+mixinBuilding.displayInfo();
+mixinBuilding.getTimestamp();
