@@ -5,7 +5,7 @@ type Holidays = {
 
 abstract class Department {
   protected abstract holidays: Holidays;
-  constructor(protected name: string) {}
+  protected constructor(protected name: string) {}
 
   public addHoliday(holidays: Holidays): void {
     if (Array.isArray(holidays)) {
@@ -13,6 +13,19 @@ abstract class Department {
         this.holidays.push(holiday);
       }
     }
+  }
+
+  public printHolidays(): void {
+    if (this.holidays.length === 0) {
+      console.log("NO HOLIDAYS!");
+    }
+
+    console.log("HOLIDAYS:");
+    this.holidays.forEach((holiday, index) => {
+      console.log(
+        `${++index}. Reason: ${holiday.reason}; Date: ${holiday.date}`,
+      );
+    });
   }
 }
 
@@ -60,3 +73,5 @@ adminDepartment.addHoliday(adminHolidays);
 
 console.log(itDepartment);
 console.log(adminDepartment);
+
+itDepartment.printHolidays();

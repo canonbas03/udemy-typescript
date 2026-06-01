@@ -10,6 +10,15 @@ class Department {
             }
         }
     }
+    printHolidays() {
+        if (this.holidays.length === 0) {
+            console.log("NO HOLIDAYS!");
+        }
+        console.log("HOLIDAYS:");
+        this.holidays.forEach((holiday, index) => {
+            console.log(`${++index}. Reason: ${holiday.reason}; Date: ${holiday.date}`);
+        });
+    }
 }
 class ItDepartment extends Department {
     holidays = [];
@@ -49,5 +58,6 @@ itDepartment.addHoliday(itHolidays);
 adminDepartment.addHoliday(adminHolidays);
 console.log(itDepartment);
 console.log(adminDepartment);
+itDepartment.printHolidays();
 export {};
 //# sourceMappingURL=index.js.map
