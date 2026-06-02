@@ -99,5 +99,44 @@ function Auth(user) {
 }
 Auth(admin);
 Auth(worker);
+// Interface can be used as a type as well
+const user = {
+    name: "",
+    email: "",
+    login: function () {
+        throw new Error("Function not implemented.");
+    },
+};
+const LuxuryHouse = {
+    address: "Slivo pole 23",
+    windows: 8,
+    doors: 2,
+    jacuzzi: true,
+};
+var RoleList;
+(function (RoleList) {
+    RoleList["Admin"] = "admin";
+    RoleList["Worker"] = "worker";
+    RoleList["Mole"] = "mole";
+})(RoleList || (RoleList = {}));
+var PermissionList;
+(function (PermissionList) {
+    PermissionList["Read"] = "read";
+    PermissionList["Write"] = "write";
+    PermissionList["Execute"] = "execute";
+})(PermissionList || (PermissionList = {}));
+const adminUser = {
+    numberOfUsersReporting: 6,
+    name: "",
+    address: "",
+    phone: 5653434,
+    gender: "",
+    role: RoleList.Admin,
+    permissions: [
+        PermissionList.Read,
+        PermissionList.Write,
+        PermissionList.Execute,
+    ],
+};
 export {};
 //# sourceMappingURL=index.js.map

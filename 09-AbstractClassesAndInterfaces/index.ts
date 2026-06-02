@@ -127,3 +127,75 @@ function Auth(user: User): void {
 
 Auth(admin);
 Auth(worker);
+
+// Interface can be used as a type as well
+const user: User = {
+  name: "",
+  email: "",
+  login: function (): void {
+    throw new Error("Function not implemented.");
+  },
+};
+
+interface House {
+  address: string;
+  windows: number;
+  doors: number;
+}
+
+interface LuxuryHouse extends House {
+  jacuzzi: boolean;
+}
+
+const LuxuryHouse: LuxuryHouse = {
+  address: "Slivo pole 23",
+  windows: 8,
+  doors: 2,
+  jacuzzi: true,
+};
+
+// MULTIPLE INTERFACES
+interface Person {
+  name: string;
+  address: string;
+  phone: number;
+  gender: string;
+}
+
+enum RoleList {
+  Admin = "admin",
+  Worker = "worker",
+  Mole = "mole",
+}
+
+interface Role {
+  role: RoleList;
+}
+
+enum PermissionList {
+  Read = "read",
+  Write = "write",
+  Execute = "execute",
+}
+
+interface Permission {
+  permissions: PermissionList[];
+}
+
+interface adminInterface extends Person, Role, Permission {
+  numberOfUsersReporting: number;
+}
+
+const adminUser: adminInterface = {
+  numberOfUsersReporting: 6,
+  name: "",
+  address: "",
+  phone: 5653434,
+  gender: "",
+  role: RoleList.Admin,
+  permissions: [
+    PermissionList.Read,
+    PermissionList.Write,
+    PermissionList.Execute,
+  ],
+};
