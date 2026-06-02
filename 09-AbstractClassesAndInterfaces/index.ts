@@ -90,3 +90,40 @@ console.log(itDepartment);
 console.log(adminDepartment);
 
 itDepartment.printHolidays();
+
+interface User {
+  name: string;
+  email: string;
+  login(): void;
+}
+
+class Admin implements User {
+  constructor(
+    public name: string,
+    public email: string,
+    public level: number,
+  ) {}
+  login(): void {
+    console.log(`ADMIN logged in.`);
+  }
+}
+
+class Worker implements User {
+  constructor(
+    public name: string,
+    public email: string,
+  ) {}
+  login(): void {
+    console.log(`WORKER logged in.`);
+  }
+}
+
+const admin = new Admin("Jorge", "jorge@email.com", 1);
+const worker = new Worker("Ford", "ford@email.com");
+
+function printLogin(user: User): void {
+  user.login();
+}
+
+printLogin(admin);
+printLogin(worker);

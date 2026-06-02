@@ -68,5 +68,36 @@ adminDepartment.addHoliday(adminHolidays);
 console.log(itDepartment);
 console.log(adminDepartment);
 itDepartment.printHolidays();
+class Admin {
+    name;
+    email;
+    level;
+    constructor(name, email, level) {
+        this.name = name;
+        this.email = email;
+        this.level = level;
+    }
+    login() {
+        console.log(`ADMIN logged in.`);
+    }
+}
+class Worker {
+    name;
+    email;
+    constructor(name, email) {
+        this.name = name;
+        this.email = email;
+    }
+    login() {
+        console.log(`WORKER logged in.`);
+    }
+}
+const admin = new Admin("Jorge", "jorge@email.com", 1);
+const worker = new Worker("Ford", "ford@email.com");
+function printLogin(user) {
+    user.login();
+}
+printLogin(admin);
+printLogin(worker);
 export {};
 //# sourceMappingURL=index.js.map
