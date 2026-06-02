@@ -10,26 +10,35 @@ class Department {
             }
         }
     }
-    printHolidays() {
-        if (this.holidays.length === 0) {
-            console.log("NO HOLIDAYS!");
-        }
-        console.log("HOLIDAYS:");
-        this.holidays.forEach((holiday, index) => {
-            console.log(`${++index}. Reason: ${holiday.reason}; Date: ${holiday.date}`);
-        });
-    }
 }
 class ItDepartment extends Department {
     holidays = [];
     constructor() {
         super("IT Department");
     }
+    printHolidays() {
+        if (this.holidays.length === 0) {
+            console.log("NO HOLIDAYS!");
+        }
+        console.log(`${this.name} HOLIDAYS:`);
+        this.holidays.forEach((holiday, index) => {
+            console.log(`${++index}. Reason: ${holiday.reason}; Date: ${holiday.date}`);
+        });
+    }
 }
 class AdminDepartment extends Department {
     holidays = [];
     constructor() {
         super("Admin Department");
+    }
+    printHolidays() {
+        if (this.holidays.length === 0) {
+            console.log("NO HOLIDAYS!");
+        }
+        console.log(`${this.name} HOLIDAYS:`);
+        this.holidays.forEach((holiday, index) => {
+            console.log(`${++index}. Reason: ${holiday.reason}; Date: ${holiday.date}`);
+        });
     }
 }
 const itHolidays = [
