@@ -199,3 +199,33 @@ const adminUser: adminInterface = {
     PermissionList.Execute,
   ],
 };
+
+// GENERICS
+interface Automobile<Type, Brand, Color> {
+  type: Type;
+  brand: Brand;
+  colors: Color[];
+}
+
+enum CarType {
+  Sedan = "sedan",
+  Van = "van",
+  Truck = "truck",
+}
+
+enum CarBrand {
+  Bmw = "bmw",
+  Mercedes = "mercedes",
+  Toyota = "toyota",
+}
+enum CarColor {
+  Red = "red",
+  Green = "green",
+  Petrol = "petrol",
+}
+
+const automobile: Automobile<CarType, CarBrand, CarColor> = {
+  type: CarType.Sedan,
+  brand: CarBrand.Bmw,
+  colors: [CarColor.Red, CarColor.Green],
+};

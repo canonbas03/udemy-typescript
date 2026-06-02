@@ -19,7 +19,18 @@ type MyParam = <T>(param: T) => T;
 const myParam3: MyParam = function <U>(par: U) {
   return par;
 };
+// ========
+function findBiggestNum<T>(array: T[]): T | undefined {
+  // if(Array.isArray(array)){
 
+  // }
+  return array[0];
+}
+
+findBiggestNum(["ac", "dsd"]);
+findBiggestNum([1, 23]);
+
+// =======
 // --- GENERIC FUNCTION DECLARATIONS ---
 // <T> after =, whatever generic is passed will be used
 type GetFirstElement = <T>(array: T[]) => T | undefined;
@@ -46,8 +57,10 @@ type HasLength = {
   length: number;
 };
 
-function logLength<T extends HasLength>(arr: T): void {
+function logLength<T extends HasLength>(arr: T): T {
+  // arr.
   console.log(arr.length);
+  return arr;
 }
 
 logLength(numArr);
@@ -69,7 +82,7 @@ const numberStringPair: KeyValuePair<number, string[]> = {
   key: 234,
   value: ["string value", "abc"],
 };
-
+String;
 type HasId = {
   id: number;
 };
@@ -96,6 +109,14 @@ type Events = {
   date: Date;
   type: "indoor" | "outdoor";
 };
+
+class eventClass {
+  id: number = 12;
+  name: string = "dsd";
+}
+
+type keysOfClass = keyof eventClass;
+let id: keysOfClass = "id";
 
 type UnionOfKeysOfEvents = keyof Events; // id | date | type
 
@@ -136,6 +157,8 @@ type PartialPerson = {
 
 let partial: PartialPerson = {
   name: "Hello",
+  age: 23,
+  address: "fweef",
 };
 
 // --- GENERIC DEFAULT VALUES ---
@@ -185,3 +208,15 @@ console.log(filter(numArray, (el) => el > 3));
 
 const animalArray = ["dog", "cat", "mouse"];
 console.log(filter(animalArray, (animal) => animal === "cat"));
+
+class Admin {
+  name = "Admin";
+}
+
+class User {
+  name = "User";
+}
+
+function returnClassName<T>(Base: T) {
+  return Base;
+}

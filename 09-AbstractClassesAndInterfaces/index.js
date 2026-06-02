@@ -138,5 +138,28 @@ const adminUser = {
         PermissionList.Execute,
     ],
 };
+var CarType;
+(function (CarType) {
+    CarType["Sedan"] = "sedan";
+    CarType["Van"] = "van";
+    CarType["Truck"] = "truck";
+})(CarType || (CarType = {}));
+var CarBrand;
+(function (CarBrand) {
+    CarBrand["Bmw"] = "bmw";
+    CarBrand["Mercedes"] = "mercedes";
+    CarBrand["Toyota"] = "toyota";
+})(CarBrand || (CarBrand = {}));
+var CarColor;
+(function (CarColor) {
+    CarColor["Red"] = "red";
+    CarColor["Green"] = "green";
+    CarColor["Petrol"] = "petrol";
+})(CarColor || (CarColor = {}));
+const automobile = {
+    type: CarType.Sedan,
+    brand: CarBrand.Bmw,
+    colors: [CarColor.Red, CarColor.Green],
+};
 export {};
 //# sourceMappingURL=index.js.map

@@ -10,6 +10,14 @@ const myParam2 = function (param1, param2) {
 const myParam3 = function (par) {
     return par;
 };
+// ========
+function findBiggestNum(array) {
+    // if(Array.isArray(array)){
+    // }
+    return array[0];
+}
+findBiggestNum(["ac", "dsd"]);
+findBiggestNum([1, 23]);
 const getFirstElement = (array) => {
     return array[0];
 };
@@ -21,7 +29,9 @@ const firstElement = (array) => {
     return array[0];
 };
 function logLength(arr) {
+    // arr.
     console.log(arr.length);
+    return arr;
 }
 logLength(numArr);
 logLength(strArr);
@@ -34,6 +44,7 @@ const numberStringPair = {
     key: 234,
     value: ["string value", "abc"],
 };
+String;
 // The printId func can only be invoked with an argument of type T, T must have id prop
 function printId(obj) {
     console.log(`ID: ${obj.id}`);
@@ -46,6 +57,11 @@ printId(person);
 const noIdobj = {
     name: "product",
 };
+class eventClass {
+    id = 12;
+    name = "dsd";
+}
+let id = "id";
 let idOfEvent = "id";
 let dateOfEvent = "date";
 let stringObj = {
@@ -58,6 +74,8 @@ console.log(stringObj["0"]);
 console.log(stringObj["second"]);
 let partial = {
     name: "Hello",
+    age: 23,
+    address: "fweef",
 };
 // --- GENERIC DEFAULT VALUES ---
 async function fetchData(url) {
@@ -89,5 +107,14 @@ const numArray = [1, 2, 3, 4, 5];
 console.log(filter(numArray, (el) => el > 3));
 const animalArray = ["dog", "cat", "mouse"];
 console.log(filter(animalArray, (animal) => animal === "cat"));
+class Admin {
+    name = "Admin";
+}
+class User {
+    name = "User";
+}
+function returnClassName(Base) {
+    return Base;
+}
 export {};
 //# sourceMappingURL=index.js.map
