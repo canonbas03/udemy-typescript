@@ -94,10 +94,10 @@ class Worker {
 }
 const admin = new Admin("Jorge", "jorge@email.com", 1);
 const worker = new Worker("Ford", "ford@email.com");
-function printLogin(user) {
+function Auth(user) {
     user.login();
 }
-printLogin(admin);
-printLogin(worker);
+Auth(admin);
+Auth(worker);
 export {};
 //# sourceMappingURL=index.js.map

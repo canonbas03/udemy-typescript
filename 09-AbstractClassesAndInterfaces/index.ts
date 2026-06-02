@@ -121,9 +121,9 @@ class Worker implements User {
 const admin = new Admin("Jorge", "jorge@email.com", 1);
 const worker = new Worker("Ford", "ford@email.com");
 
-function printLogin(user: User): void {
+function Auth(user: User): void {
   user.login();
 }
 
-printLogin(admin);
-printLogin(worker);
+Auth(admin);
+Auth(worker);
