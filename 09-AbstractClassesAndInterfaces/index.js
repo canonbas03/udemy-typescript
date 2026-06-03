@@ -161,5 +161,16 @@ const automobile = {
     brand: CarBrand.Bmw,
     colors: [CarColor.Red, CarColor.Green],
 };
+class Car {
+    brand;
+    colors;
+    type = CarType.Sedan;
+    constructor(brand, colors) {
+        this.brand = brand;
+        this.colors = colors;
+    }
+}
+const mercedes = new Car(CarBrand.Mercedes, [CarColor.Green]);
+console.log(mercedes);
 export {};
 //# sourceMappingURL=index.js.map

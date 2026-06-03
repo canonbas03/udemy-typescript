@@ -229,3 +229,15 @@ const automobile: Automobile<CarType, CarBrand, CarColor> = {
   brand: CarBrand.Bmw,
   colors: [CarColor.Red, CarColor.Green],
 };
+
+class Car implements Automobile<CarType, CarBrand, CarColor> {
+  public type = CarType.Sedan;
+
+  constructor(
+    public brand: CarBrand,
+    public colors: CarColor[],
+  ) {}
+}
+
+const mercedes: Car = new Car(CarBrand.Mercedes, [CarColor.Green]);
+console.log(mercedes);
