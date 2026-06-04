@@ -232,14 +232,30 @@ const automobile: Automobile<CarType, CarBrand, CarColor> = {
   colors: [CarColor.Red, CarColor.Green],
 };
 
-class Car implements Automobile<CarType, CarBrand, CarColor> {
+class Car
+  implements Automobile<CarType, CarBrand, CarColor>, CommercialVehicle
+{
   public type = CarType.Sedan;
 
   constructor(
     public brand: CarBrand,
     public colors: CarColor[],
+    public capacity: number,
+    public licenseRenewalDate: Date,
   ) {}
 }
 
-const mercedes: Car = new Car(CarBrand.Mercedes, [CarColor.Green]);
+const mercedes: Car = new Car(
+  CarBrand.Mercedes,
+  [CarColor.Green],
+  15,
+  new Date(),
+);
 console.log(mercedes);
+
+// --- MULTIPLE INTERFACES ---
+
+interface CommercialVehicle {
+  capacity: number;
+  licenseRenewalDate: Date;
+}

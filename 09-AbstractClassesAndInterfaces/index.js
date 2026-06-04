@@ -165,13 +165,17 @@ const automobile = {
 class Car {
     brand;
     colors;
+    capacity;
+    licenseRenewalDate;
     type = CarType.Sedan;
-    constructor(brand, colors) {
+    constructor(brand, colors, capacity, licenseRenewalDate) {
         this.brand = brand;
         this.colors = colors;
+        this.capacity = capacity;
+        this.licenseRenewalDate = licenseRenewalDate;
     }
 }
-const mercedes = new Car(CarBrand.Mercedes, [CarColor.Green]);
+const mercedes = new Car(CarBrand.Mercedes, [CarColor.Green], 15, new Date());
 console.log(mercedes);
 export {};
 //# sourceMappingURL=index.js.map
