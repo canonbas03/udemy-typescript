@@ -177,5 +177,25 @@ class Car {
 }
 const mercedes = new Car(CarBrand.Mercedes, [CarColor.Green], 15, new Date());
 console.log(mercedes);
+const person = {
+    name: "human",
+    // lName: "",
+};
+const person2 = {
+    name: "human",
+    lName: "",
+};
+const person4 = {
+    name: "",
+    lastName: "",
+};
+class Person4 {
+    name;
+    lastName;
+    constructor(name, lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
+}
 export {};
 //# sourceMappingURL=index.js.map

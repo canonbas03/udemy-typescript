@@ -259,3 +259,51 @@ interface CommercialVehicle {
   capacity: number;
   licenseRenewalDate: Date;
 }
+
+// DIFFERENCE BETWEEN TYPE AND INERFACE
+type Name = {
+  name: string;
+};
+
+type LastName = {
+  lName: string;
+};
+
+// union type
+type Person2 = Name | LastName;
+
+// intersection type
+type Person3 = Name & LastName;
+
+const person: Person2 = {
+  name: "human",
+  // lName: "",
+};
+
+const person2: Person3 = {
+  name: "human",
+  lName: "",
+};
+
+// Interfaces get merged if they are with the same name
+interface Name1 {
+  name: string;
+}
+
+interface LastName1 {
+  lastName: string;
+}
+
+interface Person1 extends Name1, LastName1 {}
+
+const person4: Person1 = {
+  name: "",
+  lastName: "",
+};
+
+class Person4 implements Person1 {
+  constructor(
+    public name: string,
+    public lastName: string,
+  ) {}
+}
