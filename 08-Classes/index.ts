@@ -11,6 +11,7 @@ class User {
 const user = new User();
 console.log(user);
 console.log(user.greet);
+let name = `sfsf`;
 
 // --- CONSTRUCTOR ---
 class User1 {
@@ -22,6 +23,7 @@ class User1 {
   }
 
   greet() {
+    console.log(this);
     return `${this.name} ${this.age}`;
   }
 }
@@ -61,7 +63,7 @@ class Admin extends User2 {
     usersReporting: number,
     name: string,
     age: number,
-    lastName?: string | undefined,
+    lastName: string = "admin",
   ) {
     super(name, age, lastName);
     this.isAdmin = isAdmin;
@@ -82,7 +84,9 @@ class Animal {
   private legs: number;
 
   constructor(name: string, age: number, legs: number) {
-    ((this.name = name), (this.age = age), (this.legs = legs));
+    this.name = name;
+    this.age = age;
+    this.legs = legs;
   }
 
   public showAll() {
@@ -92,20 +96,33 @@ class Animal {
   public introduce() {
     return `Hi I am ${this.name}`;
   }
+
+  public sayGoodbye() {
+    return "Goodbye!";
+  }
 }
-
+// Why would we use short-hand constructors ???
 class Dog extends Animal {
-  private woofs: boolean;
+  //private woofs: boolean;
 
-  constructor(name: string, age: number, legs: number, woofs: boolean) {
+  constructor(
+    name: string,
+    age: number,
+    legs: number,
+    private woofs: boolean,
+  ) {
     super(name, age, legs);
     this.woofs = woofs;
   }
 
   public introduce(): string {
-    return `Hi I am a dog! I am ${this.age} years old`;
+    const text = `Hi I am a dog! I am ${this.age} years old`;
+    let result = `${super.introduce()} ${text} ${super.sayGoodbye()}`;
+    return result;
   }
 }
+
+//const introDog = new Dog();
 
 class Chicken extends Animal {
   private laysEggs: boolean;
@@ -129,6 +146,8 @@ class Chicken extends Animal {
 
 const animal = new Animal("Bobi", 2, 4);
 const dog = new Dog("Miko", 4, 4, true);
+console.log("==============");
+console.log(dog.introduce());
 const chicken = new Chicken("Koko", 3, 2, true);
 
 console.log(animal.name);
@@ -180,7 +199,8 @@ const human = new Human("Komo", 150);
 
 // --- SETTER AND GETTER
 class Vehicle {
-  private _age!: number;
+  public static DEFAULT_AGE = -1;
+  private _age: number = Vehicle.DEFAULT_AGE;
   constructor(public color: string) {}
 
   public set age(age: number) {
@@ -197,10 +217,18 @@ class Vehicle {
 
     return this._age;
   }
+
+  public getAge() {
+    return this._age;
+  }
 }
 
 const vehicle = new Vehicle("blue");
-vehicle.age = 5;
+if (vehicle.age == Vehicle.DEFAULT_AGE) {
+}
+//vehicle.age = 5;
+// let a : string = vehicle.getAge();
+// console.log(a)
 console.log(vehicle.age);
 
 console.log("TTTTTETETETETE");
@@ -218,6 +246,7 @@ class Counter {
     console.log(`Initializing Counter class`);
   }
 }
+console.log("efeffefefefAAAa");
 
 console.log(Counter.count); // 0
 Counter.increment();

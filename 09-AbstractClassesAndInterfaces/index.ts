@@ -1,3 +1,4 @@
+// We have a Holidays type, which consists of  an object array, each object has 2 parameters: date and reason. date is of the type Date, and reason is of type string.
 type Holidays = {
   date: Date;
   reason: string;
@@ -19,9 +20,10 @@ abstract class Department {
 }
 
 class ItDepartment extends Department {
+  static IT_DEP = "IT Department";
   protected holidays: Holidays = [];
   constructor() {
-    super("IT Department");
+    super(ItDepartment.IT_DEP);
   }
 
   public printHolidays(): void {

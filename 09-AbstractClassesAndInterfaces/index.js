@@ -12,9 +12,10 @@ class Department {
     }
 }
 class ItDepartment extends Department {
+    static IT_DEP = "IT Department";
     holidays = [];
     constructor() {
-        super("IT Department");
+        super(ItDepartment.IT_DEP);
     }
     printHolidays() {
         if (this.holidays.length === 0) {

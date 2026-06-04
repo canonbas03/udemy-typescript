@@ -9,6 +9,7 @@ class User {
 const user = new User();
 console.log(user);
 console.log(user.greet);
+let name = `sfsf`;
 // --- CONSTRUCTOR ---
 class User1 {
     name;
@@ -18,6 +19,7 @@ class User1 {
         this.age = age;
     }
     greet() {
+        console.log(this);
         return `${this.name} ${this.age}`;
     }
 }
@@ -45,7 +47,7 @@ console.log(user2.greet());
 class Admin extends User2 {
     isAdmin = true;
     usersReporting;
-    constructor(isAdmin, usersReporting, name, age, lastName) {
+    constructor(isAdmin, usersReporting, name, age, lastName = "admin") {
         super(name, age, lastName);
         this.isAdmin = isAdmin;
         this.usersReporting = usersReporting;
@@ -61,7 +63,9 @@ class Animal {
     age;
     legs;
     constructor(name, age, legs) {
-        ((this.name = name), (this.age = age), (this.legs = legs));
+        this.name = name;
+        this.age = age;
+        this.legs = legs;
     }
     showAll() {
         return `${this.name} | ${this.age} | ${this.legs}`;
@@ -69,17 +73,26 @@ class Animal {
     introduce() {
         return `Hi I am ${this.name}`;
     }
+    sayGoodbye() {
+        return "Goodbye!";
+    }
 }
+// Why would we use short-hand constructors ???
 class Dog extends Animal {
     woofs;
+    //private woofs: boolean;
     constructor(name, age, legs, woofs) {
         super(name, age, legs);
         this.woofs = woofs;
+        this.woofs = woofs;
     }
     introduce() {
-        return `Hi I am a dog! I am ${this.age} years old`;
+        const text = `Hi I am a dog! I am ${this.age} years old`;
+        let result = `${super.introduce()} ${text} ${super.sayGoodbye()}`;
+        return result;
     }
 }
+//const introDog = new Dog();
 class Chicken extends Animal {
     laysEggs;
     constructor(name, age, legs, laysEggs) {
@@ -98,6 +111,8 @@ class Chicken extends Animal {
 }
 const animal = new Animal("Bobi", 2, 4);
 const dog = new Dog("Miko", 4, 4, true);
+console.log("==============");
+console.log(dog.introduce());
 const chicken = new Chicken("Koko", 3, 2, true);
 console.log(animal.name);
 console.log(animal.showAll());
@@ -141,7 +156,8 @@ const human = new Human("Komo", 150);
 // --- SETTER AND GETTER
 class Vehicle {
     color;
-    _age;
+    static DEFAULT_AGE = -1;
+    _age = Vehicle.DEFAULT_AGE;
     constructor(color) {
         this.color = color;
     }
@@ -157,9 +173,16 @@ class Vehicle {
         }
         return this._age;
     }
+    getAge() {
+        return this._age;
+    }
 }
 const vehicle = new Vehicle("blue");
-vehicle.age = 5;
+if (vehicle.age == Vehicle.DEFAULT_AGE) {
+}
+//vehicle.age = 5;
+// let a : string = vehicle.getAge();
+// console.log(a)
 console.log(vehicle.age);
 console.log("TTTTTETETETETE");
 // --- STATIC BLOCKS ---
@@ -172,6 +195,7 @@ class Counter {
         console.log(`Initializing Counter class`);
     }
 }
+console.log("efeffefefefAAAa");
 console.log(Counter.count); // 0
 Counter.increment();
 console.log(Counter.count); // 1
