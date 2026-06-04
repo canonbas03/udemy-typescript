@@ -116,9 +116,9 @@ const LuxuryHouse = {
 };
 var RoleList;
 (function (RoleList) {
-    RoleList["Admin"] = "admin";
-    RoleList["Worker"] = "worker";
-    RoleList["Mole"] = "mole";
+    RoleList[RoleList["Admin"] = 3] = "Admin";
+    RoleList[RoleList["Worker"] = 2] = "Worker";
+    RoleList[RoleList["Mole"] = 3] = "Mole";
 })(RoleList || (RoleList = {}));
 var PermissionList;
 (function (PermissionList) {
@@ -138,6 +138,15 @@ const adminUser = {
         PermissionList.Write,
         PermissionList.Execute,
     ],
+};
+const testUser = {
+    numberOfUsersReporting: 0,
+    name: "",
+    address: "",
+    phone: 0,
+    gender: "",
+    role: RoleList.Admin,
+    permissions: [],
 };
 var CarType;
 (function (CarType) {
@@ -179,7 +188,7 @@ const mercedes = new Car(CarBrand.Mercedes, [CarColor.Green], 15, new Date());
 console.log(mercedes);
 const person = {
     name: "human",
-    // lName: "",
+    //lName: "",
 };
 const person2 = {
     name: "human",
@@ -188,14 +197,33 @@ const person2 = {
 const person4 = {
     name: "",
     lastName: "",
+    galeno: "",
 };
 class Person4 {
     name;
     lastName;
-    constructor(name, lastName) {
+    galeno;
+    constructor(name, lastName, galeno) {
         this.name = name;
         this.lastName = lastName;
+        this.galeno = galeno;
     }
 }
+class Person5 {
+    greet() {
+        return `Hi I am ${this.name} `;
+    }
+}
+class RegisteredPerson extends Person5 {
+    name;
+    lName;
+    constructor(name, lName) {
+        super();
+        this.name = name;
+        this.lName = lName;
+    }
+}
+const person5 = new RegisteredPerson("Name", "lastName");
+console.log(person5.greet());
 export {};
 //# sourceMappingURL=index.js.map

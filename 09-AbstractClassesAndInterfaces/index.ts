@@ -165,9 +165,9 @@ interface Person {
 }
 
 enum RoleList {
-  Admin = "admin",
-  Worker = "worker",
-  Mole = "mole",
+  Admin = 3,
+  Worker = 2,
+  Mole,
 }
 
 interface Role {
@@ -200,6 +200,16 @@ const adminUser: adminInterface = {
     PermissionList.Write,
     PermissionList.Execute,
   ],
+};
+
+const testUser: adminInterface = {
+  numberOfUsersReporting: 0,
+  name: "",
+  address: "",
+  phone: 0,
+  gender: "",
+  role: RoleList.Admin,
+  permissions: [],
 };
 
 // GENERICS
@@ -277,7 +287,7 @@ type Person3 = Name & LastName;
 
 const person: Person2 = {
   name: "human",
-  // lName: "",
+  //lName: "",
 };
 
 const person2: Person3 = {
@@ -290,20 +300,50 @@ interface Name1 {
   name: string;
 }
 
+interface Name1 {
+  galeno: string;
+}
+
 interface LastName1 {
   lastName: string;
 }
 
 interface Person1 extends Name1, LastName1 {}
-
+interface Greeting {
+  greeting: () => void;
+  // greeting(): void;
+}
 const person4: Person1 = {
   name: "",
   lastName: "",
+  galeno: "",
 };
 
 class Person4 implements Person1 {
   constructor(
     public name: string,
     public lastName: string,
+    public galeno: string,
   ) {}
 }
+
+abstract class Person5 {
+  public abstract name: string;
+  public abstract lName: string;
+
+  public greet() {
+    return `Hi I am ${this.name} `;
+  }
+}
+
+class RegisteredPerson extends Person5 {
+  constructor(
+    public name: string,
+    public lName: string,
+  ) {
+    super();
+  }
+}
+
+const person5: RegisteredPerson = new RegisteredPerson("Name", "lastName");
+console.log(person5.greet());
