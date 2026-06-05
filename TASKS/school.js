@@ -8,7 +8,7 @@ var Subjects;
     Subjects["Literature"] = "literature";
     Subjects["PhysicalEducation"] = "physical education";
 })(Subjects || (Subjects = {}));
-class Class {
+class StudentClass {
     name;
     students;
     constructor(name, students) {
@@ -46,60 +46,6 @@ class Teacher {
         this.classes = classes;
     }
 }
-const address = {
-    city: "Varna",
-    street: "Primorski",
-    number: 6,
-};
-// Students
-const student1 = {
-    name: "John",
-    age: 14,
-    gradesOnSubjects: [
-        [Subjects.Bulgarian, 6],
-        [Subjects.Chemistry, 3],
-    ],
-};
-const student2 = {
-    name: "John",
-    age: 14,
-    gradesOnSubjects: [
-        [Subjects.Bulgarian, 6],
-        [Subjects.Chemistry, 3],
-    ],
-};
-// Classes
-const class1 = new Class("8 A class", [student1, student2]);
-const class2 = new Class("8 B class", [student1, student2]);
-// Classrooms
-const classroom1 = {
-    classStudents: class1,
-    sizeInSqM: 40,
-    maxStudents: 20,
-};
-const classroom2 = {
-    classStudents: class2,
-    sizeInSqM: 39,
-    maxStudents: 19,
-};
-// Floors
-const floor1 = {
-    classrooms: [classroom1, classroom2],
-    teacherRooms: [],
-    toiletCount: 2,
-};
-const building = {
-    sizeInSqM: 300,
-    floors: [floor1],
-};
-// Teacher rooms
-const teacher1 = new Teacher("Anna", 35, "female", Subjects.Bulgarian, [class1, class2]);
-const teacherRoom1 = {
-    sizeInSqM: 50,
-    teachers: [],
-    maxTeachers: 0,
-};
-const baseSchool = new School("School Name", 2026, address, building, [teacher1], [class1, class2]);
 class Building {
     sizeInSqM;
     floors;
@@ -118,7 +64,7 @@ class Floor {
         this.toiletCount = toiletCount;
     }
 }
-class Classroom {
+class StudentClassroom {
     classStudents;
     sizeInSqM;
     maxStudents;
@@ -148,5 +94,38 @@ class Student {
         this.gradesOnSubjects = gradesOnSubjects;
     }
 }
+const address = {
+    city: "Varna",
+    street: "Primorski",
+    number: 6,
+};
+// Students
+const student1 = new Student("Alice", 14, [
+    [Subjects.Bulgarian, 6],
+    [Subjects.Chemistry, 4],
+]);
+const student2 = new Student("John", 14, [
+    [Subjects.Bulgarian, 6],
+    [Subjects.Chemistry, 3],
+]);
+// StudentClasses
+const class1 = new StudentClass("8 A class", [
+    student1,
+    student2,
+]);
+const class2 = new StudentClass("8 B class", [
+    student1,
+    student2,
+]);
+// StudentClassrooms
+const classroom1 = new StudentClassroom(class1, 40, 20);
+const classroom2 = new StudentClassroom(class2, 39, 19);
+// Teacher rooms
+const teacher1 = new Teacher("Anna", 35, "female", Subjects.Bulgarian, [class1, class2]);
+const teacherRoom1 = new TeacherRoom(50, [teacher1], 25);
+// Floors
+const floor1 = new Floor([classroom1, classroom2], [teacherRoom1], 2);
+const building = new Building(300, [floor1]);
+const baseSchool = new School("School Name", 2026, address, building, [teacher1], [class1, class2]);
 export {};
 //# sourceMappingURL=school.js.map
