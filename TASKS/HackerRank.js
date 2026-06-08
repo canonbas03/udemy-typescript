@@ -17,10 +17,7 @@ function cutTheTree(data, edges) {
     const total = data.reduce((acc, number) => acc + number, 0);
     let minDifference = Infinity;
     function getSum(currentNode, parentNode) {
-        // 1. Start with the current node's own value.
-        // Remember your comment: node numbers are 1-based, but the `data` array is 0-based!
         let currentSum = data[currentNode - 1] ?? 0;
-        // 2. Loop through all neighbors of the current node using `mapper[currentNode]`
         const currentNodeNeighbors = mapper[currentNode];
         if (currentNodeNeighbors != undefined) {
             for (const neighbor of currentNodeNeighbors) {
@@ -34,7 +31,6 @@ function cutTheTree(data, edges) {
                 }
             }
         }
-        // 3. Return the total sum for this sub-tree
         return currentSum;
     }
     getSum(1, 0);
