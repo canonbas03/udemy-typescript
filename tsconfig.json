@@ -1,11 +1,10 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
-  "exclude": ["*/app2.ts", "node_modules", "*/exclude.ts", "**/*.exclude.ts"],
   "compilerOptions": {
     // File Layout
     // "rootDir": "./src",
     // "outDir": "./dist",
-    "sourceMap": true,
+    //"sourceMap": true,
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -17,9 +16,6 @@
     // "types": ["node"],
     // and npm install -D @types/node
 
-    /* Modules */
-    "rootDir": "./10-TypeScriptCompiler/src",
-    "outDir": "./10-TypeScriptCompiler/dist",
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
