@@ -33,7 +33,7 @@ findBiggestNum([1, 23]);
 // =======
 // --- GENERIC FUNCTION DECLARATIONS ---
 // <T> after =, whatever generic is passed will be used
-type GetFirstElement = <T>(array: T[]) => T | undefined;
+type GetFirstElement = <T>(array: T[]) => T;
 
 const getFirstElement: GetFirstElement = (array) => {
   return array[0];
