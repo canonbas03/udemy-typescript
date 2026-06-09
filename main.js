@@ -141,3 +141,17 @@ const admin = new AdminUser("Mark", "mark@email.com", 10);
 
 console.log(admin);
 console.log(user5);
+
+// Alternate methods to create objects
+const alt_book = {
+  title: "the title",
+  pages: 300,
+  author: "John",
+};
+
+const alt_book2 = new Object();
+alt_book2.title = "Book2 title";
+alt_book2.pages = 250;
+alt_book2.author = "Mark";
+
+console.log(alt_book2);
