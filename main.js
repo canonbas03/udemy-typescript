@@ -155,3 +155,26 @@ alt_book2.pages = 250;
 alt_book2.author = "Mark";
 
 console.log(alt_book2);
+
+console.log(Object.getOwnPropertyDescriptors(book));
+
+// Define property
+const book6 = new Object();
+
+Object.defineProperty(book6, "title", {
+  value: "This is the title of the book6",
+  writeable: true,
+  enumerable: true,
+  configurable: true,
+});
+
+Object.defineProperty(book6, "author", {
+  value: "John",
+  writeable: false,
+  enumerable: true,
+  configurable: true,
+});
+// value wont change, because the writable is false
+book6.author = "Mark";
+
+console.log(book6);
