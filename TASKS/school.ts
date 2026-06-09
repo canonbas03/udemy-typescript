@@ -1,3 +1,8 @@
+const MAX_TEACHERS = 30;
+const MAX_STUDENTS = 30;
+const MAX_GRADES_PER_SUBJECT = 4;
+const MAX_CLASSES_PER_YEAR = 5;
+
 enum Subjects {
   Math = "math",
   Bulgarian = "bulgarian",
@@ -10,29 +15,71 @@ enum Subjects {
 
 class StudentClass {
   constructor(
-    public name: string,
-    public students: Student[],
+    private name: string,
+    private students: Student[],
   ) {}
 }
 
+// Only one school allowed !!! singleton
 class School {
-  constructor(
-    public name: string,
-    public readonly foundYear: number,
-    public address: Address,
-    public building: Building,
-    public teachers: Teacher[],
-    public classes: StudentClass[],
+  private static instance: School | null = null;
+  private constructor(
+    private name: string,
+    private readonly foundYear: number,
+    private address: Address,
+    private building: Building,
+    private teachers: Teacher[],
+    private classes: StudentClass[],
   ) {}
+
+  public static getInstance(
+    name: string,
+    foundYear: number,
+    address: Address,
+    building: Building,
+    teachers: Teacher[],
+    classes: StudentClass[],
+  ): School {
+    if (!this.instance) {
+      this.instance = new School(
+        name,
+        foundYear,
+        address,
+        building,
+        teachers,
+        classes,
+      );
+    }
+
+    return this.instance;
+  }
 }
 
-class Teacher {
+// Person with teacher and student
+
+class Person {
   constructor(
-    public name: string,
-    public age: number,
-    public sex: "male" | "female",
-    public subject: Subjects,
-    public classes: StudentClass[],
+    protected _name: string,
+    protected _age: number,
+  ) {}
+}
+class Teacher extends Person {
+  constructor(
+    _name: string,
+    _age: number,
+    private sex: "male" | "female",
+    private subject: Subjects,
+    private classes: StudentClass[],
+  ) {
+    super(_name, _age);
+  }
+}
+
+class Student {
+  constructor(
+    private name: string,
+    private age: number,
+    private gradesOnSubjects: [Subjects, number][],
   ) {}
 }
 
@@ -44,40 +91,42 @@ type Address = {
 
 class Building {
   constructor(
-    public sizeInSqM: number,
-    public readonly floors: Floor[],
+    private sizeInSqM: number,
+    private readonly floors: Floor[],
   ) {}
 }
 
 class Floor {
   constructor(
-    public classrooms: StudentClassroom[],
-    public teacherRooms: TeacherRoom[],
-    public toiletCount: number,
+    private classrooms: StudentClassroom[],
+    private teacherRooms: TeacherRoom[],
+    private toiletCount: number,
   ) {}
 }
 
-class StudentClassroom {
+class Room {
   constructor(
-    public classStudents: StudentClass,
-    public readonly sizeInSqM: number,
-    public maxStudents: number,
+    protected _max_people: number,
+    protected readonly _sizeInSqM: number,
   ) {}
+}
+class StudentClassroom extends Room {
+  constructor(
+    _max_people: number,
+    _sizeInSqM: number,
+    private classStudents: StudentClass,
+    // private readonly sizeInSqM: number,
+    // private maxStudents: number,
+  ) {
+    super(_max_people, _sizeInSqM);
+  }
 }
 
 class TeacherRoom {
   constructor(
-    public readonly sizeInSqM: number,
-    public teachers: Teacher[],
-    public maxTeachers: number,
-  ) {}
-}
-
-class Student {
-  constructor(
-    public name: string,
-    public age: number,
-    public gradesOnSubjects: [Subjects, number][],
+    private readonly sizeInSqM: number,
+    private teachers: Teacher[],
+    private maxTeachers: number,
   ) {}
 }
 
@@ -109,9 +158,9 @@ const class2: StudentClass = new StudentClass("8 B class", [
 ]);
 
 // StudentClassrooms
-const classroom1: StudentClassroom = new StudentClassroom(class1, 40, 20);
+const classroom1: StudentClassroom = new StudentClassroom(20, 40, class1);
 
-const classroom2: StudentClassroom = new StudentClassroom(class2, 39, 19);
+const classroom2: StudentClassroom = new StudentClassroom(39, 19, class2);
 
 // Teacher rooms
 const teacher1: Teacher = new Teacher(
@@ -128,7 +177,7 @@ const teacherRoom1: TeacherRoom = new TeacherRoom(50, [teacher1], 25);
 const floor1: Floor = new Floor([classroom1, classroom2], [teacherRoom1], 2);
 const building: Building = new Building(300, [floor1]);
 
-const baseSchool: School = new School(
+const baseSchool: School = School.getInstance(
   "School Name",
   2026,
   address,
