@@ -178,3 +178,26 @@ Object.defineProperty(book6, "author", {
 book6.author = "Mark";
 
 console.log(book6);
+
+// Final user
+function FUser(name, email) {
+  this.name = name;
+  this.email = email;
+  this.points = 0;
+}
+
+FUser.prototype.login = function () {
+  console.log(this.name, "Has logged in");
+};
+
+FUser.prototype.logout = function () {
+  console.log(this.name, "Has logged out");
+};
+
+FUser.prototype.addPoint = function () {
+  this.points++;
+  console.log("total points", this.points);
+};
+
+const fUser = new FUser("TESTname", "d", 5);
+console.log(fUser);

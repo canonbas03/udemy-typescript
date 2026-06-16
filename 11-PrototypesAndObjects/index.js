@@ -7,12 +7,12 @@ const book = {
             console.log(`${this.title}1 - ${author}`);
         });
     },
-    printAuthors2() {
-        this.authors.forEach(function (author) {
-            //console.log(`${this.title} - ${author}`);
-        }, this);
-    }, // We get an error because the this keyword is internal for the anonymous function
-    // It refers to the Global scope
+    //   printAuthors2() {
+    //     this.authors.forEach(function (author) {
+    //       console.log(`${this.title} - ${author}`);
+    //     }, this);
+    //   }, // We get an error because the this keyword is internal for the anonymous function
+    //   // It refers to the Global scope
     printAuthors3() {
         this.authors.forEach(function (author) {
             console.log(`${this.title}3 - ${author}`);
