@@ -267,5 +267,116 @@ let user4 = new Person4("John");
 user.greet("Hello");
 const greet4 = user.greet;
 greet("Morning");
+// --- FIELD DECORATORS ---
+//! You could use Value extends [] for liberal typing
+function addDefaultPost(_target, _context) {
+    return function (initialValue) {
+        initialValue.push({
+            title: "Defualt Title",
+            content: "Default Content",
+        });
+        return initialValue;
+    };
+}
+let Author2 = (() => {
+    let _posts_decorators;
+    let _posts_initializers = [];
+    let _posts_extraInitializers = [];
+    return class Author2 {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _posts_decorators = [addDefaultPost];
+            __esDecorate(null, null, _posts_decorators, { kind: "field", name: "posts", static: false, private: false, access: { has: obj => "posts" in obj, get: obj => obj.posts, set: (obj, value) => { obj.posts = value; } }, metadata: _metadata }, _posts_initializers, _posts_extraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        name;
+        posts = __runInitializers(this, _posts_initializers, []);
+        constructor(name) {
+            __runInitializers(this, _posts_extraInitializers);
+            this.name = name;
+        }
+        greet(greeting) {
+            console.log(` ${greeting}, ${this.name}`);
+        }
+    };
+})();
+const author2 = new Author2("Mark");
+console.log(author2.posts);
+// --- CLASS DECORATORS ---
+//! GENRIC CONSTRUCTOR TYPE TO BE USED FIRST IF NEED TO EXTEND ANY CLASS
+// { new (...args: any[]): {} }
+function addGreetMethod(baseClass, _context) {
+    return class extends baseClass {
+        constructor(...args) {
+            super(...args);
+            this.greet = (greeting) => {
+                console.log(` ${greeting}, ${this.name}! Have a great day`);
+            };
+        }
+    };
+}
+//! We will get an error without proper Generics in place
+let Author = (() => {
+    let _classDecorators = [addGreetMethod];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    var Author = class {
+        static { _classThis = this; }
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+            Author = _classThis = _classDescriptor.value;
+            if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+            __runInitializers(_classThis, _classExtraInitializers);
+        }
+        name;
+        constructor(name) {
+            this.name = name;
+        }
+    };
+    return Author = _classThis;
+})();
+const author = new Author("Mark");
+console.log(author);
+// --- DECORATORS FOR ACCESSORS AND MUTATORS ---
+function getter(getter, context) {
+    console.log(getter);
+    console.log(context);
+}
+function setter(setter, context) {
+    console.log(setter);
+    console.log(context);
+}
+let Person5 = (() => {
+    let _instanceExtraInitializers = [];
+    let _get_age_decorators;
+    let _set_age_decorators;
+    return class Person5 {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _get_age_decorators = [getter];
+            _set_age_decorators = [setter];
+            __esDecorate(this, null, _get_age_decorators, { kind: "getter", name: "age", static: false, private: false, access: { has: obj => "age" in obj, get: obj => obj.age }, metadata: _metadata }, null, _instanceExtraInitializers);
+            __esDecorate(this, null, _set_age_decorators, { kind: "setter", name: "age", static: false, private: false, access: { has: obj => "age" in obj, set: (obj, value) => { obj.age = value; } }, metadata: _metadata }, null, _instanceExtraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        _age = __runInitializers(this, _instanceExtraInitializers);
+        name;
+        constructor(name, _age = 10) {
+            this._age = _age;
+            this.name = name;
+        }
+        greet() {
+            console.log(`Hello, my name is ${this.name}.`);
+        }
+        get age() {
+            return this._age;
+        }
+        set age(value) {
+            this._age = value;
+        }
+    };
+})();
 export {};
 //# sourceMappingURL=index.js.map
