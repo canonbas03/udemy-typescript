@@ -340,6 +340,7 @@ let Author = (() => {
 const author = new Author("Mark");
 console.log(author);
 // --- DECORATORS FOR ACCESSORS AND MUTATORS ---
+console.log("\n", "// --- DECORATORS FOR ACCESSORS AND MUTATORS");
 function getter(getter, context) {
     console.log(getter);
     console.log(context);
@@ -378,5 +379,54 @@ let Person5 = (() => {
         }
     };
 })();
+// --- ENHANCING ACCESSOR DECORATORS ---
+function getter2(getter, _context) {
+    return function () {
+        const result = getter.call(this);
+        if (result > 18) {
+            console.log("Person is an adult");
+        }
+        return result;
+    };
+}
+function setter2(setter, _context) {
+    return function (arg) {
+        console.log(`Setting the age to ${arg}`);
+        return setter.call(this, arg);
+    };
+}
+let Person6 = (() => {
+    let _instanceExtraInitializers = [];
+    let _get_age_decorators;
+    let _set_age_decorators;
+    return class Person6 {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _get_age_decorators = [getter2];
+            _set_age_decorators = [setter2];
+            __esDecorate(this, null, _get_age_decorators, { kind: "getter", name: "age", static: false, private: false, access: { has: obj => "age" in obj, get: obj => obj.age }, metadata: _metadata }, null, _instanceExtraInitializers);
+            __esDecorate(this, null, _set_age_decorators, { kind: "setter", name: "age", static: false, private: false, access: { has: obj => "age" in obj, set: (obj, value) => { obj.age = value; } }, metadata: _metadata }, null, _instanceExtraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        _age = __runInitializers(this, _instanceExtraInitializers);
+        name;
+        constructor(name, _age = 10) {
+            this._age = _age;
+            this.name = name;
+        }
+        greet() {
+            console.log(`Hello, my name is ${this.name}.`);
+        }
+        get age() {
+            return this._age;
+        }
+        set age(value) {
+            this._age = value;
+        }
+    };
+})();
+const person = new Person6("Mark");
+person.age = 20;
+console.log(person.age);
 export {};
 //# sourceMappingURL=index.js.map

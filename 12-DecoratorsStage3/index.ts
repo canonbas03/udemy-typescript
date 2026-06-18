@@ -288,6 +288,7 @@ const author = new Author("Mark");
 console.log(author);
 
 // --- DECORATORS FOR ACCESSORS AND MUTATORS ---
+console.log("\n", "// --- DECORATORS FOR ACCESSORS AND MUTATORS");
 function getter(getter: any, context: ClassGetterDecoratorContext) {
   console.log(getter);
   console.log(context);
@@ -322,3 +323,56 @@ class Person5 {
     this._age = value;
   }
 }
+
+// --- ENHANCING ACCESSOR DECORATORS ---
+function getter2<This, Value>(
+  getter: Function,
+  _context: ClassGetterDecoratorContext<This, Value>,
+) {
+  return function (this: This) {
+    const result = getter.call(this);
+    if (result > 18) {
+      console.log("Person is an adult");
+    }
+    return result;
+  };
+}
+
+function setter2<This, Value, Return>(
+  setter: (args: Value) => Return,
+  _context: ClassSetterDecoratorContext<This, Value>,
+) {
+  return function (this: This, arg: any) {
+    console.log(`Setting the age to ${arg}`);
+    return setter.call(this, arg);
+  };
+}
+
+class Person6 {
+  name: string;
+
+  constructor(
+    name: string,
+    private _age: number = 10,
+  ) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+
+  @getter2
+  public get age() {
+    return this._age;
+  }
+
+  @setter2
+  public set age(value) {
+    this._age = value;
+  }
+}
+
+const person = new Person6("Mark");
+person.age = 20;
+console.log(person.age);
