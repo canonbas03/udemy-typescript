@@ -1,3 +1,5 @@
+// Class decorator
+//@PrintDecoratorData
 class Manager {
     task = "Simple task";
     project = "Simple project";
@@ -5,6 +7,7 @@ class Manager {
         console.log("Initializing the manager class");
     }
 }
+function PrintDecoratorData(value, context) { }
 // Calling the constructor
 console.log("// Calling the constructor");
 new Manager();
