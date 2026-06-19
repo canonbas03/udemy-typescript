@@ -110,7 +110,8 @@ const manager = new Manager();
 console.log(manager);
 // */
 
-//*
+// DECORATOR FACTORIES
+/*
 type Task = {
   name: string;
   level: "low" | "medium" | "high";
@@ -145,4 +146,45 @@ function withComplicatedTask() {
 }
 const manager = new Manager();
 console.log(manager);
+// */
+
+// METHOD DECORATORS
+//*
+class Project {
+  budget: number = 900;
+
+  @withBudget(10)
+  writeTests() {
+    console.log("Write Test method is called.");
+  }
+
+  @withBudget(500)
+  fixBugInProduction() {
+    console.log("fixBugInProduction method is called.");
+  }
+}
+
+function withBudget(requiredBudget: number) {
+  return function <T extends { budget: number }>(
+    target: Function,
+    context: ClassMethodDecoratorContext<T>,
+  ) {
+    return function (this: T, ...args: any) {
+      const instance = this as T;
+      if (instance.budget >= requiredBudget) {
+        instance.budget -= requiredBudget;
+        target.apply(instance, args);
+      } else {
+        console.error(
+          `Not enough budget to perform the action: ${context.name.toString()}. Budget: ${instance.budget}, required: ${requiredBudget}`,
+        );
+      }
+    };
+  };
+}
+
+const project = new Project();
+project.writeTests();
+project.fixBugInProduction();
+project.fixBugInProduction();
 // */

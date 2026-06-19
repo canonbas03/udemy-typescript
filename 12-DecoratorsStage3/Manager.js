@@ -25,6 +25,13 @@ const manager = new Manager();
 console.log("// Manager logging:");
 console.log(manager);
 // */
+var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
+};
 var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
     var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
@@ -52,52 +59,166 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
 };
-var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
-    var useValue = arguments.length > 2;
-    for (var i = 0; i < initializers.length; i++) {
-        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-    }
-    return useValue ? value : void 0;
-};
-let Manager = (() => {
-    let _tasks_decorators;
-    let _tasks_initializers = [];
-    let _tasks_extraInitializers = [];
-    let _extraTasks_decorators;
-    let _extraTasks_initializers = [];
-    let _extraTasks_extraInitializers = [];
-    return class Manager {
-        static {
-            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            _tasks_decorators = [withTask({ name: "added task 1", level: "low" })];
-            _extraTasks_decorators = [withComplicatedTask()];
-            __esDecorate(null, null, _tasks_decorators, { kind: "field", name: "tasks", static: false, private: false, access: { has: obj => "tasks" in obj, get: obj => obj.tasks, set: (obj, value) => { obj.tasks = value; } }, metadata: _metadata }, _tasks_initializers, _tasks_extraInitializers);
-            __esDecorate(null, null, _extraTasks_decorators, { kind: "field", name: "extraTasks", static: false, private: false, access: { has: obj => "extraTasks" in obj, get: obj => obj.extraTasks, set: (obj, value) => { obj.extraTasks = value; } }, metadata: _metadata }, _extraTasks_initializers, _extraTasks_extraInitializers);
-            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-        }
-        tasks = __runInitializers(this, _tasks_initializers, []);
-        extraTasks = (__runInitializers(this, _tasks_extraInitializers), __runInitializers(this, _extraTasks_initializers, []));
-        constructor() {
-            __runInitializers(this, _extraTasks_extraInitializers);
-        }
-    };
-})();
-function withTask(task) {
-    return function (target, context) {
-        return function (args) {
-            args.push(task);
-            return args;
-        };
-    };
+// ADDING A FIELD ON A PROTOTYPE
+/*
+@withEmploymentDateOnPrototype
+class Manager {
+  task: string = "Simple task";
+  project: string = "Simple project";
+
+  constructor() {
+    console.log("Initializing the manager class");
+  }
 }
-function withComplicatedTask() {
-    return withTask({
-        name: "complicated task",
-        level: "medium",
+
+function withEmploymentDateOnPrototype(
+  value: Function,
+  context: ClassDecoratorContext,
+) {
+  value.prototype.employmentDateOnPrototype = new Date().toString();
+}
+// */
+// ADDING A FIELD INSIDE THE OBJECT DEFFINITION
+/*
+@withEmploymentDate
+class Manager {
+  task: string = "Simple task";
+  project: string = "Simple project";
+
+  constructor() {
+    console.log("Initializing the manager class");
+  }
+}
+
+function withEmploymentDate<T extends { new (...args: any[]): {} }>(
+  baseClass: T,
+) {
+  console.log("Invoking decorator:");
+
+  return class extends baseClass {
+    eploymentDate: string = new Date().toISOString();
+    constructor(...args: any[]) {
+      super(...args);
+
+      console.log(`Adding employment date to ${baseClass.name}`);
+    }
+  };
+}
+
+const manager = new Manager();
+console.log(manager);
+// */
+// FIELD DECORATORS
+/*
+type Task = {
+  name: string;
+  level: "low" | "medium" | "high";
+};
+
+class Manager {
+  @withComplicatedTask
+  tasks: Task[] = [];
+}
+
+function withComplicatedTask<T, V extends Task[]>(
+  target: undefined,
+  context: ClassFieldDecoratorContext<T, V>,
+) {
+  return function (args: V) {
+    args.push({
+      name: "added task 1",
+      level: "high",
     });
+    args.push({
+      name: "added task 2",
+      level: "low",
+    });
+
+    return args;
+  };
 }
 const manager = new Manager();
 console.log(manager);
+// */
+// DECORATOR FACTORIES
+/*
+type Task = {
+  name: string;
+  level: "low" | "medium" | "high";
+};
+
+class Manager {
+  @withTask({ name: "added task 1", level: "low" })
+  tasks: Task[] = [];
+
+  @withComplicatedTask()
+  extraTasks: Task[] = [];
+}
+
+function withTask(task: Task) {
+  return function <T, V extends Task[]>(
+    target: undefined,
+    context: ClassFieldDecoratorContext<T, V>,
+  ) {
+    return function (args: V) {
+      args.push(task);
+
+      return args;
+    };
+  };
+}
+
+function withComplicatedTask() {
+  return withTask({
+    name: "complicated task",
+    level: "medium",
+  });
+}
+const manager = new Manager();
+console.log(manager);
+// */
+// METHOD DECORATORS
+//*
+let Project = (() => {
+    let _instanceExtraInitializers = [];
+    let _writeTests_decorators;
+    let _fixBugInProduction_decorators;
+    return class Project {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _writeTests_decorators = [withBudget(10)];
+            _fixBugInProduction_decorators = [withBudget(500)];
+            __esDecorate(this, null, _writeTests_decorators, { kind: "method", name: "writeTests", static: false, private: false, access: { has: obj => "writeTests" in obj, get: obj => obj.writeTests }, metadata: _metadata }, null, _instanceExtraInitializers);
+            __esDecorate(this, null, _fixBugInProduction_decorators, { kind: "method", name: "fixBugInProduction", static: false, private: false, access: { has: obj => "fixBugInProduction" in obj, get: obj => obj.fixBugInProduction }, metadata: _metadata }, null, _instanceExtraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        budget = (__runInitializers(this, _instanceExtraInitializers), 900);
+        writeTests() {
+            console.log("Write Test method is called.");
+        }
+        fixBugInProduction() {
+            console.log("fixBugInProduction method is called.");
+        }
+    };
+})();
+function withBudget(requiredBudget) {
+    return function (target, context) {
+        return function (...args) {
+            const instance = this;
+            if (instance.budget >= requiredBudget) {
+                instance.budget -= requiredBudget;
+                target.apply(instance, args);
+            }
+            else {
+                console.error(`Not enough budget to perform the action: ${context.name.toString()}. Budget: ${instance.budget}, required: ${requiredBudget}`);
+            }
+        };
+    };
+}
+const project = new Project();
+project.writeTests();
+project.fixBugInProduction();
+project.fixBugInProduction();
 export {};
 // */
 //# sourceMappingURL=Manager.js.map
