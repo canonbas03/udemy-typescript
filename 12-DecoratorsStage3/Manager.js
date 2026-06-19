@@ -1,6 +1,5 @@
+// CLASS DECORATOR
 /*
-
-// Class decorator
 @PrintDecoratorData
 class Manager {
   task: string = "Simple task";
@@ -25,7 +24,6 @@ const manager = new Manager();
 
 console.log("// Manager logging:");
 console.log(manager);
-
 // */
 var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
@@ -61,10 +59,29 @@ var __runInitializers = (this && this.__runInitializers) || function (thisArg, i
     }
     return useValue ? value : void 0;
 };
+// ADDING A FIELD ON A PROTOTYPE
+/*
+@withEmploymentDateOnPrototype
+class Manager {
+  task: string = "Simple task";
+  project: string = "Simple project";
+
+  constructor() {
+    console.log("Initializing the manager class");
+  }
+}
+
+function withEmploymentDateOnPrototype(
+  value: Function,
+  context: ClassDecoratorContext,
+) {
+  value.prototype.employmentDateOnPrototype = new Date().toString();
+}
+// */
+// ADDING A FIELD INSIDE THE OBJECT DEFFINITION
 //*
-// Class decorator
 let Manager = (() => {
-    let _classDecorators = [withEmploymentDateOnPrototype];
+    let _classDecorators = [withEmploymentDate];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
@@ -85,19 +102,17 @@ let Manager = (() => {
     };
     return Manager = _classThis;
 })();
-function PrintDecoratorData(value, context) {
-    console.log("Value: ");
-    console.log(value);
-    console.log("Class Decorator Context:");
-    console.log(context);
+function withEmploymentDate(baseClass) {
+    console.log("Invoking decorator:");
+    return class extends baseClass {
+        eploymentDate = new Date().toISOString();
+        constructor(...args) {
+            super(...args);
+            console.log(`Adding employment date to ${baseClass.name}`);
+        }
+    };
 }
-function withEmploymentDateOnPrototype(value, context) {
-    value.prototype.employmentDateOnPrototype = new Date().toString();
-}
-// Calling the constructor
-console.log("// Calling the constructor");
 const manager = new Manager();
-console.log("// Manager logging:");
 console.log(manager);
 export {};
 // */

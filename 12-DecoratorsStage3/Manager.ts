@@ -1,6 +1,5 @@
+// CLASS DECORATOR
 /*
-
-// Class decorator
 @PrintDecoratorData
 class Manager {
   task: string = "Simple task";
@@ -25,11 +24,10 @@ const manager = new Manager();
 
 console.log("// Manager logging:");
 console.log(manager);
-
 // */
 
-//*
-// Class decorator
+// ADDING A FIELD ON A PROTOTYPE
+/*
 @withEmploymentDateOnPrototype
 class Manager {
   task: string = "Simple task";
@@ -40,25 +38,41 @@ class Manager {
   }
 }
 
-function PrintDecoratorData(value: Function, context: ClassDecoratorContext) {
-  console.log("Value: ");
-  console.log(value);
-
-  console.log("Class Decorator Context:");
-  console.log(context);
-}
-
 function withEmploymentDateOnPrototype(
   value: Function,
   context: ClassDecoratorContext,
 ) {
   value.prototype.employmentDateOnPrototype = new Date().toString();
 }
+// */
 
-// Calling the constructor
-console.log("// Calling the constructor");
+// ADDING A FIELD INSIDE THE OBJECT DEFFINITION
+//*
+@withEmploymentDate
+class Manager {
+  task: string = "Simple task";
+  project: string = "Simple project";
+
+  constructor() {
+    console.log("Initializing the manager class");
+  }
+}
+
+function withEmploymentDate<T extends { new (...args: any[]): {} }>(
+  baseClass: T,
+) {
+  console.log("Invoking decorator:");
+
+  return class extends baseClass {
+    eploymentDate: string = new Date().toISOString();
+    constructor(...args: any[]) {
+      super(...args);
+
+      console.log(`Adding employment date to ${baseClass.name}`);
+    }
+  };
+}
+
 const manager = new Manager();
-
-console.log("// Manager logging:");
 console.log(manager);
 // */
