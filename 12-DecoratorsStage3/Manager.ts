@@ -117,26 +117,31 @@ type Task = {
 };
 
 class Manager {
-  @withTask
+  @withTask({ name: "added task 1", level: "low" })
   tasks: Task[] = [];
+
+  @withComplicatedTask()
+  extraTasks: Task[] = [];
 }
 
-function withTask<T, V extends Task[]>(
-  target: undefined,
-  context: ClassFieldDecoratorContext<T, V>,
-) {
-  return function (args: V) {
-    args.push({
-      name: "added task 1",
-      level: "high",
-    });
-    args.push({
-      name: "added task 2",
-      level: "low",
-    });
+function withTask(task: Task) {
+  return function <T, V extends Task[]>(
+    target: undefined,
+    context: ClassFieldDecoratorContext<T, V>,
+  ) {
+    return function (args: V) {
+      args.push(task);
 
-    return args;
+      return args;
+    };
   };
+}
+
+function withComplicatedTask() {
+  return withTask({
+    name: "complicated task",
+    level: "medium",
+  });
 }
 const manager = new Manager();
 console.log(manager);

@@ -63,31 +63,38 @@ let Manager = (() => {
     let _tasks_decorators;
     let _tasks_initializers = [];
     let _tasks_extraInitializers = [];
+    let _extraTasks_decorators;
+    let _extraTasks_initializers = [];
+    let _extraTasks_extraInitializers = [];
     return class Manager {
         static {
             const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            _tasks_decorators = [withTask];
+            _tasks_decorators = [withTask({ name: "added task 1", level: "low" })];
+            _extraTasks_decorators = [withComplicatedTask()];
             __esDecorate(null, null, _tasks_decorators, { kind: "field", name: "tasks", static: false, private: false, access: { has: obj => "tasks" in obj, get: obj => obj.tasks, set: (obj, value) => { obj.tasks = value; } }, metadata: _metadata }, _tasks_initializers, _tasks_extraInitializers);
+            __esDecorate(null, null, _extraTasks_decorators, { kind: "field", name: "extraTasks", static: false, private: false, access: { has: obj => "extraTasks" in obj, get: obj => obj.extraTasks, set: (obj, value) => { obj.extraTasks = value; } }, metadata: _metadata }, _extraTasks_initializers, _extraTasks_extraInitializers);
             if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
         }
         tasks = __runInitializers(this, _tasks_initializers, []);
+        extraTasks = (__runInitializers(this, _tasks_extraInitializers), __runInitializers(this, _extraTasks_initializers, []));
         constructor() {
-            __runInitializers(this, _tasks_extraInitializers);
+            __runInitializers(this, _extraTasks_extraInitializers);
         }
     };
 })();
-function withTask(target, context) {
-    return function (args) {
-        args.push({
-            name: "added task 1",
-            level: "high",
-        });
-        args.push({
-            name: "added task 2",
-            level: "low",
-        });
-        return args;
+function withTask(task) {
+    return function (target, context) {
+        return function (args) {
+            args.push(task);
+            return args;
+        };
     };
+}
+function withComplicatedTask() {
+    return withTask({
+        name: "complicated task",
+        level: "medium",
+    });
 }
 const manager = new Manager();
 console.log(manager);
