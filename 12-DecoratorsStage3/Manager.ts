@@ -47,7 +47,7 @@ function withEmploymentDateOnPrototype(
 // */
 
 // ADDING A FIELD INSIDE THE OBJECT DEFFINITION
-//*
+/*
 @withEmploymentDate
 class Manager {
   task: string = "Simple task";
@@ -73,6 +73,71 @@ function withEmploymentDate<T extends { new (...args: any[]): {} }>(
   };
 }
 
+const manager = new Manager();
+console.log(manager);
+// */
+
+// FIELD DECORATORS
+/*
+type Task = {
+  name: string;
+  level: "low" | "medium" | "high";
+};
+
+class Manager {
+  @withComplicatedTask
+  tasks: Task[] = [];
+}
+
+function withComplicatedTask<T, V extends Task[]>(
+  target: undefined,
+  context: ClassFieldDecoratorContext<T, V>,
+) {
+  return function (args: V) {
+    args.push({
+      name: "added task 1",
+      level: "high",
+    });
+    args.push({
+      name: "added task 2",
+      level: "low",
+    });
+
+    return args;
+  };
+}
+const manager = new Manager();
+console.log(manager);
+// */
+
+//*
+type Task = {
+  name: string;
+  level: "low" | "medium" | "high";
+};
+
+class Manager {
+  @withTask
+  tasks: Task[] = [];
+}
+
+function withTask<T, V extends Task[]>(
+  target: undefined,
+  context: ClassFieldDecoratorContext<T, V>,
+) {
+  return function (args: V) {
+    args.push({
+      name: "added task 1",
+      level: "high",
+    });
+    args.push({
+      name: "added task 2",
+      level: "low",
+    });
+
+    return args;
+  };
+}
 const manager = new Manager();
 console.log(manager);
 // */

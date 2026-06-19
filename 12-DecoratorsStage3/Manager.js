@@ -59,57 +59,34 @@ var __runInitializers = (this && this.__runInitializers) || function (thisArg, i
     }
     return useValue ? value : void 0;
 };
-// ADDING A FIELD ON A PROTOTYPE
-/*
-@withEmploymentDateOnPrototype
-class Manager {
-  task: string = "Simple task";
-  project: string = "Simple project";
-
-  constructor() {
-    console.log("Initializing the manager class");
-  }
-}
-
-function withEmploymentDateOnPrototype(
-  value: Function,
-  context: ClassDecoratorContext,
-) {
-  value.prototype.employmentDateOnPrototype = new Date().toString();
-}
-// */
-// ADDING A FIELD INSIDE THE OBJECT DEFFINITION
-//*
 let Manager = (() => {
-    let _classDecorators = [withEmploymentDate];
-    let _classDescriptor;
-    let _classExtraInitializers = [];
-    let _classThis;
-    var Manager = class {
-        static { _classThis = this; }
+    let _tasks_decorators;
+    let _tasks_initializers = [];
+    let _tasks_extraInitializers = [];
+    return class Manager {
         static {
             const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-            Manager = _classThis = _classDescriptor.value;
-            if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-            __runInitializers(_classThis, _classExtraInitializers);
+            _tasks_decorators = [withTask];
+            __esDecorate(null, null, _tasks_decorators, { kind: "field", name: "tasks", static: false, private: false, access: { has: obj => "tasks" in obj, get: obj => obj.tasks, set: (obj, value) => { obj.tasks = value; } }, metadata: _metadata }, _tasks_initializers, _tasks_extraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
         }
-        task = "Simple task";
-        project = "Simple project";
+        tasks = __runInitializers(this, _tasks_initializers, []);
         constructor() {
-            console.log("Initializing the manager class");
+            __runInitializers(this, _tasks_extraInitializers);
         }
     };
-    return Manager = _classThis;
 })();
-function withEmploymentDate(baseClass) {
-    console.log("Invoking decorator:");
-    return class extends baseClass {
-        eploymentDate = new Date().toISOString();
-        constructor(...args) {
-            super(...args);
-            console.log(`Adding employment date to ${baseClass.name}`);
-        }
+function withTask(target, context) {
+    return function (args) {
+        args.push({
+            name: "added task 1",
+            level: "high",
+        });
+        args.push({
+            name: "added task 2",
+            level: "low",
+        });
+        return args;
     };
 }
 const manager = new Manager();
