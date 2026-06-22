@@ -25,13 +25,6 @@ const manager = new Manager();
 console.log("// Manager logging:");
 console.log(manager);
 // */
-var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
-    var useValue = arguments.length > 2;
-    for (var i = 0; i < initializers.length; i++) {
-        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-    }
-    return useValue ? value : void 0;
-};
 var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
     var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
@@ -58,6 +51,13 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
     }
     if (target) Object.defineProperty(target, contextIn.name, descriptor);
     done = true;
+};
+var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
 };
 // ADDING A FIELD ON A PROTOTYPE
 /*
@@ -178,47 +178,80 @@ const manager = new Manager();
 console.log(manager);
 // */
 // METHOD DECORATORS
-//*
-let Project = (() => {
-    let _instanceExtraInitializers = [];
-    let _writeTests_decorators;
-    let _fixBugInProduction_decorators;
-    return class Project {
-        static {
-            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            _writeTests_decorators = [withBudget(10)];
-            _fixBugInProduction_decorators = [withBudget(500)];
-            __esDecorate(this, null, _writeTests_decorators, { kind: "method", name: "writeTests", static: false, private: false, access: { has: obj => "writeTests" in obj, get: obj => obj.writeTests }, metadata: _metadata }, null, _instanceExtraInitializers);
-            __esDecorate(this, null, _fixBugInProduction_decorators, { kind: "method", name: "fixBugInProduction", static: false, private: false, access: { has: obj => "fixBugInProduction" in obj, get: obj => obj.fixBugInProduction }, metadata: _metadata }, null, _instanceExtraInitializers);
-            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-        }
-        budget = (__runInitializers(this, _instanceExtraInitializers), 900);
-        writeTests() {
-            console.log("Write Test method is called.");
-        }
-        fixBugInProduction() {
-            console.log("fixBugInProduction method is called.");
-        }
-    };
-})();
-function withBudget(requiredBudget) {
-    return function (target, context) {
-        return function (...args) {
-            const instance = this;
-            if (instance.budget >= requiredBudget) {
-                instance.budget -= requiredBudget;
-                target.apply(instance, args);
-            }
-            else {
-                console.error(`Not enough budget to perform the action: ${context.name.toString()}. Budget: ${instance.budget}, required: ${requiredBudget}`);
-            }
-        };
-    };
+/*
+class Project {
+  budget: number = 900;
+
+  @withBudget(10)
+  writeTests() {
+    console.log("Write Test method is called.");
+  }
+
+  @withBudget(500)
+  fixBugInProduction() {
+    console.log("fixBugInProduction method is called.");
+  }
 }
+
+function withBudget(requiredBudget: number) {
+  return function <T extends { budget: number }>(
+    target: Function,
+    context: ClassMethodDecoratorContext<T>,
+  ) {
+    return function (this: T, ...args: any) {
+      const instance = this as T;
+      if (instance.budget >= requiredBudget) {
+        instance.budget -= requiredBudget;
+        target.apply(instance, args);
+      } else {
+        console.error(
+          `Not enough budget to perform the action: ${context.name.toString()}. Budget: ${instance.budget}, required: ${requiredBudget}`,
+        );
+      }
+    };
+  };
+}
+
 const project = new Project();
 project.writeTests();
 project.fixBugInProduction();
 project.fixBugInProduction();
+// */
+// METHOD DECORATORS
+//*
+let Manager = (() => {
+    let _project_decorators;
+    let _project_initializers = [];
+    let _project_extraInitializers = [];
+    return class Manager {
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _project_decorators = [watchChange];
+            __esDecorate(this, null, _project_decorators, { kind: "accessor", name: "project", static: false, private: false, access: { has: obj => "project" in obj, get: obj => obj.project, set: (obj, value) => { obj.project = value; } }, metadata: _metadata }, _project_initializers, _project_extraInitializers);
+            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        }
+        #project_accessor_storage = __runInitializers(this, _project_initializers, "Simple project");
+        get project() { return this.#project_accessor_storage; }
+        set project(value) { this.#project_accessor_storage = value; }
+        constructor() {
+            __runInitializers(this, _project_extraInitializers);
+        }
+    };
+})();
+function watchChange(accessor, context) {
+    return {
+        get: function () {
+            return accessor.get.call(this);
+        },
+        set: function (value) {
+            console.log(`Setting ${context.name.toString()} to ${value}.`);
+            accessor.set.call(this, value);
+        },
+    };
+}
+const manager = new Manager();
+manager.project = "First value";
+manager.project = "Second value";
 export {};
 // */
 //# sourceMappingURL=Manager.js.map

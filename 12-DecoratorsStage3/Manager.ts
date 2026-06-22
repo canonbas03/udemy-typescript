@@ -149,7 +149,7 @@ console.log(manager);
 // */
 
 // METHOD DECORATORS
-//*
+/*
 class Project {
   budget: number = 900;
 
@@ -187,4 +187,34 @@ const project = new Project();
 project.writeTests();
 project.fixBugInProduction();
 project.fixBugInProduction();
+// */
+
+// METHOD DECORATORS
+//*
+class Manager {
+  @watchChange
+  accessor project: string = "Simple project";
+}
+
+function watchChange<T, V>(
+  accessor: {
+    get: (this: T) => V;
+    set: (this: T, v: V) => void;
+  },
+  context: ClassAccessorDecoratorContext<T, V>,
+) {
+  return {
+    get: function (this: T) {
+      return accessor.get.call(this);
+    },
+    set: function (this: T, value: V) {
+      console.log(`Setting ${context.name.toString()} to ${value}.`);
+      accessor.set.call(this, value);
+    },
+  };
+}
+
+const manager = new Manager();
+manager.project = "First value";
+manager.project = "Second value";
 // */
