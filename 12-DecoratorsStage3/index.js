@@ -34,6 +34,7 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, 
 };
 // SIMPLE DECORATOR
 function mySimpleDecorator(originalMethod, context) {
+    console.log("Always logs");
     function wrapper(...args) {
         console.log("Arguments received:", args);
         originalMethod(...args);
@@ -87,10 +88,10 @@ let Robot2 = (() => {
 const bot2 = new Robot2();
 bot2.sayModel();
 // --- REPLACEMENT FUNCTION ---
-console.log("\n");
+console.log("\n", "// --- REPLACEMENT FUNCTION ---");
 function methodLogger(originalMethod, _context) {
     console.log("Decorator Invoked");
-    //! The replacement function replaces the original method and when the original method is invoken then the replacement method is invoked instead of the original greet method.
+    // The replacement function replaces the original method and when the original method is invoken then the replacement method is invoked instead of the original greet method.
     function replacementMethod(...args) {
         console.log(args);
         console.log(this);
@@ -124,6 +125,7 @@ let Person = (() => {
 let user = new Person("John");
 user.greet("Hello");
 // --- ADD INITIALIZER TO GREET ---
+console.log("\n", "// --- ADD INITIALIZER TO GREET ---");
 function methodLogger2(originalMethod, context) {
     //! STEP 2.1, CREATE VARIABLE FOR METHOD NAME
     const methodName = context.name;
@@ -134,13 +136,12 @@ function methodLogger2(originalMethod, context) {
     //! STEP 2.2: ADD INITIALIZER
     // Runs inside the constructor of Person when an instance is created.
     // Binds the method to the instance (this), ensuring correct context.
-    // Equivalent to manually binding inside the constructor:
-    // typescript
+    // Equivalent to manually binding inside the constructor
     context.addInitializer(function () {
         this[methodName] = this[methodName].bind(this);
     });
     function replacementMethod(...args) {
-        console.log("Invocation Started");
+        console.log("Invocation Started (RM)");
         const result = originalMethod.call(this, ...args);
         console.log("Invocation ended");
         return result;
@@ -160,7 +161,7 @@ let Person2 = (() => {
         name = __runInitializers(this, _instanceExtraInitializers);
         constructor(name) {
             this.name = name;
-            //! STEP 3: THIS IS HOW YOU WOULD HAVE DONE IT IN JAVASCRIPT CONSTRUCTOR
+            // STEP 3: IN JAVASCRIPT CONSTRUCTOR
             // this.greet = this.greet.bind(this);
         }
         greet(greeting) {
@@ -171,6 +172,7 @@ let Person2 = (() => {
         }
     };
 })();
+console.log("\n", "-----");
 let user2 = new Person2("John");
 user.greet("Hello");
 //! STEP 1: SEE THE PROBLEM
