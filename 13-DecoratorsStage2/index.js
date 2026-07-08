@@ -59,6 +59,47 @@ var __runInitializers = (this && this.__runInitializers) || function (thisArg, i
     }
     return useValue ? value : void 0;
 };
+/*
+// DECORATORS WITH PROTOTYPES
+enum Manufacturers {
+  airbus = "airbus",
+  boeing = "boeing",
+}
+
+function AircraftManufacturers(manufacturer: Manufacturers) {
+  // Decorator Factory
+  return (target: Function) => {
+    if (manufacturer === Manufacturers.airbus) {
+      target.prototype.origin = "USA";
+      target.prototype.manufacturer = Manufacturers.airbus;
+      target.prototype.type = "Jet";
+    } else {
+      target.prototype.origin = "France";
+      target.prototype.manufacturer = Manufacturers.boeing;
+      target.prototype.type = "Helicopter";
+    }
+  };
+}
+
+// All of those instances will have airbus as a manufactorer
+@AircraftManufacturers(Manufacturers.airbus)
+class Airplane {
+  constructor(
+    public aircraftModel: string,
+    private pilot: string,
+  ) {
+    console.log("Airplane class instantiated");
+  }
+
+  public get pilotName() {
+    return this.pilot;
+  }
+}
+
+const airplane = new Airplane("Airbus-744", "Petar Petrov");
+console.log(airplane);
+
+// */
 //*
 // DECORATORS WITH PROTOTYPES
 var Manufacturers;
@@ -67,7 +108,6 @@ var Manufacturers;
     Manufacturers["boeing"] = "boeing";
 })(Manufacturers || (Manufacturers = {}));
 function AircraftManufacturers(manufacturer) {
-    // Decorator Factory
     return (target) => {
         if (manufacturer === Manufacturers.airbus) {
             target.prototype.origin = "USA";
@@ -81,7 +121,6 @@ function AircraftManufacturers(manufacturer) {
         }
     };
 }
-// All of those instances will have airbus as a manufactorer
 let Airplane = (() => {
     let _classDecorators = [AircraftManufacturers(Manufacturers.airbus)];
     let _classDescriptor;
