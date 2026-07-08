@@ -1,3 +1,30 @@
+/*
+// FIRST DECORATOR
+function FirstDecorator(name: string) {
+  return function (constructor: Function) {
+    console.log(`The decorator: ${name} is invoked`);
+    console.log(constructor);
+    console.log("Constructor name: ", constructor.name); // Airplane
+    console.log("Constructor length: ", constructor.length); // 2 args
+  };
+}
+
+@FirstDecorator("First Decorator")
+class Airplane {
+  constructor(
+    public aircraftModel: string,
+    private pilot: string,
+  ) {
+    console.log("Airplane class instantiated");
+  }
+
+  public get pilotName() {
+    return this.pilot;
+  }
+}
+
+const airplane = new Airplane("Airbus-744", "Petar Petrov");
+// */
 var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
     function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
     var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
@@ -33,26 +60,39 @@ var __runInitializers = (this && this.__runInitializers) || function (thisArg, i
     return useValue ? value : void 0;
 };
 //*
-// FIRST DECORATOR
-function FirstDecorator(name) {
-    return function (constructor) {
-        console.log(`The decorator: ${name} is invoked`);
-        console.log(constructor);
-        console.log("Constructor name: ", constructor.name); // Aircraft
-        console.log("Constructor length: ", constructor.length); // 2 args
+// DECORATORS WITH PROTOTYPES
+var Manufacturers;
+(function (Manufacturers) {
+    Manufacturers["airbus"] = "airbus";
+    Manufacturers["boeing"] = "boeing";
+})(Manufacturers || (Manufacturers = {}));
+function AircraftManufacturers(manufacturer) {
+    // Decorator Factory
+    return (target) => {
+        if (manufacturer === Manufacturers.airbus) {
+            target.prototype.origin = "USA";
+            target.prototype.manufacturer = Manufacturers.airbus;
+            target.prototype.type = "Jet";
+        }
+        else {
+            target.prototype.origin = "France";
+            target.prototype.manufacturer = Manufacturers.boeing;
+            target.prototype.type = "Helicopter";
+        }
     };
 }
-let Aircraft = (() => {
-    let _classDecorators = [FirstDecorator("First Decorator")];
+// All of those instances will have airbus as a manufactorer
+let Airplane = (() => {
+    let _classDecorators = [AircraftManufacturers(Manufacturers.airbus)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
-    var Aircraft = class {
+    var Airplane = class {
         static { _classThis = this; }
         static {
             const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
             __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-            Aircraft = _classThis = _classDescriptor.value;
+            Airplane = _classThis = _classDescriptor.value;
             if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
             __runInitializers(_classThis, _classExtraInitializers);
         }
@@ -61,17 +101,16 @@ let Aircraft = (() => {
         constructor(aircraftModel, pilot) {
             this.aircraftModel = aircraftModel;
             this.pilot = pilot;
-            console.log("Aircraft class instantiated");
+            console.log("Airplane class instantiated");
         }
         get pilotName() {
             return this.pilot;
         }
     };
-    return Aircraft = _classThis;
+    return Airplane = _classThis;
 })();
-const aircraft = new Aircraft("Airbus-744", "Petar Petrov");
-// */
-class Hello {
-}
+const airplane = new Airplane("Airbus-744", "Petar Petrov");
+console.log(airplane);
 export {};
+// */
 //# sourceMappingURL=index.js.map
