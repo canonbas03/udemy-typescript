@@ -27,7 +27,7 @@ console.log(manager);
 // */
 
 // ADDING A FIELD ON A PROTOTYPE
-/*
+//*
 @withEmploymentDateOnPrototype
 class Manager {
   task: string = "Simple task";
@@ -44,6 +44,10 @@ function withEmploymentDateOnPrototype(
 ) {
   value.prototype.employmentDateOnPrototype = new Date().toString();
 }
+
+const manager = new Manager();
+console.log(manager);
+
 // */
 
 // ADDING A FIELD INSIDE THE OBJECT DEFFINITION
@@ -190,7 +194,7 @@ project.fixBugInProduction();
 // */
 
 // METHOD DECORATORS
-//*
+/*
 class Manager {
   @watchChange
   accessor project: string = "Simple project";

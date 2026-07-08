@@ -60,23 +60,35 @@ var __runInitializers = (this && this.__runInitializers) || function (thisArg, i
     return useValue ? value : void 0;
 };
 // ADDING A FIELD ON A PROTOTYPE
-/*
-@withEmploymentDateOnPrototype
-class Manager {
-  task: string = "Simple task";
-  project: string = "Simple project";
-
-  constructor() {
-    console.log("Initializing the manager class");
-  }
+//*
+let Manager = (() => {
+    let _classDecorators = [withEmploymentDateOnPrototype];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    var Manager = class {
+        static { _classThis = this; }
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+            Manager = _classThis = _classDescriptor.value;
+            if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+            __runInitializers(_classThis, _classExtraInitializers);
+        }
+        task = "Simple task";
+        project = "Simple project";
+        constructor() {
+            console.log("Initializing the manager class");
+        }
+    };
+    return Manager = _classThis;
+})();
+function withEmploymentDateOnPrototype(value, context) {
+    value.prototype.employmentDateOnPrototype = new Date().toString();
 }
-
-function withEmploymentDateOnPrototype(
-  value: Function,
-  context: ClassDecoratorContext,
-) {
-  value.prototype.employmentDateOnPrototype = new Date().toString();
-}
+const manager = new Manager();
+console.log(manager);
+export {};
 // */
 // ADDING A FIELD INSIDE THE OBJECT DEFFINITION
 /*
@@ -218,40 +230,32 @@ project.fixBugInProduction();
 project.fixBugInProduction();
 // */
 // METHOD DECORATORS
-//*
-let Manager = (() => {
-    let _project_decorators;
-    let _project_initializers = [];
-    let _project_extraInitializers = [];
-    return class Manager {
-        static {
-            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            _project_decorators = [watchChange];
-            __esDecorate(this, null, _project_decorators, { kind: "accessor", name: "project", static: false, private: false, access: { has: obj => "project" in obj, get: obj => obj.project, set: (obj, value) => { obj.project = value; } }, metadata: _metadata }, _project_initializers, _project_extraInitializers);
-            if (_metadata) Object.defineProperty(this, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-        }
-        #project_accessor_storage = __runInitializers(this, _project_initializers, "Simple project");
-        get project() { return this.#project_accessor_storage; }
-        set project(value) { this.#project_accessor_storage = value; }
-        constructor() {
-            __runInitializers(this, _project_extraInitializers);
-        }
-    };
-})();
-function watchChange(accessor, context) {
-    return {
-        get: function () {
-            return accessor.get.call(this);
-        },
-        set: function (value) {
-            console.log(`Setting ${context.name.toString()} to ${value}.`);
-            accessor.set.call(this, value);
-        },
-    };
+/*
+class Manager {
+  @watchChange
+  accessor project: string = "Simple project";
 }
+
+function watchChange<T, V>(
+  accessor: {
+    get: (this: T) => V;
+    set: (this: T, v: V) => void;
+  },
+  context: ClassAccessorDecoratorContext<T, V>,
+) {
+  return {
+    get: function (this: T) {
+      return accessor.get.call(this);
+    },
+    set: function (this: T, value: V) {
+      console.log(`Setting ${context.name.toString()} to ${value}.`);
+      accessor.set.call(this, value);
+    },
+  };
+}
+
 const manager = new Manager();
 manager.project = "First value";
 manager.project = "Second value";
-export {};
 // */
 //# sourceMappingURL=Manager.js.map
