@@ -369,7 +369,7 @@ console.log(airplane.aircraftModel);
 
 // */
 
-// */
+/*/
 
 // RETURNING VALUES FROM CLASS DECORATORS
 interface MapLocation {
@@ -399,5 +399,40 @@ class Person {
 
 const person: Person = new Person("John", 32);
 console.log(person);
+
+// */
+
+//*/
+// DECORATOR COMPOSITION AND EVALUATION
+function first() {
+  console.log("first(): factory evaluated");
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
+    console.log("first(): called");
+  };
+}
+
+function second() {
+  console.log("second(): factory evaluated");
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
+    console.log("second(): called");
+  };
+}
+
+class ExampleClass {
+  @first()
+  @second()
+  method() {}
+}
+
+// Evaluation: top to bottom
+// Composition: bottom to top
 
 // */
