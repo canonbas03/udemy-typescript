@@ -294,7 +294,7 @@ const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
 
 // */
 
-//*
+/*
 // DECORATORS FOR METHOD PARAMETERS
 function ParameterDecorator(
   classPrototype: Object,
@@ -321,5 +321,50 @@ class Airplane {
 }
 
 const airplane = new Airplane("Airbus-744");
+
+// */
+
+//*
+// DECORATORS FOR CLASS PROPERTIES AND ACCESSORS
+// If the property is an instance member we pass a prototype, if static member - the constructor
+function PropertyDecorator(classPrototype: Object, propertyName: string) {
+  console.log(classPrototype);
+  console.log(propertyName);
+}
+
+function AccessorDecorator(
+  classPrototype: Object,
+  accessorName: string,
+  propertyDescriptor: PropertyDescriptor,
+) {
+  console.log(classPrototype);
+  console.log(accessorName);
+  console.log(propertyDescriptor);
+}
+
+class Airplane {
+  @PropertyDecorator
+  private _aircraftModel: string;
+
+  constructor(aircraftModel: string) {
+    this._aircraftModel = aircraftModel;
+  }
+
+  public static seatCount(): void {
+    console.log("Seats: 150");
+  }
+
+  public pilotName(name: string, lastName: string) {
+    console.log(name);
+  }
+
+  @AccessorDecorator
+  public get aircraftModel() {
+    return this._aircraftModel;
+  }
+}
+
+const airplane = new Airplane("Airbus-744");
+console.log(airplane.aircraftModel);
 
 // */

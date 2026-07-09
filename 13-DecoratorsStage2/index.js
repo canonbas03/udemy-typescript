@@ -31,9 +31,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 /*
 // DECORATORS WITH PROTOTYPES
 enum Manufacturers {
@@ -297,18 +294,51 @@ class Airplane implements AircraftInterface {
 const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
 
 // */
-//*
+/*
 // DECORATORS FOR METHOD PARAMETERS
-function ParameterDecorator(classPrototype, methodName, index) {
+function ParameterDecorator(
+  classPrototype: Object,
+  methodName: string,
+  index: number,
+) {
+  console.log(classPrototype);
+  console.log(methodName);
+
+  // Position of the parameter in the func definition
+  console.log(index);
+}
+
+class Airplane {
+  constructor(public aircraftModel: string) {}
+
+  public static seatCount(): void {
+    console.log("Seats: 150");
+  }
+
+  public pilotName(@ParameterDecorator name: string, lastName: string) {
+    console.log(name);
+  }
+}
+
+const airplane = new Airplane("Airbus-744");
+
+// */
+//*
+// DECORATORS FOR CLASS PROPERTIES AND ACCESSORS
+// If the property is an instance member we pass a prototype, if static member - the constructor
+function PropertyDecorator(classPrototype, propertyName) {
     console.log(classPrototype);
-    console.log(methodName);
-    // Position of the parameter in the func definition
-    console.log(index);
+    console.log(propertyName);
+}
+function AccessorDecorator(classPrototype, accessorName, propertyDescriptor) {
+    console.log(classPrototype);
+    console.log(accessorName);
+    console.log(propertyDescriptor);
 }
 class Airplane {
-    aircraftModel;
+    _aircraftModel;
     constructor(aircraftModel) {
-        this.aircraftModel = aircraftModel;
+        this._aircraftModel = aircraftModel;
     }
     static seatCount() {
         console.log("Seats: 150");
@@ -316,11 +346,18 @@ class Airplane {
     pilotName(name, lastName) {
         console.log(name);
     }
+    get aircraftModel() {
+        return this._aircraftModel;
+    }
 }
 __decorate([
-    __param(0, ParameterDecorator)
-], Airplane.prototype, "pilotName", null);
+    PropertyDecorator
+], Airplane.prototype, "_aircraftModel", void 0);
+__decorate([
+    AccessorDecorator
+], Airplane.prototype, "aircraftModel", null);
 const airplane = new Airplane("Airbus-744");
+console.log(airplane.aircraftModel);
 export {};
 // */
 //# sourceMappingURL=index.js.map
