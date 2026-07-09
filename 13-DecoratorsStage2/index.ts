@@ -129,8 +129,8 @@ airplane.airbusMethod
   : console.log("Method does not exist");
 // */
 
-//*
-// ADDING FUNCTIONS TO PROTOTYPES
+/*
+// USING THE SAME DECORATOR ON MULTIPLE CLASSES
 enum Manufacturers {
   airbus = "airbus",
   boeing = "boeing",
@@ -203,4 +203,49 @@ console.log(airplane.manufacturer);
 
 console.log(airplane);
 console.log(helicopter);
+// */
+
+//*
+// METHOD DECORATORS
+interface AircraftInterface {
+  aircraftModel: string;
+  pilotName: () => void;
+  prototype?: any;
+  origin?: string;
+  manufacturer?: string;
+  type?: string;
+  airbusMethod?: () => void;
+  boeingMethod?: () => void;
+}
+
+function MethodDecorator(
+  classPrototype: Object,
+  methodName: string,
+  descriptor: PropertyDescriptor,
+) {
+  console.log(classPrototype);
+  console.log(methodName);
+  console.log(descriptor);
+  descriptor.writable = false;
+}
+
+class Airplane implements AircraftInterface {
+  constructor(
+    public aircraftModel: string,
+    private pilot: string,
+  ) {}
+
+  @MethodDecorator
+  public pilotName() {
+    console.log(this.pilot);
+  }
+}
+
+const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
+
+airplane.pilotName = () => console.log("Function Changed");
+// index.ts:246 Uncaught TypeError: Cannot assign to read only property 'pilotName' of object '#<Airplane>'
+
+airplane.pilotName();
+
 // */

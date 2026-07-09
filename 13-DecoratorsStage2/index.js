@@ -25,230 +25,36 @@ class Airplane {
 
 const airplane = new Airplane("Airbus-744", "Petar Petrov");
 // */
-var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-    function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
-    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-    var _, done = false;
-    for (var i = decorators.length - 1; i >= 0; i--) {
-        var context = {};
-        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
-        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
-        context.addInitializer = function (f) { if (done) throw new TypeError("Cannot add initializers after decoration has completed"); extraInitializers.push(accept(f || null)); };
-        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-        if (kind === "accessor") {
-            if (result === void 0) continue;
-            if (result === null || typeof result !== "object") throw new TypeError("Object expected");
-            if (_ = accept(result.get)) descriptor.get = _;
-            if (_ = accept(result.set)) descriptor.set = _;
-            if (_ = accept(result.init)) initializers.unshift(_);
-        }
-        else if (_ = accept(result)) {
-            if (kind === "field") initializers.unshift(_);
-            else descriptor[key] = _;
-        }
-    }
-    if (target) Object.defineProperty(target, contextIn.name, descriptor);
-    done = true;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
-    var useValue = arguments.length > 2;
-    for (var i = 0; i < initializers.length; i++) {
-        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-    }
-    return useValue ? value : void 0;
-};
-/*
-// DECORATORS WITH PROTOTYPES
-enum Manufacturers {
-  airbus = "airbus",
-  boeing = "boeing",
+function MethodDecorator(classPrototype, methodName, descriptor) {
+    console.log(classPrototype);
+    console.log(methodName);
+    console.log(descriptor);
+    descriptor.writable = false;
 }
-
-function AircraftManufacturers(manufacturer: Manufacturers) {
-  // Decorator Factory
-  return (target: Function) => {
-    if (manufacturer === Manufacturers.airbus) {
-      target.prototype.origin = "USA";
-      target.prototype.manufacturer = Manufacturers.airbus;
-      target.prototype.type = "Jet";
-    } else {
-      target.prototype.origin = "France";
-      target.prototype.manufacturer = Manufacturers.boeing;
-      target.prototype.type = "Helicopter";
-    }
-  };
-}
-
-// All of those instances will have airbus as a manufactorer
-@AircraftManufacturers(Manufacturers.airbus)
 class Airplane {
-  constructor(
-    public aircraftModel: string,
-    private pilot: string,
-  ) {
-    console.log("Airplane class instantiated");
-  }
-
-  public get pilotName() {
-    return this.pilot;
-  }
-}
-
-const airplane = new Airplane("Airbus-744", "Petar Petrov");
-console.log(airplane);
-
-// */
-/*
-// ADDING FUNCTIONS TO PROTOTYPES
-enum Manufacturers {
-  airbus = "airbus",
-  boeing = "boeing",
-}
-
-interface AircraftInterface {
-  aircraftModel: string;
-  prototype?: any;
-  origin?: string;
-  manufacturer?: string;
-  type?: string;
-  airbusMethod?: () => void;
-  boeingMethod?: () => void;
-}
-
-function AircraftManufacturer(manufacturer: Manufacturers) {
-  return (target: Function) => {
-    if (manufacturer === Manufacturers.airbus) {
-      target.prototype.origin = "USA";
-      target.prototype.manufacturer = Manufacturers.airbus;
-      target.prototype.type = "Jet";
-      target.prototype.airbusMethod = () => {
-        console.log("Function performed by Airbus");
-      };
-    } else {
-      target.prototype.origin = "France";
-      target.prototype.manufacturer = Manufacturers.boeing;
-      target.prototype.type = "Helicopter";
-      target.prototype.boeingMethod = () => {
-        console.log("Function performed by Boeing");
-      };
+    aircraftModel;
+    pilot;
+    constructor(aircraftModel, pilot) {
+        this.aircraftModel = aircraftModel;
+        this.pilot = pilot;
     }
-  };
+    pilotName() {
+        console.log(this.pilot);
+    }
 }
-
-@AircraftManufacturer(Manufacturers.airbus)
-class Airplane implements AircraftInterface {
-  constructor(
-    public aircraftModel: string,
-    private pilot: string,
-  ) {
-    console.log("Airplane class instantiated");
-  }
-
-  public get pilotName() {
-    return this.pilot;
-  }
-}
-
-const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
-console.log(airplane);
-console.log(airplane.manufacturer);
-
-// If the method exists - invoke it, else log message
-airplane.airbusMethod
-  ? airplane.airbusMethod()
-  : console.log("Method does not exist");
-// */
-//*
-// ADDING FUNCTIONS TO PROTOTYPES
-var Manufacturers;
-(function (Manufacturers) {
-    Manufacturers["airbus"] = "airbus";
-    Manufacturers["boeing"] = "boeing";
-})(Manufacturers || (Manufacturers = {}));
-function AircraftManufacturer(manufacturer) {
-    return (target) => {
-        if (manufacturer === Manufacturers.airbus) {
-            target.prototype.origin = "USA";
-            target.prototype.manufacturer = Manufacturers.airbus;
-            target.prototype.type = "Jet";
-            target.prototype.airbusMethod = () => {
-                console.log("Function performed by Airbus");
-            };
-        }
-        else {
-            target.prototype.origin = "France";
-            target.prototype.manufacturer = Manufacturers.boeing;
-            target.prototype.type = "Helicopter";
-            target.prototype.boeingMethod = () => {
-                console.log("Function performed by Boeing");
-            };
-        }
-    };
-}
-let Airplane = (() => {
-    let _classDecorators = [AircraftManufacturer(Manufacturers.airbus)];
-    let _classDescriptor;
-    let _classExtraInitializers = [];
-    let _classThis;
-    var Airplane = class {
-        static { _classThis = this; }
-        static {
-            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-            Airplane = _classThis = _classDescriptor.value;
-            if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-            __runInitializers(_classThis, _classExtraInitializers);
-        }
-        aircraftModel;
-        pilot;
-        constructor(aircraftModel, pilot) {
-            this.aircraftModel = aircraftModel;
-            this.pilot = pilot;
-        }
-        get pilotName() {
-            return this.pilot;
-        }
-    };
-    return Airplane = _classThis;
-})();
-let Helicopter = (() => {
-    let _classDecorators = [AircraftManufacturer(Manufacturers.boeing)];
-    let _classDescriptor;
-    let _classExtraInitializers = [];
-    let _classThis;
-    var Helicopter = class {
-        static { _classThis = this; }
-        static {
-            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
-            __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-            Helicopter = _classThis = _classDescriptor.value;
-            if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-            __runInitializers(_classThis, _classExtraInitializers);
-        }
-        aircraftModel;
-        pilot;
-        constructor(aircraftModel, pilot) {
-            this.aircraftModel = aircraftModel;
-            this.pilot = pilot;
-        }
-        get pilotName() {
-            return this.pilot;
-        }
-    };
-    return Helicopter = _classThis;
-})();
+__decorate([
+    MethodDecorator
+], Airplane.prototype, "pilotName", null);
 const airplane = new Airplane("Airbus-744", "Petar Petrov");
-// If the method exists - invoke it, else log message
-airplane.airbusMethod
-    ? airplane.airbusMethod()
-    : console.log("Method does not exist");
-const helicopter = new Helicopter("Boeing 744", "Vladimir");
-console.log(airplane);
-console.log(airplane.manufacturer);
-console.log(airplane);
-console.log(helicopter);
+airplane.pilotName = () => console.log("Function Changed");
+// index.ts:246 Uncaught TypeError: Cannot assign to read only property 'pilotName' of object '#<Airplane>'
+airplane.pilotName();
 export {};
 // */
 //# sourceMappingURL=index.js.map
