@@ -100,6 +100,66 @@ const airplane = new Airplane("Airbus-744", "Petar Petrov");
 console.log(airplane);
 
 // */
+/*
+// ADDING FUNCTIONS TO PROTOTYPES
+enum Manufacturers {
+  airbus = "airbus",
+  boeing = "boeing",
+}
+
+interface AircraftInterface {
+  aircraftModel: string;
+  prototype?: any;
+  origin?: string;
+  manufacturer?: string;
+  type?: string;
+  airbusMethod?: () => void;
+  boeingMethod?: () => void;
+}
+
+function AircraftManufacturer(manufacturer: Manufacturers) {
+  return (target: Function) => {
+    if (manufacturer === Manufacturers.airbus) {
+      target.prototype.origin = "USA";
+      target.prototype.manufacturer = Manufacturers.airbus;
+      target.prototype.type = "Jet";
+      target.prototype.airbusMethod = () => {
+        console.log("Function performed by Airbus");
+      };
+    } else {
+      target.prototype.origin = "France";
+      target.prototype.manufacturer = Manufacturers.boeing;
+      target.prototype.type = "Helicopter";
+      target.prototype.boeingMethod = () => {
+        console.log("Function performed by Boeing");
+      };
+    }
+  };
+}
+
+@AircraftManufacturer(Manufacturers.airbus)
+class Airplane implements AircraftInterface {
+  constructor(
+    public aircraftModel: string,
+    private pilot: string,
+  ) {
+    console.log("Airplane class instantiated");
+  }
+
+  public get pilotName() {
+    return this.pilot;
+  }
+}
+
+const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
+console.log(airplane);
+console.log(airplane.manufacturer);
+
+// If the method exists - invoke it, else log message
+airplane.airbusMethod
+  ? airplane.airbusMethod()
+  : console.log("Method does not exist");
+// */
 //*
 // ADDING FUNCTIONS TO PROTOTYPES
 var Manufacturers;
@@ -146,7 +206,6 @@ let Airplane = (() => {
         constructor(aircraftModel, pilot) {
             this.aircraftModel = aircraftModel;
             this.pilot = pilot;
-            console.log("Airplane class instantiated");
         }
         get pilotName() {
             return this.pilot;
@@ -154,13 +213,42 @@ let Airplane = (() => {
     };
     return Airplane = _classThis;
 })();
+let Helicopter = (() => {
+    let _classDecorators = [AircraftManufacturer(Manufacturers.boeing)];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    var Helicopter = class {
+        static { _classThis = this; }
+        static {
+            const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+            Helicopter = _classThis = _classDescriptor.value;
+            if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+            __runInitializers(_classThis, _classExtraInitializers);
+        }
+        aircraftModel;
+        pilot;
+        constructor(aircraftModel, pilot) {
+            this.aircraftModel = aircraftModel;
+            this.pilot = pilot;
+        }
+        get pilotName() {
+            return this.pilot;
+        }
+    };
+    return Helicopter = _classThis;
+})();
 const airplane = new Airplane("Airbus-744", "Petar Petrov");
-console.log(airplane);
-console.log(airplane.manufacturer);
 // If the method exists - invoke it, else log message
 airplane.airbusMethod
     ? airplane.airbusMethod()
     : console.log("Method does not exist");
+const helicopter = new Helicopter("Boeing 744", "Vladimir");
+console.log(airplane);
+console.log(airplane.manufacturer);
+console.log(airplane);
+console.log(helicopter);
 export {};
 // */
 //# sourceMappingURL=index.js.map
