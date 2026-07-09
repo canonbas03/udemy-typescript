@@ -250,7 +250,7 @@ airplane.pilotName();
 
 // */
 
-//*
+/*
 // STATIC METHOD DECORATORS
 interface AircraftInterface {
   aircraftModel: string;
@@ -291,5 +291,35 @@ class Airplane implements AircraftInterface {
 }
 
 const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
+
+// */
+
+//*
+// DECORATORS FOR METHOD PARAMETERS
+function ParameterDecorator(
+  classPrototype: Object,
+  methodName: string,
+  index: number,
+) {
+  console.log(classPrototype);
+  console.log(methodName);
+
+  // Position of the parameter in the func definition
+  console.log(index);
+}
+
+class Airplane {
+  constructor(public aircraftModel: string) {}
+
+  public static seatCount(): void {
+    console.log("Seats: 150");
+  }
+
+  public pilotName(@ParameterDecorator name: string, lastName: string) {
+    console.log(name);
+  }
+}
+
+const airplane = new Airplane("Airbus-744");
 
 // */
