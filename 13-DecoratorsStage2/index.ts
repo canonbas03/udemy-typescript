@@ -205,7 +205,7 @@ console.log(airplane);
 console.log(helicopter);
 // */
 
-//*
+/*
 // METHOD DECORATORS
 interface AircraftInterface {
   aircraftModel: string;
@@ -247,5 +247,49 @@ airplane.pilotName = () => console.log("Function Changed");
 // index.ts:246 Uncaught TypeError: Cannot assign to read only property 'pilotName' of object '#<Airplane>'
 
 airplane.pilotName();
+
+// */
+
+//*
+// STATIC METHOD DECORATORS
+interface AircraftInterface {
+  aircraftModel: string;
+  pilotName: () => void;
+  prototype?: any;
+  origin?: string;
+  manufacturer?: string;
+  type?: string;
+  airbusMethod?: () => void;
+  boeingMethod?: () => void;
+}
+
+function StaticMethodDecorator(
+  constructor: Object,
+  methodName: string,
+  descriptor: PropertyDescriptor,
+) {
+  console.log(constructor);
+  console.log(methodName);
+  console.log(descriptor);
+  descriptor.writable = false;
+}
+
+class Airplane implements AircraftInterface {
+  constructor(
+    public aircraftModel: string,
+    private pilot: string,
+  ) {}
+
+  @StaticMethodDecorator
+  public static seatCount(): void {
+    console.log("Seats: 150");
+  }
+
+  public pilotName() {
+    console.log(this.pilot);
+  }
+}
+
+const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
 
 // */

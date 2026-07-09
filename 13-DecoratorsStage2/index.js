@@ -31,8 +31,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-function MethodDecorator(classPrototype, methodName, descriptor) {
-    console.log(classPrototype);
+function StaticMethodDecorator(constructor, methodName, descriptor) {
+    console.log(constructor);
     console.log(methodName);
     console.log(descriptor);
     descriptor.writable = false;
@@ -44,17 +44,17 @@ class Airplane {
         this.aircraftModel = aircraftModel;
         this.pilot = pilot;
     }
+    static seatCount() {
+        console.log("Seats: 150");
+    }
     pilotName() {
         console.log(this.pilot);
     }
 }
 __decorate([
-    MethodDecorator
-], Airplane.prototype, "pilotName", null);
+    StaticMethodDecorator
+], Airplane, "seatCount", null);
 const airplane = new Airplane("Airbus-744", "Petar Petrov");
-airplane.pilotName = () => console.log("Function Changed");
-// index.ts:246 Uncaught TypeError: Cannot assign to read only property 'pilotName' of object '#<Airplane>'
-airplane.pilotName();
 export {};
 // */
 //# sourceMappingURL=index.js.map
