@@ -101,28 +101,34 @@ console.log(airplane);
 
 // */
 //*
-// DECORATORS WITH PROTOTYPES
+// ADDING FUNCTIONS TO PROTOTYPES
 var Manufacturers;
 (function (Manufacturers) {
     Manufacturers["airbus"] = "airbus";
     Manufacturers["boeing"] = "boeing";
 })(Manufacturers || (Manufacturers = {}));
-function AircraftManufacturers(manufacturer) {
+function AircraftManufacturer(manufacturer) {
     return (target) => {
         if (manufacturer === Manufacturers.airbus) {
             target.prototype.origin = "USA";
             target.prototype.manufacturer = Manufacturers.airbus;
             target.prototype.type = "Jet";
+            target.prototype.airbusMethod = () => {
+                console.log("Function performed by Airbus");
+            };
         }
         else {
             target.prototype.origin = "France";
             target.prototype.manufacturer = Manufacturers.boeing;
             target.prototype.type = "Helicopter";
+            target.prototype.boeingMethod = () => {
+                console.log("Function performed by Boeing");
+            };
         }
     };
 }
 let Airplane = (() => {
-    let _classDecorators = [AircraftManufacturers(Manufacturers.airbus)];
+    let _classDecorators = [AircraftManufacturer(Manufacturers.airbus)];
     let _classDescriptor;
     let _classExtraInitializers = [];
     let _classThis;
@@ -150,6 +156,11 @@ let Airplane = (() => {
 })();
 const airplane = new Airplane("Airbus-744", "Petar Petrov");
 console.log(airplane);
+console.log(airplane.manufacturer);
+// If the method exists - invoke it, else log message
+airplane.airbusMethod
+    ? airplane.airbusMethod()
+    : console.log("Method does not exist");
 export {};
 // */
 //# sourceMappingURL=index.js.map

@@ -69,7 +69,7 @@ console.log(airplane);
 // */
 
 //*
-// DECORATORS WITH PROTOTYPES
+// ADDING FUNCTIONS TO PROTOTYPES
 enum Manufacturers {
   airbus = "airbus",
   boeing = "boeing",
@@ -81,23 +81,31 @@ interface AircraftInterface {
   origin?: string;
   manufacturer?: string;
   type?: string;
+  airbusMethod?: () => void;
+  boeingMethod?: () => void;
 }
 
-function AircraftManufacturers(manufacturer: Manufacturers) {
+function AircraftManufacturer(manufacturer: Manufacturers) {
   return (target: Function) => {
     if (manufacturer === Manufacturers.airbus) {
       target.prototype.origin = "USA";
       target.prototype.manufacturer = Manufacturers.airbus;
       target.prototype.type = "Jet";
+      target.prototype.airbusMethod = () => {
+        console.log("Function performed by Airbus");
+      };
     } else {
       target.prototype.origin = "France";
       target.prototype.manufacturer = Manufacturers.boeing;
       target.prototype.type = "Helicopter";
+      target.prototype.boeingMethod = () => {
+        console.log("Function performed by Boeing");
+      };
     }
   };
 }
 
-@AircraftManufacturers(Manufacturers.airbus)
+@AircraftManufacturer(Manufacturers.airbus)
 class Airplane implements AircraftInterface {
   constructor(
     public aircraftModel: string,
@@ -111,7 +119,12 @@ class Airplane implements AircraftInterface {
   }
 }
 
-const airplane: Airplane = new Airplane("Airbus-744", "Petar Petrov");
+const airplane: AircraftInterface = new Airplane("Airbus-744", "Petar Petrov");
 console.log(airplane);
+console.log(airplane.manufacturer);
 
+// If the method exists - invoke it, else log message
+airplane.airbusMethod
+  ? airplane.airbusMethod()
+  : console.log("Method does not exist");
 // */
