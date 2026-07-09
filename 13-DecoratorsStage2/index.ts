@@ -324,7 +324,7 @@ const airplane = new Airplane("Airbus-744");
 
 // */
 
-//*
+/*
 // DECORATORS FOR CLASS PROPERTIES AND ACCESSORS
 // If the property is an instance member we pass a prototype, if static member - the constructor
 function PropertyDecorator(classPrototype: Object, propertyName: string) {
@@ -366,5 +366,38 @@ class Airplane {
 
 const airplane = new Airplane("Airbus-744");
 console.log(airplane.aircraftModel);
+
+// */
+
+// */
+
+// RETURNING VALUES FROM CLASS DECORATORS
+interface MapLocation {
+  lat: number;
+  long: number;
+}
+
+function AddLocation(lat: number, long: number) {
+  return <T extends { new (...args: any[]): {} }>(classConstructor: T) => {
+    return class extends classConstructor {
+      public mapLocation: MapLocation;
+      constructor(...args: any[]) {
+        super(...args);
+        this.mapLocation = { lat, long };
+      }
+    };
+  };
+}
+
+@AddLocation(1.234, 1.876)
+class Person {
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
+}
+
+const person: Person = new Person("John", 32);
+console.log(person);
 
 // */
