@@ -14,13 +14,11 @@ function mySimpleDecorator(originalMethod, context) {
     return wrapper;
 }
 class Robot {
+    // @mySimpleDecorator
     sayHello(name) {
         console.log(`Hello, ${name}!`);
     }
 }
-__decorate([
-    mySimpleDecorator
-], Robot.prototype, "sayHello", null);
 const bot = new Robot();
 bot.sayHello("Alice");
 // USING THIS
@@ -33,13 +31,11 @@ function mySimpleDecorator2(originalMethod, context) {
 }
 class Robot2 {
     model = "X-100";
+    // @mySimpleDecorator2
     sayModel() {
         console.log(`My model is ${this.model}`);
     }
 }
-__decorate([
-    mySimpleDecorator2
-], Robot2.prototype, "sayModel", null);
 const bot2 = new Robot2();
 bot2.sayModel();
 // --- REPLACEMENT FUNCTION ---
@@ -63,13 +59,11 @@ class Person {
     constructor(name) {
         this.name = name;
     }
+    // @methodLogger
     greet(greeting) {
         console.log(` ${greeting}, ${this.name}`);
     }
 }
-__decorate([
-    methodLogger
-], Person.prototype, "greet", null);
 let user = new Person("John");
 user.greet("Hello");
 // --- ADD INITIALIZER TO GREET ---
@@ -103,6 +97,7 @@ class Person2 {
         // STEP 3: IN JAVASCRIPT CONSTRUCTOR
         // this.greet = this.greet.bind(this);
     }
+    // @methodLogger2
     greet(greeting) {
         //! PART OF STEP 1
         //* Console dir is a method that displays a list of the properties of the specified JavaScript object
@@ -110,9 +105,6 @@ class Person2 {
         console.log(` ${greeting}, ${this.name}`);
     }
 }
-__decorate([
-    methodLogger2
-], Person2.prototype, "greet", null);
 console.log("\n", "-----");
 let user2 = new Person2("John");
 user.greet("Hello");
@@ -145,14 +137,15 @@ class Person3 {
     constructor(name) {
         this.name = name;
     }
+    // @methodLogger3
     greet(greeting) {
         console.dir(this);
         console.log(` ${greeting}, ${this.name}`);
     }
 }
 __decorate([
-    bound,
-    methodLogger3
+    bound
+    // @methodLogger3
 ], Person3.prototype, "greet", null);
 let user3 = new Person3("John");
 user3.greet("Hello");
@@ -185,14 +178,15 @@ class Person4 {
     constructor(name) {
         this.name = name;
     }
+    //@methodLogger4("LOG")
     greet(greeting) {
         console.dir(this);
         console.log(` ${greeting}, ${this.name}`);
     }
 }
 __decorate([
-    bound,
-    methodLogger4("LOG")
+    bound
+    //@methodLogger4("LOG")
 ], Person4.prototype, "greet", null);
 let user4 = new Person4("John");
 user.greet("Hello");
@@ -211,6 +205,7 @@ function addDefaultPost(_target, _context) {
 }
 class Author2 {
     name;
+    // @addDefaultPost
     posts = [];
     constructor(name) {
         this.name = name;
@@ -219,9 +214,6 @@ class Author2 {
         console.log(` ${greeting}, ${this.name}`);
     }
 }
-__decorate([
-    addDefaultPost
-], Author2.prototype, "posts", void 0);
 const author2 = new Author2("Mark");
 console.log(author2.posts);
 // --- CLASS DECORATORS ---
@@ -238,15 +230,13 @@ function addGreetMethod(baseClass, _context) {
     };
 }
 //! We will get an error without proper Generics in place
-let Author = class Author {
+// @addGreetMethod
+class Author {
     name;
     constructor(name) {
         this.name = name;
     }
-};
-Author = __decorate([
-    addGreetMethod
-], Author);
+}
 const author = new Author("Mark");
 console.log(author);
 // --- DECORATORS FOR ACCESSORS AND MUTATORS ---
@@ -269,16 +259,15 @@ class Person5 {
     greet() {
         console.log(`Hello, my name is ${this.name}.`);
     }
+    // @getter
     get age() {
         return this._age;
     }
+    // @setter
     set age(value) {
         this._age = value;
     }
 }
-__decorate([
-    getter
-], Person5.prototype, "age", null);
 // --- ENHANCING ACCESSOR DECORATORS ---
 function getter2(getter, _context) {
     return function () {
@@ -305,16 +294,15 @@ class Person6 {
     greet() {
         console.log(`Hello, my name is ${this.name}.`);
     }
+    // @getter2
     get age() {
         return this._age;
     }
+    // @setter2
     set age(value) {
         this._age = value;
     }
 }
-__decorate([
-    getter2
-], Person6.prototype, "age", null);
 const person = new Person6("Mark");
 person.age = 20;
 console.log(person.age);

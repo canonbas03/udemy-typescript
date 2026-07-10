@@ -11,7 +11,7 @@ function mySimpleDecorator(originalMethod: any, context: any) {
 }
 
 class Robot {
-  @mySimpleDecorator
+  // @mySimpleDecorator
   sayHello(name: string) {
     console.log(`Hello, ${name}!`);
   }
@@ -33,7 +33,7 @@ function mySimpleDecorator2(originalMethod: any, context: any) {
 class Robot2 {
   model = "X-100";
 
-  @mySimpleDecorator2
+  // @mySimpleDecorator2
   sayModel() {
     console.log(`My model is ${this.model}`);
   }
@@ -63,7 +63,7 @@ function methodLogger(originalMethod: any, _context: any) {
 class Person {
   constructor(public name: string) {}
 
-  @methodLogger
+  // @methodLogger
   greet(greeting: string) {
     console.log(` ${greeting}, ${this.name}`);
   }
@@ -110,7 +110,7 @@ class Person2 {
     // this.greet = this.greet.bind(this);
   }
 
-  @methodLogger2
+  // @methodLogger2
   greet(greeting: string) {
     //! PART OF STEP 1
     //* Console dir is a method that displays a list of the properties of the specified JavaScript object
@@ -157,7 +157,7 @@ class Person3 {
   constructor(public name: string) {}
 
   @bound
-  @methodLogger3
+  // @methodLogger3
   greet(greeting: string) {
     console.dir(this);
     console.log(` ${greeting}, ${this.name}`);
@@ -211,7 +211,7 @@ class Person4 {
   constructor(public name: string) {}
 
   @bound
-  @methodLogger4("LOG")
+  //@methodLogger4("LOG")
   greet(greeting: string) {
     console.dir(this);
     console.log(` ${greeting}, ${this.name}`);
@@ -245,7 +245,7 @@ type Post = {
 };
 
 class Author2 {
-  @addDefaultPost
+  // @addDefaultPost
   public posts: Post[] = [];
 
   constructor(public name: string) {}
@@ -283,7 +283,7 @@ interface Greetable {
 }
 
 //! We will get an error without proper Generics in place
-@addGreetMethod
+// @addGreetMethod
 class Author implements Greetable {
   constructor(public name: string) {}
 }
@@ -317,12 +317,12 @@ class Person5 {
     console.log(`Hello, my name is ${this.name}.`);
   }
 
-  @getter
+  // @getter
   public get age() {
     return this._age;
   }
 
-  @setter
+  // @setter
   public set age(value) {
     this._age = value;
   }
@@ -366,12 +366,12 @@ class Person6 {
     console.log(`Hello, my name is ${this.name}.`);
   }
 
-  @getter2
+  // @getter2
   public get age() {
     return this._age;
   }
 
-  @setter2
+  // @setter2
   public set age(value) {
     this._age = value;
   }

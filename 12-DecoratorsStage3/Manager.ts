@@ -28,7 +28,7 @@ console.log(manager);
 
 // ADDING A FIELD ON A PROTOTYPE
 //*
-@withEmploymentDateOnPrototype
+// @withEmploymentDateOnPrototype
 class Manager {
   task: string = "Simple task";
   project: string = "Simple project";
