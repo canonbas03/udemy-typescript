@@ -151,7 +151,7 @@ console.log(runFunction(getPI));
 // The function actually returns a value, but TypeScript treats it as void, leading to confusion.
 //*/
 
-//*/
+/*/
 // Nominal vs Structural Type System
 // TypeScript is a Structural Type System. A structural type
 // system means that when comparing types, TypeScript only
@@ -217,4 +217,17 @@ const printName = (name: ValidatedInputString) => {
 // printName("John"); error
 printName(validateUserInput("John"));
 
+//*/
+
+//*/
+// TYPE WIDENING AND NARROWING
+const welcomeString = "Hello there";
+const replyString = "Hey";
+
+let unionString: string | undefined;
+// unionString.length; error
+
+if (unionString) {
+  console.log(unionString.length);
+}
 //*/
