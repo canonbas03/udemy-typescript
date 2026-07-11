@@ -263,6 +263,7 @@ console.log(getLengthSafe(42)); // 2
 //*/
 
 //*/
+
 // Discriminated Unions (also called Tagged Unions or Sum Types) are a powerful pattern in TypeScript that enables type-safe handling of multiple related types.
 
 //! Help in achieving Totality
