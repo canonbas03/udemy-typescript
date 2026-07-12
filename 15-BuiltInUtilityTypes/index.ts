@@ -188,7 +188,7 @@ type PartialAddress = Partial<Pick<Person, "address">>;
 // → { address?: string }
 //*/
 
-//*/
+/*/
 // Omit<OldType, Keys>; Omit is the inverse of Pick — instead of selecting which properties to keep, you select which to remove.
 
 interface User {
@@ -209,4 +209,32 @@ function getPublicUser(user: User): LimitedUser {
   const { password, age, ...rest } = user; // destructing user
   return rest; // only name and email
 }
+//*/
+
+//*/
+// Required<Type>;
+// Required is the opposite of Partial — it makes all optional properties mandatory.
+interface User {
+  name?: string;
+  age?: number;
+  email?: string;
+  password?: string;
+}
+
+type RegisterUser = Required<Pick<User, "email" | "password">>;
+
+// Under the hood Required looks like this:
+type Required<T> = {
+  [P in keyof T]-?: T[P];
+};
+// The -? is the interesting part — the minus sign removes the ? from every property, making them all required.
+
+function register(user: RegisterUser) {
+  // TypeScript guarantees email and password are always here
+  console.log(user.email); // string, never undefined
+  console.log(user.password); // string, never undefined
+}
+
+register({ email: "john@email.com", password: "secret" }); // ✅
+// register({ email: "john@email.com" }); // ❌ TS error, password missing
 //*/
