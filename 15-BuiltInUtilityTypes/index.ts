@@ -1,3 +1,7 @@
+//*/
+// MAPPED TYPES
+
+// Partial type
 type Partial<T> = {
   [P in keyof T]?: T[P];
 };
@@ -46,3 +50,27 @@ function updateAnimal1(animal: Animal, changes: Partial<Animal>): Animal {
 }
 
 // The spread ...animal copies all original values, then ...changes overwrites only the ones you passed in. Properties you didn't pass stay as they were.
+
+// Conditional types
+type Exclude<T, U> = T extends U ? never : T;
+
+// If T is assignable to U, return never (remove it), otherwise return T (keep it).
+// Never is TypeScript's way of saying "this type doesn't exist" — anything typed as never gets removed from a union.
+
+type Animals = "lion" | "giraffe" | "snake" | "crocodile";
+type Reptiles = "snake" | "crocodile";
+
+type Mammals = Exclude<Animals, Reptiles>;
+// becomes: "lion" | "giraffe"
+
+// "lion"      extends Reptiles ? never : "lion"      → "lion"   ✅ kept
+// "giraffe"   extends Reptiles ? never : "giraffe"   → "giraffe" ✅ kept
+// "snake"     extends Reptiles ? never : "snake"     → never     ❌ removed
+// "crocodile" extends Reptiles ? never : "crocodile" → never     ❌ removed
+
+// Another practical example:
+type Actions = "walk" | "run" | "swim" | "fly";
+type LionActions = Exclude<Actions, "swim" | "fly">;
+// "walk" | "run"
+
+//*/
