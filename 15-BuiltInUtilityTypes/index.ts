@@ -239,7 +239,7 @@ register({ email: "john@email.com", password: "secret" }); // ✅
 // register({ email: "john@email.com" }); // ❌ TS error, password missing
 //*/
 
-//*/
+/*/
 // Readonly<Type>
 // Readonly makes all properties immutable — they can be set once at creation but never reassigned.
 interface User {
@@ -288,4 +288,18 @@ user.name = "Jane"; // ❌ error
 user.address = {}; // ❌ error
 user.address.city = "Varna"; // ✅ works! nested objects are NOT readonly
 
+//*/
+
+//*/
+// STRING LITERAL UTILITY TYPES
+// Uppercase<StringType>
+// Lowercase<StringType>
+// Capitalize<StringType>
+// Uncapitalize<StringType>
+
+type City = "New York" | "London" | "tokyo";
+type UppercaseCity = Uppercase<City>;
+type LowercaseCity = Lowercase<City>;
+type CapitalizeCity = Capitalize<City>;
+type UncapitalizeCity = Uncapitalize<City>;
 //*/
