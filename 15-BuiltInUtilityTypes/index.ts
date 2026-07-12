@@ -211,7 +211,7 @@ function getPublicUser(user: User): LimitedUser {
 }
 //*/
 
-//*/
+/*/
 // Required<Type>;
 // Required is the opposite of Partial — it makes all optional properties mandatory.
 interface User {
@@ -237,4 +237,55 @@ function register(user: RegisterUser) {
 
 register({ email: "john@email.com", password: "secret" }); // ✅
 // register({ email: "john@email.com" }); // ❌ TS error, password missing
+//*/
+
+//*/
+// Readonly<Type>
+// Readonly makes all properties immutable — they can be set once at creation but never reassigned.
+interface User {
+  name: string;
+  age: number;
+}
+
+const user: Readonly<User> = {
+  name: "John",
+  age: 32,
+};
+
+user.name = "Something Else";
+
+// Under the hood:
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+// adds readonly modifier to every property
+
+// Common Use cases:
+// 1. Configuration objects that should never change
+const CONFIG: Readonly<Config> = {
+  apiUrl: "https://api.example.com",
+  maxRetries: 3,
+};
+
+// 2. Function parameters you want to guarantee won't be mutated
+function displayUser(user: Readonly<User>): void {
+  user.name = "hacked"; // ❌ TS error — protects the caller's object
+  console.log(user.name); // ✅
+}
+
+// 3. Combining with other utilities
+type ReadonlyPartialUser = Readonly<Partial<User>>;
+// → { readonly name?: string; readonly age?: number; }
+
+// !One important caveat — Readonly is shallow:
+interface User {
+  name: string;
+  address: { city: string };
+}
+
+const user: Readonly<User> = { name: "John", address: { city: "Sofia" } };
+user.name = "Jane"; // ❌ error
+user.address = {}; // ❌ error
+user.address.city = "Varna"; // ✅ works! nested objects are NOT readonly
+
 //*/
