@@ -1,4 +1,4 @@
-//*/
+/*/
 // MAPPED TYPES
 
 // Partial type
@@ -73,4 +73,37 @@ type Actions = "walk" | "run" | "swim" | "fly";
 type LionActions = Exclude<Actions, "swim" | "fly">;
 // "walk" | "run"
 
+//*/
+
+//*/
+// AWAITED UTILITY TYPE
+// We might have an API and we dont know the type beforehand
+const promise: Promise<number> = new Promise((res, rej) => {
+  setTimeout(() => {
+    res(1);
+  }, 1000);
+});
+
+type AwaitedType = Awaited<typeof promise>;
+
+// Awaited is a built-in utility type that unwraps a Promise type — it gives you the type of the value the Promise resolves to.
+
+// typeof promise gets the type of the variable (Promise<number>), then Awaited unwraps it to just number.
+// It's useful when you have a function that returns a Promise and you want the resolved type without calling it:
+class Giraffe {
+  constructor(
+    name: string,
+    ag: number,
+    isMale: boolean,
+    isMature: boolean,
+    height: number,
+  ) {}
+}
+
+async function fetchGiraffe(): Promise<Giraffe> {
+  return new Giraffe("Jeff", 12, true, false, 350);
+}
+
+type GiraffeResult = Awaited<ReturnType<typeof fetchGiraffe>>; // typeof gets () => Promise<Giraffe>
+// GiraffeResult = Giraffe, not Promise<Giraffe>
 //*/
