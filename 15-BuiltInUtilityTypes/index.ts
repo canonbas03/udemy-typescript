@@ -290,7 +290,7 @@ user.address.city = "Varna"; // ✅ works! nested objects are NOT readonly
 
 //*/
 
-//*/
+/*/
 // STRING LITERAL UTILITY TYPES
 // Uppercase<StringType>
 // Lowercase<StringType>
@@ -302,4 +302,19 @@ type UppercaseCity = Uppercase<City>;
 type LowercaseCity = Lowercase<City>;
 type CapitalizeCity = Capitalize<City>;
 type UncapitalizeCity = Uncapitalize<City>;
+//*/
+
+//*/
+// Satisfies operator - check that this matches the type, but don't forget what each property actually is.
+type Properties = "red" | "green" | "blue";
+type RGB = [red: number, green: number, blue: number];
+
+const color = {
+  red: [255, 0, 0],
+  green: "#00ff00",
+  blue: [225, 255, 0],
+} satisfies Record<Properties, RGB | string>;
+
+const redComp = color.red[0];
+const greenVal = color.green.toUpperCase();
 //*/
