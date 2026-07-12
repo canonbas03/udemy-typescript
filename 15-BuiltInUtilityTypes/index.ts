@@ -15,7 +15,6 @@ type Animal = {
 type PartialAnimal = Partial<Animal>;
 
 const partAnim: PartialAnimal = {};
-console.log();
 // becomes:
 // {
 //     name?: string;
@@ -148,7 +147,7 @@ const article: Article = {
 // In JavaScript, object keys can only be 3 things: string, number, symbol
 //*/
 
-//*/
+/*/
 // PICK UTILITY TYPE
 //  Pick<Type, Keys>; Pick constructs a new type by selecting a subset of properties from an existing type.
 
@@ -187,4 +186,27 @@ type ReadonlyName = Readonly<Pick<Person, "name">>;
 
 type PartialAddress = Partial<Pick<Person, "address">>;
 // → { address?: string }
+//*/
+
+//*/
+// Omit<OldType, Keys>; Omit is the inverse of Pick — instead of selecting which properties to keep, you select which to remove.
+
+interface User {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+}
+
+type LimitedUser = Omit<User, "password" | "age">;
+// becomes:
+// {
+//   name: string;
+//   email: string;
+// }
+
+function getPublicUser(user: User): LimitedUser {
+  const { password, age, ...rest } = user; // destructing user
+  return rest; // only name and email
+}
 //*/
