@@ -108,7 +108,7 @@ type GiraffeResult = Awaited<ReturnType<typeof fetchGiraffe>>; // typeof gets ()
 // GiraffeResult = Giraffe, not Promise<Giraffe>
 //*/
 
-//*/
+/*/
 // RECORD UTILITY TYPE
 // Record<Keys, Type> is a built-in utility type that creates an object type where all keys come from Keys and all values are of Type
 
@@ -146,4 +146,45 @@ const article: Article = {
 // }
 
 // In JavaScript, object keys can only be 3 things: string, number, symbol
+//*/
+
+//*/
+// PICK UTILITY TYPE
+//  Pick<Type, Keys>; Pick constructs a new type by selecting a subset of properties from an existing type.
+
+interface Person {
+  name: string;
+  age: number;
+  address: string;
+}
+
+type NameAndAge = Pick<Person, "name" | "age">;
+
+const person: NameAndAge = {
+  name: "John",
+  age: 32,
+};
+
+person.name = "Else";
+
+//type NameAndAge = Pick<Person, "name" | "age">;
+// Equivalent to:
+// type NameAndAge = {
+//   name: string;
+//   age: number;
+// }
+
+// COMMON USE CASES
+// 1. Form state — only fields you need
+type PersonForm = Pick<Person, "name" | "age">;
+
+// 2. API response shaping
+type PublicProfile = Pick<Person, "name">;
+
+// 3. Combining with other utilities
+type ReadonlyName = Readonly<Pick<Person, "name">>;
+// → { readonly name: string }
+
+type PartialAddress = Partial<Pick<Person, "address">>;
+// → { address?: string }
 //*/
