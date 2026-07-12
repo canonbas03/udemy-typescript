@@ -75,7 +75,7 @@ type LionActions = Exclude<Actions, "swim" | "fly">;
 
 //*/
 
-//*/
+/*/
 // AWAITED UTILITY TYPE
 // We might have an API and we dont know the type beforehand
 const promise: Promise<number> = new Promise((res, rej) => {
@@ -106,4 +106,44 @@ async function fetchGiraffe(): Promise<Giraffe> {
 
 type GiraffeResult = Awaited<ReturnType<typeof fetchGiraffe>>; // typeof gets () => Promise<Giraffe>
 // GiraffeResult = Giraffe, not Promise<Giraffe>
+//*/
+
+//*/
+// RECORD UTILITY TYPE
+// Record<Keys, Type> is a built-in utility type that creates an object type where all keys come from Keys and all values are of Type
+
+type Roles = "author" | "editor" | "researcher";
+
+interface User {
+  name: string;
+  email: string;
+  age: number;
+}
+
+interface Article {
+  title: string;
+  content: string;
+  contributors: Record<Roles, User>;
+}
+
+const article: Article = {
+  title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  content: "Duis est urna, eleifend at malesuada id, suscipit eu",
+  // Contributors can be type generated from Roles type and User interface
+  contributors: {
+    author: { name: "John", email: "john@email.com", age: 32 },
+    editor: { name: "Frank", email: "frank@email.com", age: 36 },
+    researcher: { name: "Mark", email: "mark@email.com", age: 36 },
+  },
+};
+
+// Record<Roles, User>
+// becomes:
+// {
+//     author: User;
+//     editor: User;
+//     researcher: User;
+// }
+
+// In JavaScript, object keys can only be 3 things: string, number, symbol
 //*/
