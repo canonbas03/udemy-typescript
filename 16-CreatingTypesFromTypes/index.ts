@@ -182,7 +182,7 @@ type EditableAnimal = EditableStrings<Animal>;
 // isMature: boolean → Readonly<boolean> — can't change
 //*/
 
-//*/
+/*/
 // Basic Conditional Types
 type IsString<T> = T extends string ? "Yes" : "No";
 
@@ -205,12 +205,12 @@ type User = {
 type OptionalNameUser = OptionalIfString<User>;
 
 //  Equivalent to:
-/* type OptionalNameUser = {
-  id: number;
-  name?: string;
-  age: number;
-};
- */
+// type OptionalNameUser = {
+//   id: number;
+//   name?: string;
+//   age: number;
+// };
+ 
 
 // Worth noting:
 // the comment says name?: string but the actual result is name: string | undefined. These are subtly different:
@@ -222,4 +222,36 @@ const user = { id: 1, age: 30 }; // ❌ name key missing
 const user = { id: 1, name: undefined, age: 30 }; // ✅ name present but undefined
 
 // To actually get name?: string you'd need -? or ?: in the mapped type instead of | undefined.
+//*/
+
+//*/
+// TEMPLATE LITERAL TYPES
+
+//! Creating Prefixed Keys for an Object
+type Status = "success" | "error" | "pending";
+type StatusMessage = `status-${Status}`;
+
+// 2. Multiple unions combine into a cartesian product:
+type Direction = "top" | "bottom";
+type Side = "left" | "right";
+type Corner = `${Direction}-${Side}`;
+// "top-left" | "top-right" | "bottom-left" | "bottom-right"
+
+const message1: StatusMessage = "status-success"; // ✅ Allowed
+const message2: StatusMessage = "status-error"; // ✅ Allowed
+// const message3: StatusMessage = "status-failed"; // ❌ Error: "failed" is not a valid Status
+
+//! Using Template Literals with Generics
+function createApiEndpoint<T extends string>(route: T): `api/${T}` {
+  return `api/${route}` as const;
+}
+
+const userEndpoint = createApiEndpoint("users"); // "api/users"
+const orderEndpoint = createApiEndpoint("orders"); // "api/orders"
+
+//! Creating Union Types with Dynamic Formatting
+type RGB = `rgb(${number}, ${number}, ${number})`;
+
+const color1: RGB = "rgb(255, 0, 0)"; // ✅ Allowed
+// const color2: RGB = "rgba(255, 0, 0, 0.5)"; // ❌ Error: Incorrect format
 //*/
