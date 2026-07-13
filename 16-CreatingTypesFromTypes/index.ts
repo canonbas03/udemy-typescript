@@ -140,7 +140,7 @@ type LionIsMale = Lion["_isMale"]; // boolean | undefined
 
 //*/
 
-//*/
+/*/
 // MAPPED TYPES
 //! Making All Properties Optional using Mapped Types
 
@@ -162,14 +162,14 @@ type OptionalIfString<T> = {
   [K in keyof T]: T[K] extends string ? T[K] | undefined : T[K];
 };
 
-type UserWithOptionalStrings = OptionalIfString<User>;
-/* Equivalent to:
-  type UserWithOptionalStrings = {
-    id: number;
-    name?: string;
-    age: number;
-  }
-*/
+// type UserWithOptionalStrings = OptionalIfString<User>;
+ // Equivalent to:
+  // type UserWithOptionalStrings = {
+   // id: number;
+   // name?: string;
+   // age: number;
+  // }
+
 
 // Example
 type EditableStrings<T> = {
@@ -180,4 +180,46 @@ type EditableAnimal = EditableStrings<Animal>;
 // name: string     → editable
 // age: number      → Readonly<number> — can't change
 // isMature: boolean → Readonly<boolean> — can't change
+//*/
+
+//*/
+// Basic Conditional Types
+type IsString<T> = T extends string ? "Yes" : "No";
+
+type Test1 = IsString<string>; // "Yes"
+type Test3 = IsString<"hello">; // "Yes" — string literal extends string
+
+type Test2 = IsString<number>; // "No"
+
+//! Creating Utility Types with Conditional Types
+type OptionalIfString<T> = {
+  [K in keyof T]: T[K] extends string ? T[K] | undefined : T[K];
+};
+
+type User = {
+  id: number;
+  name: string;
+  age: number;
+};
+
+type OptionalNameUser = OptionalIfString<User>;
+
+//  Equivalent to:
+/* type OptionalNameUser = {
+  id: number;
+  name?: string;
+  age: number;
+};
+ */
+
+// Worth noting:
+// the comment says name?: string but the actual result is name: string | undefined. These are subtly different:
+// name?: string  → property can be missing entirely
+const user = { id: 1, age: 30 }; // ✅ name not needed
+
+// name: string | undefined  → property must be present, but can be undefined
+const user = { id: 1, age: 30 }; // ❌ name key missing
+const user = { id: 1, name: undefined, age: 30 }; // ✅ name present but undefined
+
+// To actually get name?: string you'd need -? or ?: in the mapped type instead of | undefined.
 //*/
