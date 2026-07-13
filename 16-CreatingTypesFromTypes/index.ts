@@ -105,7 +105,7 @@ function getMessage(status: StatusKeys): string {
 console.log(getMessage("success")); // ✅ "Operation successful"
 //*/
 
-//*/
+/*/
 // Indexed access types
 type User = {
   id: number;
@@ -138,4 +138,46 @@ const userAge: User["age"] = getProperty(userData, "age"); // ✅ Works fine
 type GiraffeHeight = Giraffe["height"]; // number
 type LionIsMale = Lion["_isMale"]; // boolean | undefined
 
+//*/
+
+//*/
+// MAPPED TYPES
+//! Making All Properties Optional using Mapped Types
+
+type User = {
+  id: number;
+  name: string;
+  age: number;
+};
+
+type PartialUser = {
+  [K in keyof User]?: User[K];
+};
+
+const user1: PartialUser = { name: "Alice" }; // ✅ Allowed
+// const user2: PartialUser = { unknownProp: 42 }; // ❌ Error: unknownProp does not exist
+
+//! Mapping Property Types Conditionally
+type OptionalIfString<T> = {
+  [K in keyof T]: T[K] extends string ? T[K] | undefined : T[K];
+};
+
+type UserWithOptionalStrings = OptionalIfString<User>;
+/* Equivalent to:
+  type UserWithOptionalStrings = {
+    id: number;
+    name?: string;
+    age: number;
+  }
+*/
+
+// Example
+type EditableStrings<T> = {
+  [K in keyof T]: T[K] extends string ? T[K] : Readonly<T[K]>;
+};
+
+type EditableAnimal = EditableStrings<Animal>;
+// name: string     → editable
+// age: number      → Readonly<number> — can't change
+// isMature: boolean → Readonly<boolean> — can't change
 //*/
