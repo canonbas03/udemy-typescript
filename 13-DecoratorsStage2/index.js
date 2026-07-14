@@ -323,49 +323,41 @@ class Airplane {
 const airplane = new Airplane("Airbus-744");
 
 // */
-/*
+//*
 // DECORATORS FOR CLASS PROPERTIES AND ACCESSORS
 // If the property is an instance member we pass a prototype, if static member - the constructor
-function PropertyDecorator(classPrototype: Object, propertyName: string) {
-  console.log(classPrototype);
-  console.log(propertyName);
+function PropertyDecorator(classPrototype, propertyName) {
+    console.log(classPrototype);
+    console.log(propertyName);
 }
-
-function AccessorDecorator(
-  classPrototype: Object,
-  accessorName: string,
-  propertyDescriptor: PropertyDescriptor,
-) {
-  console.log(classPrototype);
-  console.log(accessorName);
-  console.log(propertyDescriptor);
+function AccessorDecorator(classPrototype, accessorName, propertyDescriptor) {
+    console.log(classPrototype);
+    console.log(accessorName);
+    console.log(propertyDescriptor);
 }
-
 class Airplane {
-  @PropertyDecorator
-  private _aircraftModel: string;
-
-  constructor(aircraftModel: string) {
-    this._aircraftModel = aircraftModel;
-  }
-
-  public static seatCount(): void {
-    console.log("Seats: 150");
-  }
-
-  public pilotName(name: string, lastName: string) {
-    console.log(name);
-  }
-
-  @AccessorDecorator
-  public get aircraftModel() {
-    return this._aircraftModel;
-  }
+    _aircraftModel;
+    constructor(aircraftModel) {
+        this._aircraftModel = aircraftModel;
+    }
+    static seatCount() {
+        console.log("Seats: 150");
+    }
+    pilotName(name, lastName) {
+        console.log(name);
+    }
+    get aircraftModel() {
+        return this._aircraftModel;
+    }
 }
-
+__decorate([
+    PropertyDecorator
+], Airplane.prototype, "_aircraftModel", void 0);
+__decorate([
+    AccessorDecorator
+], Airplane.prototype, "aircraftModel", null);
 const airplane = new Airplane("Airbus-744");
 console.log(airplane.aircraftModel);
-
 // */
 /*/
 

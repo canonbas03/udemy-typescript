@@ -62,10 +62,10 @@ type Reptiles = "snake" | "crocodile";
 type Mammals = Exclude<Animals, Reptiles>;
 // becomes: "lion" | "giraffe"
 
-// "lion"      extends Reptiles ? never : "lion"      → "lion"   ✅ kept
-// "giraffe"   extends Reptiles ? never : "giraffe"   → "giraffe" ✅ kept
-// "snake"     extends Reptiles ? never : "snake"     → never     ❌ removed
-// "crocodile" extends Reptiles ? never : "crocodile" → never     ❌ removed
+// "lion"      extends Reptiles ? never : "lion"      → "lion"     kept
+// "giraffe"   extends Reptiles ? never : "giraffe"   → "giraffe"  kept
+// "snake"     extends Reptiles ? never : "snake"     → never     gets removed
+// "crocodile" extends Reptiles ? never : "crocodile" → never     gets removed
 
 // Another practical example:
 type Actions = "walk" | "run" | "swim" | "fly";
@@ -122,7 +122,7 @@ interface User {
 interface Article {
   title: string;
   content: string;
-  contributors: Record<Roles, User>;
+  contributors: {};
 }
 
 const article: Article = {
@@ -188,7 +188,7 @@ type PartialAddress = Partial<Pick<Person, "address">>;
 // → { address?: string }
 //*/
 
-/*/
+//*/
 // Omit<OldType, Keys>; Omit is the inverse of Pick — instead of selecting which properties to keep, you select which to remove.
 
 interface User {
@@ -235,8 +235,8 @@ function register(user: RegisterUser) {
   console.log(user.password); // string, never undefined
 }
 
-register({ email: "john@email.com", password: "secret" }); // ✅
-// register({ email: "john@email.com" }); // ❌ TS error, password missing
+register({ email: "john@email.com", password: "secret" }); // works
+// register({ email: "john@email.com" }); // TS error, password missing
 //*/
 
 /*/
@@ -269,8 +269,8 @@ const CONFIG: Readonly<Config> = {
 
 // 2. Function parameters you want to guarantee won't be mutated
 function displayUser(user: Readonly<User>): void {
-  user.name = "hacked"; // ❌ TS error — protects the caller's object
-  console.log(user.name); // ✅
+  user.name = "hacked"; // TS error — protects the caller's object
+  console.log(user.name); // works
 }
 
 // 3. Combining with other utilities
@@ -284,13 +284,13 @@ interface User {
 }
 
 const user: Readonly<User> = { name: "John", address: { city: "Sofia" } };
-user.name = "Jane"; // ❌ error
-user.address = {}; // ❌ error
-user.address.city = "Varna"; // ✅ works! nested objects are NOT readonly
+user.name = "Jane"; //  error
+user.address = {}; //  error
+user.address.city = "Varna"; // nested objects are NOT readonly
 
 //*/
 
-/*/
+//*/
 // STRING LITERAL UTILITY TYPES
 // Uppercase<StringType>
 // Lowercase<StringType>

@@ -324,7 +324,7 @@ const airplane = new Airplane("Airbus-744");
 
 // */
 
-/*
+//*
 // DECORATORS FOR CLASS PROPERTIES AND ACCESSORS
 // If the property is an instance member we pass a prototype, if static member - the constructor
 function PropertyDecorator(classPrototype: Object, propertyName: string) {

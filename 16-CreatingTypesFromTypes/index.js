@@ -1,0 +1,60 @@
+/*/
+// GENERIC INTERFACES
+interface Box<Type> {
+  content: Type;
+  size: number;
+}
+
+const stringBox: Box<string> = {
+  content: "String, hello",
+  size: 3,
+};
+
+const numberBox: Box<number> = {
+  content: 12,
+  size: 4,
+};
+
+const boxBox: Box<typeof numberBox> = {
+  content: numberBox,
+  size: 0,
+};
+
+interface hasLength {
+  length: number;
+}
+function logLength<T extends hasLength>(arg: T): void {
+  console.log(arg.length);
+}
+
+logLength("Hello");
+logLength({ length: 12 });
+//*/
+//  Equivalent to:
+// type OptionalNameUser = {
+//   id: number;
+//   name?: string;
+//   age: number;
+// };
+// Worth noting:
+// the comment says name?: string but the actual result is name: string | undefined. These are subtly different:
+// name?: string  → property can be missing entirely
+const user = { id: 1, age: 30 }; //  name not needed
+// name: string | undefined  → property must be present, but can be undefined
+const user = { id: 1, age: 30 }; //  name key missing
+const user = { id: 1, name: undefined, age: 30 }; //  name present but undefined
+// "top-left" | "top-right" | "bottom-left" | "bottom-right"
+const message1 = "status-success"; // Allowed
+const message2 = "status-error"; //  Allowed
+// const message3: StatusMessage = "status-failed"; //  Error: "failed" is not a valid Status
+//! Using Template Literals with Generics
+function createApiEndpoint(route) {
+    return `api/${route}`;
+}
+const userEndpoint = createApiEndpoint("users"); // "api/users"
+const orderEndpoint = createApiEndpoint("orders"); // "api/orders"
+const color1 = "rgb(255, 0, 0)"; //  Allowed
+export {};
+// const color2: RGB = "rgba(255, 0, 0, 0.5)"; // Error: Incorrect format
+//*/
+//# sourceMappingURL=index.js.map

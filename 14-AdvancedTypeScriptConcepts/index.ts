@@ -1,4 +1,4 @@
-/*/
+//*/
 // SUB TYPES AND SUPER TYPES
 // Supertype: Defines a generic shape of a Person
 type Person = {
@@ -47,7 +47,7 @@ console.log(greet(student));
 
 // */
 
-/*/
+//*/
 // Type Soundness
 //! Definition
 // Soundness is the idea that the compiler can make guarantees
@@ -144,7 +144,10 @@ logNumbers(1, 2, 3); // Works: Multiple arguments passed
 const getPI = () => 3.14;
 
 function runFunction(func: () => void) {
+  console.log("TESTTTTTTT");
+
   func();
+  console.log("yteewew");
 }
 
 console.log(runFunction(getPI));
@@ -183,13 +186,13 @@ ball = sphere;
 
 interface Tube {
   diameter: number;
-  length: number;
+  length?: number;
 }
 
 let tube: Tube = { diameter: 12, length: 3 };
 
 ball = tube;
-// tube = ball; error
+tube = ball; 
 
 //! Using an intersectional type, with a unique
 // constraint in the form of a property called __brand (this
@@ -214,7 +217,7 @@ const printName = (name: ValidatedInputString) => {
   console.log(name);
 };
 
-// printName("John"); error
+ printName("John"); 
 printName(validateUserInput("John"));
 
 //*/
@@ -222,7 +225,7 @@ printName(validateUserInput("John"));
 /*/
 // TYPE WIDENING AND NARROWING
 const welcomeString = "Hello there";
-const replyString = "Hey";
+let replyString = "Hey";
 
 let unionString: string | undefined;
 // unionString.length; error
@@ -232,7 +235,7 @@ if (unionString) {
 }
 //*/
 
-/*/
+//*/
 // TOTALITY
 // Totality is a concept in TypeScript that refers to functions or operations that handle all possible inputs of a given type without failing at runtime. A function is said to be total if it accounts for all possible cases, ensuring that no unexpected errors occur due to unhandled inputs.
 

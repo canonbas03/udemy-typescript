@@ -47,9 +47,9 @@ type User = {
 type UserKeys = keyof User; // "id" | "name" | "age"
 
 let key: UserKeys;
-key = "id"; // ✅ Allowed
-key = "name"; // ✅ Allowed
-// key = "email"; // ❌ Error: Property "email" does not exist on type "UserKeys"
+key = "id"; //  Allowed
+key = "name"; //  Allowed
+// key = "email"; //  Error: Property "email" does not exist on type "UserKeys"
 
 //! Using keyof in Function Parameters and Making a usecase for type U
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
@@ -58,9 +58,9 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 
 const user: User = { id: 1, name: "Alice", age: 30 };
 
-console.log(getProperty(user, "name")); // ✅ "Alice"
-console.log(getProperty(user, "age")); // ✅ 30
-// console.log(getProperty(user, "email")); // ❌ Error: Argument of type '"email"' is not assignable
+console.log(getProperty(user, "name")); //  "Alice"
+console.log(getProperty(user, "age")); //  30
+// console.log(getProperty(user, "email")); //  Error: Argument of type '"email"' is not assignable
 //*/
 
 /*/
@@ -74,9 +74,9 @@ const user = {
 
 type UserType = typeof user;
 
-const newUser: UserType = { id: 2, name: "Bob", age: 25 }; // ✅ Works fine
+const newUser: UserType = { id: 2, name: "Bob", age: 25 }; //  Works fine
 
-// const invalidUser: UserType = { id: 3, name: "Charlie" }; // ❌ Error: Missing 'age' property
+// const invalidUser: UserType = { id: 3, name: "Charlie" }; //  Error: Missing 'age' property
 
 //! Using typeof with Function Return Types
 function getUser() {
@@ -85,7 +85,7 @@ function getUser() {
 
 type ReturnUserType = ReturnType<typeof getUser>; // Extracts return type
 
-const anotherUser: ReturnUserType = { id: 3, name: "Charlie", age: 22 }; // ✅ Works fine
+const anotherUser: ReturnUserType = { id: 3, name: "Charlie", age: 22 }; //  Works fine
 
 //! Using typeof for Constants and Enums
 const statusMessages = {
@@ -102,7 +102,7 @@ function getMessage(status: StatusKeys): string {
   return statusMessages[status];
 }
 
-console.log(getMessage("success")); // ✅ "Operation successful"
+console.log(getMessage("success")); //  "Operation successful"
 //*/
 
 /*/
@@ -110,7 +110,7 @@ console.log(getMessage("success")); // ✅ "Operation successful"
 type User = {
   id: number;
   name: string;
-  age: number;
+  age: boolean;
 };
 
 type UserNameType = User["name"]; // Extracts `string`
@@ -121,8 +121,8 @@ type UserNameOrAge = User["name" | "age"]; // string | number
 
 type UserValues = User[keyof User]; // string | number all value types
 
-const userName: UserNameType = "Alice"; // ✅ Allowed
-// const invalidUserName: UserNameType = 42; // ❌ Error: Type 'number' is not assignable to 'string'
+const userName: UserNameType = "Alice"; //  Allowed
+// const invalidUserName: UserNameType = 42; //  Error: Type 'number' is not assignable to 'string'
 
 //! Using Indexed Access Types in Function
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
@@ -131,8 +131,8 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 
 const userData: User = { id: 1, name: "Bob", age: 25 };
 
-const userName2: User["name"] = getProperty(userData, "name"); // ✅ Works fine
-const userAge: User["age"] = getProperty(userData, "age"); // ✅ Works fine
+const userName2: User["name"] = getProperty(userData, "name"); //  Works fine
+const userAge: User["age"] = getProperty(userData, "age"); //  Works fine
 
 // EXAMPLES
 type GiraffeHeight = Giraffe["height"]; // number
@@ -154,22 +154,21 @@ type PartialUser = {
   [K in keyof User]?: User[K];
 };
 
-const user1: PartialUser = { name: "Alice" }; // ✅ Allowed
-// const user2: PartialUser = { unknownProp: 42 }; // ❌ Error: unknownProp does not exist
+const user1: PartialUser = { name: "Alice" }; //  Allowed
+// const user2: PartialUser = { unknownProp: 42 }; //  Error: unknownProp does not exist
 
 //! Mapping Property Types Conditionally
 type OptionalIfString<T> = {
   [K in keyof T]: T[K] extends string ? T[K] | undefined : T[K];
 };
 
-// type UserWithOptionalStrings = OptionalIfString<User>;
- // Equivalent to:
-  // type UserWithOptionalStrings = {
-   // id: number;
-   // name?: string;
-   // age: number;
-  // }
-
+type UserWithOptionalStrings = OptionalIfString<User>;
+// Equivalent to:
+// type UserWithOptionalStrings = {
+//   id: number;
+//   name?: string;
+//   age: number;
+// };
 
 // Example
 type EditableStrings<T> = {
@@ -210,16 +209,15 @@ type OptionalNameUser = OptionalIfString<User>;
 //   name?: string;
 //   age: number;
 // };
- 
 
 // Worth noting:
 // the comment says name?: string but the actual result is name: string | undefined. These are subtly different:
 // name?: string  → property can be missing entirely
-const user = { id: 1, age: 30 }; // ✅ name not needed
+const user = { id: 1, age: 30 }; //  name not needed
 
 // name: string | undefined  → property must be present, but can be undefined
-const user = { id: 1, age: 30 }; // ❌ name key missing
-const user = { id: 1, name: undefined, age: 30 }; // ✅ name present but undefined
+const user = { id: 1, age: 30 }; //  name key missing
+const user = { id: 1, name: undefined, age: 30 }; //  name present but undefined
 
 // To actually get name?: string you'd need -? or ?: in the mapped type instead of | undefined.
 //*/
@@ -237,9 +235,9 @@ type Side = "left" | "right";
 type Corner = `${Direction}-${Side}`;
 // "top-left" | "top-right" | "bottom-left" | "bottom-right"
 
-const message1: StatusMessage = "status-success"; // ✅ Allowed
-const message2: StatusMessage = "status-error"; // ✅ Allowed
-// const message3: StatusMessage = "status-failed"; // ❌ Error: "failed" is not a valid Status
+const message1: StatusMessage = "status-success"; // Allowed
+const message2: StatusMessage = "status-error"; //  Allowed
+// const message3: StatusMessage = "status-failed"; //  Error: "failed" is not a valid Status
 
 //! Using Template Literals with Generics
 function createApiEndpoint<T extends string>(route: T): `api/${T}` {
@@ -252,6 +250,6 @@ const orderEndpoint = createApiEndpoint("orders"); // "api/orders"
 //! Creating Union Types with Dynamic Formatting
 type RGB = `rgb(${number}, ${number}, ${number})`;
 
-const color1: RGB = "rgb(255, 0, 0)"; // ✅ Allowed
-// const color2: RGB = "rgba(255, 0, 0, 0.5)"; // ❌ Error: Incorrect format
+const color1: RGB = "rgb(255, 0, 0)"; //  Allowed
+// const color2: RGB = "rgba(255, 0, 0, 0.5)"; // Error: Incorrect format
 //*/
