@@ -3,8 +3,8 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     //"sourceMap": true,
 
     // Environment Settings
