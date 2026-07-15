@@ -30,19 +30,6 @@ function logLength<T extends hasLength>(arg: T): void {
 logLength("Hello");
 logLength({ length: 12 });
 //*/
-//  Equivalent to:
-// type OptionalNameUser = {
-//   id: number;
-//   name?: string;
-//   age: number;
-// };
-// Worth noting:
-// the comment says name?: string but the actual result is name: string | undefined. These are subtly different:
-// name?: string  → property can be missing entirely
-const user = { id: 1, age: 30 }; //  name not needed
-// name: string | undefined  → property must be present, but can be undefined
-const user = { id: 1, age: 30 }; //  name key missing
-const user = { id: 1, name: undefined, age: 30 }; //  name present but undefined
 // "top-left" | "top-right" | "bottom-left" | "bottom-right"
 const message1 = "status-success"; // Allowed
 const message2 = "status-error"; //  Allowed
