@@ -41,7 +41,6 @@ let sum = MathUtils.add(5, 2);
 
 //*/
 // ECS Ecma Script Modules
-//     <script type="module" src="index.js"></script>
 import { MathUtils } from "./utils/math-utils.js";
 import { StringUtils } from "./utils/string-utils.js";
 import { CommonUtils } from "./utils/common-utils.js";
