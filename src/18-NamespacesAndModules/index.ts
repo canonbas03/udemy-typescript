@@ -39,7 +39,7 @@ let sum = MathUtils.add(5, 2);
 // outFile - makes the build in a single file.js
 //*/
 
-//*/
+/*/
 // ECS Ecma Script Modules
 import { MathUtils } from "./utils/math-utils.js";
 import { StringUtils } from "./utils/string-utils.js";
@@ -50,4 +50,12 @@ console.log(mathRes); // 3
 
 const strRes = StringUtils.subtract("abcd", "a");
 console.log(strRes); // bcd
+//*/
+
+//*/
+import { add } from "./functions/math"; // es module syntax
+import printHello = require("./functions/strings"); // cgs module syntax
+printHello();
+
+console.log(add(5, 6));
 //*/
